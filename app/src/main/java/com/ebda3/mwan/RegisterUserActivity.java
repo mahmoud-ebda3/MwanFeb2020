@@ -151,7 +151,7 @@ public class RegisterUserActivity extends AppCompatActivity {
 
                             e.printStackTrace();
                             Log.d("responseee", String.valueOf(e));
-                            Toast.makeText(RegisterUserActivity.this, e.toString(), Toast.LENGTH_LONG).show();
+//                            Toast.makeText(RegisterUserActivity.this, e.toString(), Toast.LENGTH_LONG).show();
                             JSONArray array = null;
                             try {
                                 array = new JSONArray(response);

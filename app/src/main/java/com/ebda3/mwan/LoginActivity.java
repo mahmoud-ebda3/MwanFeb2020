@@ -137,7 +137,7 @@ public class LoginActivity extends AppCompatActivity {
                                 Log.d("resss", "sssssss");
                                 progressDialog.dismiss();
                                 e.printStackTrace();
-                                Toast.makeText(LoginActivity.this, e.toString(), Toast.LENGTH_LONG).show();
+//                                Toast.makeText(LoginActivity.this, e.toString(), Toast.LENGTH_LONG).show();
                             }
                         }
                     },
@@ -146,7 +146,7 @@ public class LoginActivity extends AppCompatActivity {
                         public void onErrorResponse(VolleyError error) {
                             Log.d("resss", "ssssss222");
                             progressDialog.dismiss();
-                            Toast.makeText(LoginActivity.this, error.toString(), Toast.LENGTH_LONG).show();
+//                            Toast.makeText(LoginActivity.this, error.toString(), Toast.LENGTH_LONG).show();
                         }
                     }) {
                 @Override

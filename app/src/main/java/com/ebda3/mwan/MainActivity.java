@@ -128,7 +128,7 @@ public class MainActivity extends AppCompatActivity {
                         forward_page.setVisibility(View.VISIBLE);
                         Log.d("responseee", response.toString());
                         response = fixEncoding(response);
-                        Toast.makeText(MainActivity.this, String.valueOf(response), Toast.LENGTH_LONG).show();
+//                        Toast.makeText(MainActivity.this, String.valueOf(response), Toast.LENGTH_LONG).show();
 
                         JSONObject jObj;
                         try {
