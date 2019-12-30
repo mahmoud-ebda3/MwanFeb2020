@@ -36,8 +36,10 @@
                 android:layout_marginLeft="5dp"
                 android:layout_weight="1"
                 android:layout_width="match_parent"
-                android:background="@drawable/shape"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:background="@color/gray_color"
+                android:orientation="horizontal"
+                android:focusableInTouchMode="true">
 
                 <Spinner
                     android:itemTextAppearance="@style/SpinnerDrawerStyle"
@@ -51,9 +53,11 @@
                     android:spinnerMode="dropdown" />
             </LinearLayout>
             <LinearLayout
+                android:layout_marginLeft="5dp"
                 android:layout_weight="1"
                 android:layout_width="match_parent"
-                android:background="@drawable/shape"
+                android:background="@color/gray_color"
+                android:orientation="horizontal"
                 android:layout_height="match_parent">
                 <Spinner
                     android:itemTextAppearance="@style/SpinnerDrawerStyle"
@@ -104,7 +108,7 @@
                 android:id="@+id/go_home_button"
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp"
-                android:background="@drawable/shape_circle_button"
+                android:background="@drawable/registration_button_drawable"
                 android:textColor="@android:color/white"
                 android:layout_marginBottom="10dp"
                 android:layout_gravity="center"
