@@ -26,6 +26,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import com.ebda3.adapters.MyPropertiesItemsListAdapter;
+import com.ebda3.adapters.SupplierConfirmItemsListAdapter;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
@@ -47,7 +48,7 @@ public class MyOrdersItems extends AppCompatActivity {
     SharedPreferences sp;
     public Button apply_buy_bu;
     public LinearLayout Totals;
-    public String IntentID, IntentName, IntentItems, IntentTotal, IntentshippingCost, IntentNet, IntentSupplierName, IntentSupplierPhone, IntentSupplierPhoto, IntentStatus, IntentDate;
+    public String IntentID, IntentName, IntentItems, IntentTotal, IntentshippingCost, IntentNet, IntentSupplierName, IntentSupplierPhone, IntentSupplierPhoto, IntentStatus, IntentDate,ItemsArray;
     public static TextView total_price, shiping_price, net_price;
     TextView no_data;
     Context context = this;
@@ -68,12 +69,21 @@ public class MyOrdersItems extends AppCompatActivity {
     public ArrayList<Integer> ItemAvailableAmount = new ArrayList<Integer>();
     public ArrayList<Integer> ItemPartnerID = new ArrayList<Integer>();
 
+
+    private ArrayList<String> ID = new ArrayList<String>();
+    private ArrayList<String> Name = new ArrayList<String>();
+    private ArrayList<String> Photo = new  ArrayList<String>();
+    private ArrayList<String> Amount = new  ArrayList<String>();
+    private ArrayList<String> ItemAvailableAmountArray = new  ArrayList<String>();
+    private ArrayList<String> totalPrice = new  ArrayList<String>();
+    private ArrayList<String> Info = new  ArrayList<String>();
+
     ArrayList<String> arrayList = new ArrayList<String>();
 
     public Toolbar toolbar;
     public TextView headline, PartnerName, PartnerPhone, OrderDate;
     public ImageView shopping_cart_image, photo;
-    public MyPropertiesItemsListAdapter adapter;
+    public SupplierConfirmItemsListAdapter adapter;
 
 
     @Override
@@ -120,6 +130,7 @@ public class MyOrdersItems extends AppCompatActivity {
         IntentSupplierPhoto = getIntent().getStringExtra("SupplierPhoto");
         IntentStatus = getIntent().getStringExtra("Status");
         IntentDate = getIntent().getStringExtra("Date");
+        ItemsArray = getIntent().getStringExtra("ItemsArray");
 
         Log.d("orrrrrddd",IntentID +"----"+IntentName +"----"+IntentItems +"----"+IntentTotal +"----"
                 +IntentshippingCost +"----"+IntentNet +"----"+IntentSupplierPhone +"----"
@@ -168,18 +179,23 @@ public class MyOrdersItems extends AppCompatActivity {
 
         LinearLayout orderDetails = (LinearLayout) findViewById(R.id.orderDetails);
 
+
+
         try {
-            JSONArray jsonArray = new JSONArray(IntentItems);
-            if (jsonArray.length() > 0) {
+            JSONArray jsonArray = new JSONArray(ItemsArray);
+            Log.d("ordersitems",jsonArray.toString());
+            if ( jsonArray.length() > 0 ) {
                 for (int i = 0; i < jsonArray.length(); i++) {
                     JSONObject row = jsonArray.getJSONObject(i);
-                    ProductName.add(row.getString("ItemName"));
-                    ProductPrice.add(row.getString("Prices"));
-                    ProductCount.add(row.getString("Amounts"));
-                    TotalPrice.add(row.getString("totalPrice"));
-
+                    ID.add(row.getString("ID").toString());
+                    Name.add(row.getString("ItemName").toString());
+                    Photo.add("ffffffff");
+                    Amount.add(row.getString("Amount").toString());
+                    ItemAvailableAmountArray.add(row.getString("Price").toString());
+                    totalPrice.add(row.getString("totalPrice").toString());
+                    Info.add(row.getString("ItemOrderSpecs").toString());
                 }
-                adapter = new MyPropertiesItemsListAdapter(activity, ProductName, ProductPrice, ProductCount, TotalPrice);
+                adapter = new SupplierConfirmItemsListAdapter(MyOrdersItems.this, Name, Photo , Amount , ItemAvailableAmountArray , totalPrice ,Info  );
                 listView.setAdapter(adapter);
                 orderDetails.setVisibility(View.VISIBLE);
             } else {

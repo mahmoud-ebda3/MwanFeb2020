@@ -78,6 +78,7 @@ public class MyOrders extends AppCompatActivity {
     public  ArrayList<String> SupplierName = new  ArrayList<String>() ;
     public  ArrayList<String> SupplierPhone = new  ArrayList<String>() ;
     public  ArrayList<String> SupplierPhoto = new  ArrayList<String>() ;
+    public  ArrayList<String> ItemsArray = new  ArrayList<String>() ;
 
 
     public Boolean setAdapterStatus = false;
@@ -158,6 +159,7 @@ public class MyOrders extends AppCompatActivity {
                 intent.putExtra("SupplierPhoto",SupplierPhoto.get(position));
                 intent.putExtra("Date",Date.get(position));
                 intent.putExtra("Status",Status.get(position));
+                intent.putExtra("ItemsArray",ItemsArray.get(position));
                 startActivity(intent);
 
             }
@@ -209,6 +211,7 @@ public class MyOrders extends AppCompatActivity {
                                     SupplierName.add(row.getString("supplier_name").toString());
                                     SupplierPhone.add(row.getString("supplier_phone").toString());
                                     SupplierPhoto.add(row.getString("supplier_photo").toString());
+                                    ItemsArray.add(row.getString("items").toString());
                                 }
 
                                 if (!setAdapterStatus) {
@@ -284,14 +287,16 @@ public class MyOrders extends AppCompatActivity {
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
-            onBackPressed();
+            Intent myIntent = new Intent(MyOrders.this, UserHomeActivity.class);
+            startActivity(myIntent);
         }
         return super.onKeyDown(keyCode, event);
     }
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
-            onBackPressed();
+            Intent myIntent = new Intent(MyOrders.this, UserHomeActivity.class);
+            startActivity(myIntent);
             return true;
         }
         return super.onOptionsItemSelected(item);

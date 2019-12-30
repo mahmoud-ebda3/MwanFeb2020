@@ -28,6 +28,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.ebda3.Helpers.Config;
+import com.google.gson.Gson;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -42,6 +43,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import static com.ebda3.Helpers.Config.PropertyIDS;
 import static com.ebda3.Helpers.Config.PropertyNames;
 import static com.ebda3.Helpers.Config.cartData;
+import static com.ebda3.mwan.MaterialsDetailsActivity.selectedItems;
 
 public class ConfirmOrder extends AppCompatActivity {
 
@@ -67,6 +69,7 @@ public class ConfirmOrder extends AppCompatActivity {
 
     LinearLayout ChooseDate;
     TextView ch_time;
+    String jsonselectedItems,ItemaJson;
 
     private static int mYear, mMonth, mDay, mHour, mMinute;
     private static String Today;
@@ -102,6 +105,10 @@ public class ConfirmOrder extends AppCompatActivity {
 
         ChooseDate = (LinearLayout) findViewById(R.id.choose_date);
         ch_time = (TextView) findViewById(R.id.ch_time);
+
+        Gson gson = new Gson();
+        ItemaJson = gson.toJson(cartData);
+        jsonselectedItems = gson.toJson(selectedItems);
 
         final Calendar c = Calendar.getInstance();
         mYear = c.get(Calendar.YEAR);
@@ -196,7 +203,7 @@ public class ConfirmOrder extends AppCompatActivity {
                                 params.put("json_password", Config.getJsonPassword(context) );
                                 params.put("partnerID", ID );
                                 params.put("Location", Config.GetUserLocation(context) );
-                                params.put("items", Items );
+                                params.put("items", ItemaJson );
                                 params.put("delivery_date", Today );
                                 params.put("Net", Net );
                                 params.put("Notes", notes.getText().toString() );
