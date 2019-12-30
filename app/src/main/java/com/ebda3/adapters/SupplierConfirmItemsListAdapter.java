@@ -81,35 +81,29 @@ public class SupplierConfirmItemsListAdapter extends ArrayAdapter<String> {
             for (int i = 0; i < jsonArray.length(); i++)
             {
 
-                    try {
-
-
+                    try
+                    {
 
                         JSONObject row = jsonArray.getJSONObject(i);
                         Log.d("tttess",row.toString());
                         String name = row.getString("Name").toString();
                         String value = row.getString("Value").toString();
+                        TextView valueTV = new TextView(context);
+                        valueTV.setText(name + " : " + value);
+                        valueTV.setTextSize(11);
+                        valueTV.setGravity(Gravity.CENTER);
+                        valueTV.setTextColor(Color.parseColor("#0087C2"));
+                        valueTV.setLayoutParams(new ViewGroup.LayoutParams(
+                                ViewGroup.LayoutParams.MATCH_PARENT,
+                                ViewGroup.LayoutParams.MATCH_PARENT));
 
-
-                    TextView valueTV = new TextView(context);
-                    valueTV.setText(name + " : " + value);
-                    valueTV.setTextSize(11);
-                    valueTV.setGravity(Gravity.CENTER);
-                    valueTV.setTextColor(Color.parseColor("#0087C2"));
-                    valueTV.setLayoutParams(new ViewGroup.LayoutParams(
-                            ViewGroup.LayoutParams.MATCH_PARENT,
-                            ViewGroup.LayoutParams.MATCH_PARENT));
-
-                    information_linaer.addView(valueTV);
+                        information_linaer.addView(valueTV);
 
 
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
             }
-
-
-
 
             }
 
