@@ -48,7 +48,8 @@
                     android:background="@color/gray_color"
                     android:elevation="0dp"
                     android:padding="8dp"
-                    app:cardCornerRadius="6dp">
+                    app:cardCornerRadius="6dp"
+                    android:focusableInTouchMode="true">
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -70,6 +71,7 @@
                                 android:background="@android:color/transparent"
                                 android:gravity="center_vertical|right"
                                 android:hint="الموبيل"
+                                android:maxLength="11"
                                 android:inputType="number"
                                 android:textSize="16sp"
                                 android:paddingRight="10dp"

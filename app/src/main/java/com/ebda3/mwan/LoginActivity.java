@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -41,8 +42,9 @@ public class LoginActivity extends AppCompatActivity {
     public EditText emailtext, passtext;
     public TextView create_new_user, create_new_supplier;
     public Button logbutton;
-    public String myresponse, myemail, mypassword, myid, name, email, phone, u_type, photo;
+    public String myresponse, myemail, mypassword, myid, name, username, phone, u_type, photo;
     Activity activity = this;
+    InputMethodManager imm;
     public String u_email, u_password;
     public ProgressDialog progressDialog;
 
@@ -57,7 +59,7 @@ public class LoginActivity extends AppCompatActivity {
         logbutton = (Button) findViewById(R.id.login_button);
         create_new_supplier = (TextView) findViewById(R.id.new_supplier_account);
         create_new_user = (TextView) findViewById(R.id.new_user_account);
-
+        imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         progressDialog = new ProgressDialog(activity,
                 R.style.AppTheme_Dark_Dialog);
         progressDialog.setIndeterminate(true);
@@ -84,6 +86,7 @@ public class LoginActivity extends AppCompatActivity {
             if (hasFocus) {
                 emailtext.setGravity(Gravity.CENTER_VERTICAL | Gravity.LEFT);
                 emailtext.setHint("01xxxxxxxxx");
+                imm.showSoftInput(emailtext, InputMethodManager.SHOW_FORCED);
             } else {
                 emailtext.setHint("");
             }
@@ -95,6 +98,7 @@ public class LoginActivity extends AppCompatActivity {
                 u_email = emailtext.getText().toString();
                 u_password = passtext.getText().toString();
                 checklogin(u_email, u_password);
+                imm.hideSoftInputFromWindow(emailtext.getWindowToken(), 0);
             }
         });
 
@@ -115,11 +119,11 @@ public class LoginActivity extends AppCompatActivity {
                             try {
                                 jObj = new JSONObject(response);
                                 if (jObj.has("ID")) {
-                                    name = jObj.getString("username");
-                                    email = jObj.getString("email");
+                                    name = jObj.getString("name");
+                                    username = jObj.getString("username");
                                     phone = jObj.getString("phone");
                                     photo = jObj.getString("photo");
-                                    myemail = jObj.getString("email");
+//                                    myemail = jObj.getString("email");
                                     mypassword = jObj.getString("password");
                                     u_type = jObj.getString("type");
                                     myid = jObj.getString("ID");
@@ -167,8 +171,8 @@ public class LoginActivity extends AppCompatActivity {
         SharedPreferences sp = getSharedPreferences("Login", 0);
         SharedPreferences.Editor Ed = sp.edit();
         Ed.putString("ID", myid);
-        Ed.putString("username", name);
-        Ed.putString("email", phone);
+        Ed.putString("username", username);
+        Ed.putString("name", name);
         Ed.putString("photo", photo);
         Ed.putString("phone", phone);
         Ed.putString("normal_password", passtext.getText().toString());

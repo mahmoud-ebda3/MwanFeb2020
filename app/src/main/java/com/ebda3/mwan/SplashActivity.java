@@ -35,18 +35,19 @@ import static com.ebda3.Helpers.Config.LoginUrl;
 public class SplashActivity extends AppCompatActivity {
     public TextView toolbar_headline;
     Activity activity = this;
-    public String u_email,u_password,u_type;
+    public String u_email, u_password, u_type;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
 
         SharedPreferences sp1 = this.getSharedPreferences("Login", 0);
-        u_email = sp1.getString("email"," ");
-        u_password = sp1.getString("normal_password"," ");
-        u_type = sp1.getString("type"," ");
+        u_email = sp1.getString("email", " ");
+        u_password = sp1.getString("normal_password", " ");
+        u_type = sp1.getString("type", " ");
 
-        Log.d("splashcontent",u_email + "   " + u_password);
+        Log.d("splashcontent", u_email + "   " + u_password);
 
         checklogin(u_email, u_password);
 
@@ -58,47 +59,38 @@ public class SplashActivity extends AppCompatActivity {
     }
 
 
-
-    public boolean isNetworkConnected()
-    {
+    public boolean isNetworkConnected() {
         ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         return cm.getActiveNetworkInfo() != null;
     }
 
-    public void checklogin(final String user_email ,final String user_password)
-    {
+    public void checklogin(final String user_email, final String user_password) {
         boolean t = isNetworkConnected();
-        if(t) {
+        if (t) {
             StringRequest stringRequest = new StringRequest(Request.Method.POST, LoginUrl,
                     new Response.Listener<String>() {
                         @Override
                         public void onResponse(String response) {
-                            Log.d("responseSplash",response);
+                            Log.d("responseSplash", response);
                             try {
-
                                 JSONObject jObj = new JSONObject(response);
-
                                 if (jObj.has("ID")) {
-
-                                    SharedPreferences sp=getSharedPreferences("Login", 0);
-                                    SharedPreferences.Editor Ed=sp.edit();
-                                    Ed.putString("photo",jObj.getString("photo"));
-                                    Ed.putString("type",u_type);
+                                    SharedPreferences sp = getSharedPreferences("Login", 0);
+                                    SharedPreferences.Editor Ed = sp.edit();
+                                    Ed.putString("photo", jObj.getString("photo"));
+                                    Ed.putString("type", u_type);
                                     Ed.commit();
-
-                                    if (jObj.getString("type").equals("user")) {
-                                        Intent intent = new Intent(SplashActivity.this, UserHomeActivity.class);
-                                        startActivity(intent);
-                                    }
-                                    else
-                                    {
-                                        Intent intent = new Intent(SplashActivity.this, HomeActivity.class);
-                                        startActivity(intent);
-                                    }
-                                }
-                                else
-                                {
-                                    Intent intent = new Intent(SplashActivity.this,LoginActivity.class);
+//                                    if (jObj.getString("type").equals("user")) {
+                                    Intent intent = new Intent(SplashActivity.this, UserHomeActivity.class);
+                                    startActivity(intent);
+//                                    }
+//                                    else
+//                                    {
+//                                        Intent intent = new Intent(SplashActivity.this, HomeActivity.class);
+//                                        startActivity(intent);
+//                                    }
+                                } else {
+                                    Intent intent = new Intent(SplashActivity.this, LoginActivity.class);
                                     startActivity(intent);
                                 }
 
@@ -106,7 +98,7 @@ public class SplashActivity extends AppCompatActivity {
                             } catch (JSONException e) {
 
                                 e.printStackTrace();
-                                Intent intent = new Intent(SplashActivity.this,LoginActivity.class);
+                                Intent intent = new Intent(SplashActivity.this, LoginActivity.class);
                                 startActivity(intent);
                             }
                             //openProfile();
@@ -117,7 +109,7 @@ public class SplashActivity extends AppCompatActivity {
                         public void onErrorResponse(VolleyError error) {
 
                             Toast.makeText(SplashActivity.this, error.toString(), Toast.LENGTH_LONG).show();
-                            Intent intent = new Intent(SplashActivity.this,LoginActivity.class);
+                            Intent intent = new Intent(SplashActivity.this, LoginActivity.class);
                             startActivity(intent);
                         }
                     }) {
@@ -125,18 +117,16 @@ public class SplashActivity extends AppCompatActivity {
                 protected Map<String, String> getParams() throws AuthFailureError {
                     Map<String, String> map = new HashMap<String, String>();
                     map.put("do", "log");
-                    map.put("email",user_email);
-                    map.put("password",user_password);
-                    Log.d("params",map.toString());
+                    map.put("email", user_email);
+                    map.put("password", user_password);
+                    Log.d("params", map.toString());
                     return map;
                 }
             };
 
             RequestQueue requestQueue = Volley.newRequestQueue(this);
             requestQueue.add(stringRequest);
-        }
-        else
-        {
+        } else {
             showalertnetwork();
         }
 

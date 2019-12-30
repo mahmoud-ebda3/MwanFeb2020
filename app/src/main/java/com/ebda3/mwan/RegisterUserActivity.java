@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -42,9 +43,11 @@ import static com.ebda3.Helpers.Config.SignUpUser;
 
 public class RegisterUserActivity extends AppCompatActivity {
 
+    Context context = this;
     public EditText supplier_name, supplier_password, supplier_phone;
     //EditText supplier_address,supplier_phone,supplier_email , job, company;
     public ImageView forward_page;
+    InputMethodManager imm;
     public ProgressBar register_progress;
     public static String reg_id;
     public String myresponse, myemail, mypassword, myid, name, email, phone, u_type, my_normal_pass;
@@ -64,10 +67,12 @@ public class RegisterUserActivity extends AppCompatActivity {
         //job = (EditText) findViewById(R.id.user_job);
         //company = (EditText) findViewById(R.id.user_company);
 
+        imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         supplier_phone.setOnFocusChangeListener((v, hasFocus) -> {
             if (hasFocus) {
                 supplier_phone.setGravity(Gravity.CENTER_VERTICAL | Gravity.LEFT);
                 supplier_phone.setHint("01xxxxxxxxx");
+                imm.showSoftInput(supplier_phone, InputMethodManager.SHOW_FORCED);
             } else {
                 supplier_phone.setHint("");
             }
@@ -81,7 +86,7 @@ public class RegisterUserActivity extends AppCompatActivity {
                 //String UserAddress = supplier_address.getText().toString().trim();
                 String UserPhone = supplier_phone.getText().toString().trim();
                 String UserPassword = supplier_password.getText().toString().trim();
-
+                imm.hideSoftInputFromWindow(supplier_phone.getWindowToken(), 0);
                 if (Name.length() < 4) {
                     supplier_name.setError("من فضلك أدخل الأسم بطريقة صحيحة");
                 }
@@ -113,13 +118,11 @@ public class RegisterUserActivity extends AppCompatActivity {
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-
                         register_progress.setVisibility(View.GONE);
                         forward_page.setVisibility(View.VISIBLE);
                         Log.d("responseee", response);
                         response = fixEncoding(response);
                         // Toast.makeText(MainActivity.this, String.valueOf(response), Toast.LENGTH_LONG).show();
-
                         JSONObject jObj;
                         try {
                             jObj = new JSONObject(response);
@@ -134,8 +137,6 @@ public class RegisterUserActivity extends AppCompatActivity {
                                 u_type = jObj.getString("type");
                                 myid = jObj.getString("ID");
                                 savesharedprefernce();
-
-
                             } else {
                                 Toast.makeText(RegisterUserActivity.this, "من فضلك تاكد من البيانات !", Toast.LENGTH_LONG).show();
                             }
@@ -261,6 +262,8 @@ public class RegisterUserActivity extends AppCompatActivity {
     }
 
     public void onBackPressed() {
+        Intent i = new Intent(context, LoginActivity.class);
+        startActivity(i);
         finish();
     }
 }

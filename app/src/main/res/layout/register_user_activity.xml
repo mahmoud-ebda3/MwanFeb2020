@@ -152,7 +152,6 @@
                             <com.google.android.material.textfield.TextInputLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
-                                android:layout_marginBottom="5dp"
                                 android:layout_weight="1"
                                 android:gravity="center_vertical">
 
@@ -163,6 +162,7 @@
                                     android:background="@android:color/transparent"
                                     android:gravity="center_vertical|right"
                                     android:hint="الموبايل"
+                                    android:maxLength="11"
                                     android:inputType="number"
                                     android:paddingRight="10dp"
                                     android:textSize="16sp" />

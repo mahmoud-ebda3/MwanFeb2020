@@ -39,7 +39,6 @@ public class SetLocation extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_set_location);
-
         toolbar = (Toolbar) findViewById(R.id.app_toolbar);
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
@@ -47,10 +46,7 @@ public class SetLocation extends AppCompatActivity {
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
         headline = (TextView) toolbar.findViewById(R.id.app_headline);
-
         headline.setText("تحديد موقعك");
-
-
         try {
             id = getIntent().getStringExtra("ID" );
         }
@@ -58,7 +54,6 @@ public class SetLocation extends AppCompatActivity {
         {
             id = "0";
         }
-
         SetLocation = (ImageView)  findViewById(R.id.set_location);
         SetLocation.setOnClickListener(new View.OnClickListener() {
             @Override

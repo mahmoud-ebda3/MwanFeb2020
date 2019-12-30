@@ -116,7 +116,6 @@ public class UserHomeActivity extends AppCompatActivity
         }
 
         isOpened = true;
-
         SharedPreferences sp1 = this.getSharedPreferences("Login", 0);
         u_email = sp1.getString("phone", " ");
         u_name = sp1.getString("username", " ");
@@ -237,8 +236,6 @@ public class UserHomeActivity extends AppCompatActivity
                 .transform(new CropCircleTransformation())
                 .error(R.drawable.ic_account_circle_white_48dp)
                 .into(user_photo2);
-
-
     }
 
 

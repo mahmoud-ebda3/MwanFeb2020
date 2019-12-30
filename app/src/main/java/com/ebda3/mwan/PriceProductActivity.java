@@ -81,8 +81,6 @@ public class PriceProductActivity extends AppCompatActivity {
         setContentView(R.layout.price_product_activity);
 
         chosen_cat = "";
-
-        progress_step= (LinearLayout) findViewById(R.id.progress_step_image);
         spinner_field = (Spinner) findViewById(R.id.spinner_field);
         spinner_kind = (Spinner) findViewById(R.id.spinner_kind);
         list_price = (ListView) findViewById(R.id.list_price);
@@ -118,7 +116,7 @@ public class PriceProductActivity extends AppCompatActivity {
         go_home_page.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent myIntent = new Intent(PriceProductActivity.this, HomeActivity.class);
+                Intent myIntent = new Intent(PriceProductActivity.this, UserHomeActivity.class);
                 startActivity(myIntent);
                 finish();
             }

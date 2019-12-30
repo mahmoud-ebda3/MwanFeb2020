@@ -1,129 +1,112 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
 
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@color/white">
 
     <com.ebda3.design.MyTextViewSemibold
-        android:layout_weight="3"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_marginTop="5dp"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_weight="3"
+        android:gravity="center"
         android:text="تسعير المنتجات"
-        android:textSize="24dp"
-        android:gravity="center" />
+        android:textSize="24dp" />
+
     <LinearLayout
-        android:layout_weight="1"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        >
+        android:layout_weight="1"
+        android:orientation="vertical">
 
         <LinearLayout
-            android:layoutDirection="rtl"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="5dp"
-            android:layout_marginLeft="30dp"
-            android:layout_marginRight="30dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="horizontal"
-            android:layout_weight="3">
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginBottom="5dp"
+            android:layout_weight="3"
+            android:layoutDirection="rtl"
+            android:orientation="horizontal">
 
             <LinearLayout
-                android:layout_marginLeft="5dp"
-                android:layout_weight="1"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@color/gray_color"
-                android:orientation="horizontal"
-                android:focusableInTouchMode="true">
+                android:layout_marginLeft="5dp"
+                android:layout_weight="1"
+                android:background="@drawable/shape"
+                android:focusableInTouchMode="true"
+                android:orientation="horizontal">
 
                 <Spinner
-                    android:itemTextAppearance="@style/SpinnerDrawerStyle"
-                    android:textAlignment="center"
                     android:id="@+id/spinner_field"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_gravity="center"
                     android:layout_weight="4"
                     android:gravity="center"
-                    android:spinnerMode="dropdown" />
+                    android:itemTextAppearance="@style/SpinnerDrawerStyle"
+                    android:spinnerMode="dropdown"
+                    android:textAlignment="center" />
             </LinearLayout>
+
             <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:layout_marginLeft="5dp"
                 android:layout_weight="1"
-                android:layout_width="match_parent"
-                android:background="@color/gray_color"
-                android:orientation="horizontal"
-                android:layout_height="match_parent">
+                android:background="@drawable/shape"
+                android:orientation="horizontal">
+
                 <Spinner
-                    android:itemTextAppearance="@style/SpinnerDrawerStyle"
-                    android:textAlignment="center"
                     android:id="@+id/spinner_kind"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_gravity="center"
                     android:layout_weight="4"
                     android:gravity="center"
-                    android:spinnerMode="dropdown" />
+                    android:itemTextAppearance="@style/SpinnerDrawerStyle"
+                    android:spinnerMode="dropdown"
+                    android:textAlignment="center" />
             </LinearLayout>
 
         </LinearLayout>
 
 
         <LinearLayout
-            android:layoutDirection="rtl"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="5dp"
-            android:layout_marginLeft="30dp"
-            android:layout_marginRight="30dp"
-            android:layout_weight=".5"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginBottom="5dp"
+            android:layout_weight=".5"
+            android:layoutDirection="rtl">
+
             <ListView
-                android:layout_marginTop="15dp"
                 android:id="@+id/list_price"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:layout_marginTop="15dp">
 
             </ListView>
         </LinearLayout>
     </LinearLayout>
-    <RelativeLayout
-        android:layout_weight="2.7"
-        android:layout_marginBottom="5dp"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-        <LinearLayout
-            android:id="@+id/progress_step_image"
-            android:layout_alignParentBottom="true"
-            android:gravity="bottom"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-            <com.ebda3.design.MyButton
-                android:id="@+id/go_home_button"
-                android:paddingLeft="10dp"
-                android:paddingRight="10dp"
-                android:background="@drawable/registration_button_drawable"
-                android:textColor="@android:color/white"
-                android:layout_marginBottom="10dp"
-                android:layout_gravity="center"
-                android:text="الصفحة الرئيسية"
-                android:layout_width="wrap_content"
-                android:layout_height="35dp" />
-            <ImageView
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                android:layout_width="match_parent"
-                android:layout_height="45dp"
-                android:layout_gravity="bottom"
-                android:background="@drawable/m3">
-            </ImageView>
-        </LinearLayout>
-    </RelativeLayout>
+    <com.ebda3.design.MyButton
+        android:id="@+id/go_home_button"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:layout_gravity="center"
+        android:layout_marginBottom="15dp"
+        android:layout_marginTop="15dp"
+        android:background="@drawable/registration_button_drawable"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:text="الصفحة الرئيسية"
+        android:textColor="@android:color/white" />
 
 </LinearLayout>

@@ -79,14 +79,6 @@ public class MainActivity extends AppCompatActivity {
                 String mawanUserName = user_name.getText().toString();
                 String userPassword = password.getText().toString();
                 String userPasswordConfirmation = password_confirmation.getText().toString();
-                password_confirmation.setEnabled(false);
-                password.setEnabled(false);
-                address.setEnabled(false);
-                corporation_name.setEnabled(false);
-                corporation_tel.setEnabled(false);
-                owner_name.setEnabled(false);
-                owner_tel.setEnabled(false);
-                user_name.setEnabled(false);
                 if (corporationName.length() < 4) {
                     corporation_name.setError("من فضلك أدخل الأسم بطريقة صحيحة");
                 } else if (ownerName.length() < 4) {
@@ -106,6 +98,14 @@ public class MainActivity extends AppCompatActivity {
                 } else {
                     boolean t = isNetworkConnected();
                     if (t) {
+                        password_confirmation.setEnabled(false);
+                        password.setEnabled(false);
+                        address.setEnabled(false);
+                        corporation_name.setEnabled(false);
+                        corporation_tel.setEnabled(false);
+                        owner_name.setEnabled(false);
+                        owner_tel.setEnabled(false);
+                        user_name.setEnabled(false);
                         register_owner();
                     } else {
                         Toast.makeText(MainActivity.this, "من فضلك تأكد من اتصاللك بالإنترنت", Toast.LENGTH_LONG).show();
@@ -266,6 +266,8 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
+        Intent i = new Intent(context, LoginActivity.class);
+        startActivity(i);
         finish();
     }
 }
