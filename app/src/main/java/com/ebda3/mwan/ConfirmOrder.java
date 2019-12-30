@@ -6,8 +6,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.os.Build;
-import androidx.annotation.RequiresApi;
-import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -31,13 +29,15 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.ebda3.Helpers.Config;
 
-
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
+
+import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AppCompatActivity;
 
 import static com.ebda3.Helpers.Config.PropertyIDS;
 import static com.ebda3.Helpers.Config.PropertyNames;
@@ -156,7 +156,7 @@ public class ConfirmOrder extends AppCompatActivity {
                         StringRequest stringRequest = new StringRequest(Request.Method.POST,"http://adc-company.net/mwan/include/webService.php?json=true", new Response.Listener<String>() {
                             @Override
                             public void onResponse(String response) {
-                                Log.d("xxxxxx", response);
+                                Log.d("mmmmtttt", response);
                                 try {
                                     JSONObject jObj = new JSONObject(response);
                                     if (jObj.has("ID"))
@@ -195,7 +195,7 @@ public class ConfirmOrder extends AppCompatActivity {
                                 params.put("json_email", Config.getJsonEmail(context) );
                                 params.put("json_password", Config.getJsonPassword(context) );
                                 params.put("partnerID", ID );
-                                params.put("Location", Config.getLocation(context).toString() );
+                                params.put("Location", Config.GetUserLocation(context) );
                                 params.put("items", Items );
                                 params.put("delivery_date", Today );
                                 params.put("Net", Net );
@@ -208,7 +208,7 @@ public class ConfirmOrder extends AppCompatActivity {
                                 {
                                     params.put("property_id", PropertyIDS.get( (int) Property.getSelectedItemId()  ) );
                                 }
-                                Log.d("xxxxxx",params.toString());
+                                Log.d("paramxxxxxx",params.toString());
                                 return params;
                             }
                         };
