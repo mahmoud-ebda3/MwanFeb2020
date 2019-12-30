@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout  xmlns:android="http://schemas.android.com/apk/res/android"
+   android:layoutDirection="rtl"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    >
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    <ScrollView
+        android:id="@+id/scroll_info"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_marginTop="5dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_weight="3"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.ebda3.design.MyTextViewSemibold
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="التسجيل"
+            android:textSize="21dp"
+            android:layout_gravity="center"
+            android:gravity="center" />
+        <com.ebda3.design.MyTextViewSemibold
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="بيانات المالك"
+            android:textSize="16dp"
+            android:layout_gravity="center"
+            android:gravity="center" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_weight="1"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="0dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        >
+        <LinearLayout
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_width="match_parent"
+            android:background="@drawable/shape"
+            android:layout_height="45dp">
+            <com.ebda3.design.MyEditText
+                android:gravity="center_vertical|right"
+                android:inputType="textPersonName"
+                android:id="@+id/supp_name"
+                android:paddingRight="10dp"
+                android:hint="الاسم"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@android:color/transparent"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_width="match_parent"
+            android:background="@drawable/shape"
+            android:layout_height="45dp">
+            <com.ebda3.design.MyEditText
+                android:gravity="center_vertical|right"
+                android:inputType="textEmailAddress"
+                android:id="@+id/supp_email"
+                android:paddingRight="10dp"
+                android:hint="البريد الإلكترونى"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@android:color/transparent"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_width="match_parent"
+            android:background="@drawable/shape"
+            android:layout_height="45dp">
+            <com.ebda3.design.MyEditText
+                android:gravity="center_vertical|right"
+                android:inputType="textPassword"
+                android:id="@+id/supp_password"
+                android:paddingRight="10dp"
+                android:hint="كلمة المرور"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@android:color/transparent"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_width="match_parent"
+            android:background="@drawable/shape"
+            android:layout_height="45dp">
+            <com.ebda3.design.MyEditText
+                android:gravity="center_vertical|right"
+                android:inputType="textPersonName"
+                android:id="@+id/supp_address"
+                android:paddingRight="10dp"
+                android:hint="العنوان"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@android:color/transparent"/>
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_width="match_parent"
+            android:background="@drawable/shape"
+            android:layout_height="45dp">
+
+            <com.ebda3.design.MyEditText
+                android:gravity="center_vertical|right"
+                android:inputType="number"
+                android:id="@+id/supp_phone"
+                android:paddingRight="10dp"
+                android:hint="الموبايل"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@android:color/transparent"/>
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_width="match_parent"
+            android:background="@drawable/shape"
+            android:layout_height="45dp">
+            <com.ebda3.design.MyEditText
+                android:gravity="center_vertical|right"
+                android:inputType="number"
+                android:id="@+id/supp_id_num"
+                android:paddingRight="10dp"
+                android:hint="رقم البطاقة"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@android:color/transparent"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="0dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_width="match_parent"
+            android:layout_height="50dp">
+
+
+            <LinearLayout
+                android:gravity="center"
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <ProgressBar
+                    android:id="@+id/register_progress"
+                    android:visibility="gone"
+                    android:layout_centerInParent="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp" />
+            <ImageView
+                android:clickable="true"
+                android:id="@+id/forward_page"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/forward_arrow_2"/>
+            </LinearLayout>
+
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+    <RelativeLayout
+        android:layout_below="@+id/scroll_info"
+        android:gravity="bottom"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+    <LinearLayout
+        android:layout_alignParentBottom="true"
+        android:gravity="bottom"
+        android:layout_weight="3"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+        <ImageView
+
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_gravity="bottom"
+            android:background="@drawable/m1">
+        </ImageView>
+    </LinearLayout>
+    </RelativeLayout>
+
+
+    </RelativeLayout>
+
+</LinearLayout>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:padding="8dp"
+        android:layoutDirection="rtl"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/price_img_id"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+
+            app:srcCompat="@android:color/holo_blue_light" />
+
+        <com.ebda3.design.MyTextView
+            android:layout_marginRight="10dp"
+            android:gravity="right"
+            android:id="@+id/price_name_id"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="معجون" />
+
+        <com.ebda3.design.MyTextView
+            android:clickable="true"
+            android:gravity="center"
+            android:id="@+id/price_name_count"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.5"
+            android:text="100 جنية" />
+
+    </LinearLayout>
+
+</LinearLayout>

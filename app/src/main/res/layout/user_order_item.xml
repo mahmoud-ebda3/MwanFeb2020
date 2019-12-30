@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:layoutDirection="rtl"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="60dp">
+        <com.ebda3.design.MyTextView
+            android:id="@+id/user_product_name"
+            android:padding="0dp"
+            android:text="المنتج"
+            android:background="@drawable/shape_textview_border_left"
+            android:gravity="center"
+            android:layout_weight=".8"
+            android:textSize="16dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+        <com.ebda3.design.MyTextView
+            android:id="@+id/user_product_count"
+            android:padding="0dp"
+            android:text="الكمية"
+            android:background="@drawable/shape_textview_border_left"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:textSize="16dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+        <com.ebda3.design.MyTextView
+            android:id="@+id/user_product_cost"
+            android:padding="0dp"
+            android:text="السعر"
+            android:gravity="center"
+            android:textSize="16dp"
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </LinearLayout>
+
+</LinearLayout>

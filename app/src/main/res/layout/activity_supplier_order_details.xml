@@ -1,0 +1,461 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+    <include
+        layout="@layout/app_toolbar_activity"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <LinearLayout
+        android:id="@+id/orderDetails"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+
+
+        <LinearLayout
+            android:id="@+id/listHeader"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:paddingRight="17dp"
+            android:layoutDirection="rtl"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.ebda3.design.MyTextView
+                android:gravity="center"
+                android:textColor="@color/black"
+                android:layout_weight="2"
+                android:text="الصنف"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+            <com.ebda3.design.MyTextView
+                android:textColor="@color/black"
+                android:gravity="center"
+                android:text="الكمية"
+                android:layout_width="60dp"
+                android:layout_height="wrap_content" />
+            <com.ebda3.design.MyTextView
+                android:textColor="@color/black"
+                android:gravity="center"
+                android:text="السعر"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content" />
+            <com.ebda3.design.MyTextView
+                android:textColor="@color/black"
+                android:layout_marginLeft="8dp"
+
+                android:gravity="center"
+                android:text="الاجمالى"
+                android:layout_width="60dp"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layoutDirection="rtl"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ListView
+                android:id="@+id/list"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+            </ListView>
+
+            <RelativeLayout
+                android:paddingBottom="92dp"
+                android:visibility="gone"
+                android:id="@+id/order_status_data"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ListView
+                    android:background="#f9f9f9"
+                    android:divider="@android:color/transparent"
+                    android:dividerHeight="2.5sp"
+                    android:id="@+id/list1"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                </ListView>
+
+                <ProgressBar
+                    android:visibility="gone"
+                    android:id="@+id/change_status_progressBar"
+                    android:layout_alignParentBottom="true"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+                <com.ebda3.design.MyButtonSemiBold
+                    android:layout_margin="10dp"
+                    android:id="@+id/change_status"
+                    android:textColor="@color/white"
+                    android:background="@color/background_color"
+                    android:text="تغيير الحالة"
+                    android:layout_alignParentBottom="true"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+            </RelativeLayout>
+
+
+
+
+            <LinearLayout
+                 android:id="@+id/OrderDetails"
+                android:visibility="gone"
+                android:padding="15dp"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <LinearLayout
+
+                    android:background="@drawable/shape"
+                    android:layout_marginTop="7dp"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+
+                        android:layout_marginTop="3dp"
+                        android:layout_marginRight="5dp"
+                        android:layout_marginLeft="9dp"
+                        android:src="@drawable/ic_account_circle_black"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp" />
+
+                    <com.ebda3.design.MyTextView
+                        android:layout_marginLeft="8dp"
+                        android:textSize="15dp"
+                        android:textColor="@color/black"
+                        android:text="اسم العميل"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                    <com.ebda3.design.MyTextView
+                        android:id="@+id/client_name"
+                        android:layout_weight="1"
+                        android:text="اسم العميل"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+                <LinearLayout
+
+                    android:background="@drawable/shape"
+                    android:layout_marginTop="12dp"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+
+                        android:layout_marginTop="3dp"
+                        android:layout_marginRight="5dp"
+                        android:layout_marginLeft="9dp"
+                        android:src="@drawable/ic_phone_black_24dp"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp" />
+
+                    <com.ebda3.design.MyTextView
+                        android:layout_marginLeft="8dp"
+                        android:textSize="15dp"
+                        android:textColor="@color/black"
+                        android:text="تليفون العميل"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                    <com.ebda3.design.MyTextView
+                        android:id="@+id/client_phone"
+                        android:layout_weight="1"
+                        android:text="اسم العميل"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:background="@drawable/shape"
+                    android:layout_marginTop="12dp"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+
+                        android:layout_marginTop="3dp"
+                        android:layout_marginRight="5dp"
+                        android:layout_marginLeft="9dp"
+                        android:src="@drawable/ic_date_range_black_24dp"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp" />
+
+                    <com.ebda3.design.MyTextView
+                        android:textSize="15dp"
+                        android:textColor="@color/black"
+                        android:text="موعد الاستلام"
+                        android:layout_marginLeft="8dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                    <com.ebda3.design.MyTextView
+                        android:id="@+id/delivery_date"
+                        android:layout_weight="1"
+                        android:text="   "
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:background="@drawable/shape"
+                    android:layout_marginTop="12dp"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+
+                        android:layout_marginTop="3dp"
+                        android:layout_marginRight="5dp"
+                        android:layout_marginLeft="9dp"
+                        android:src="@drawable/ic_comment_black_24dp"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp" />
+
+                    <com.ebda3.design.MyTextView
+                        android:layout_marginLeft="8dp"
+                        android:textSize="15dp"
+                        android:textColor="@color/black"
+                        android:text="الملاحظات"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                    <com.ebda3.design.MyTextView
+
+                        android:id="@+id/client_notes"
+                        android:layout_weight="1"
+                        android:text="   "
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+
+                <fragment
+                    android:layout_marginTop="15dp"
+                    android:id="@+id/map"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    class="com.google.android.gms.maps.SupportMapFragment" />
+
+            </LinearLayout>
+
+
+
+
+
+            <LinearLayout
+                android:layoutDirection="rtl"
+                android:layout_alignParentBottom="true"
+                android:background="@color/custom_bg_grey"
+                android:orientation="horizontal"
+                android:padding="5dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                >
+
+            <LinearLayout
+
+
+                android:orientation="vertical"
+                android:layout_weight="2.2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+
+                >
+
+                <LinearLayout
+                    android:layout_marginTop="5dp"
+                   android:layout_marginBottom="5dp"
+                    android:background="@drawable/shape_orange"
+
+                    android:orientation="horizontal"
+                    android:clickable="true"
+                    android:id="@+id/order_status"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:layout_marginTop="3dp"
+                        android:layout_marginRight="5dp"
+                        android:src="@drawable/ic_redo_white_24dp"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp" />
+
+                    <com.ebda3.design.MyTextView
+                        android:textSize="15dp"
+                        android:textColor="@color/white"
+                        android:layout_marginRight="5dp"
+                        android:text="حالة الطلب"
+                        android:layout_weight="1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+
+
+
+                <LinearLayout
+
+                    android:background="@drawable/shape_blue"
+                    android:orientation="horizontal"
+                    android:clickable="true"
+                    android:id="@+id/order_details"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:layout_marginTop="3dp"
+                        android:layout_marginRight="5dp"
+                        android:src="@drawable/ic_info_outline_white_24dp"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp" />
+
+                    <com.ebda3.design.MyTextView
+                        android:id="@+id/orderDetailsButton"
+                        android:textSize="15dp"
+                        android:textColor="@color/white"
+                        android:layout_marginRight="5dp"
+                        android:text="تفاصيل الطلب"
+                        android:layout_weight="1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+
+
+
+            </LinearLayout>
+
+
+                <LinearLayout
+
+
+                    android:orientation="vertical"
+                  android:layout_weight="3"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+
+                    >
+
+                    <LinearLayout
+                        android:layoutDirection="rtl"
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <com.ebda3.design.MyTextView
+                            android:gravity="left"
+                            android:paddingRight="15dp"
+                            android:layout_weight="1"
+
+                            android:text="المجموع"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
+                        <com.ebda3.design.MyTextViewBold
+android:layout_marginRight="8dp"
+                            android:id="@+id/total_price"
+                            android:layout_weight="1"
+
+                            android:text="500 جنية"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/Totals"
+                        android:layoutDirection="rtl"
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <com.ebda3.design.MyTextView
+                            android:gravity="left"
+                            android:paddingRight="15dp"
+                            android:layout_weight="1"
+
+                            android:text="تكلفة الشحن"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
+                        <com.ebda3.design.MyTextViewBold
+                            android:layout_marginRight="8dp"
+
+                            android:id="@+id/shiping_price"
+                            android:layout_weight="1"
+
+                            android:text="500 جنية"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layoutDirection="rtl"
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <com.ebda3.design.MyTextView
+                            android:gravity="left"
+                            android:paddingRight="15dp"
+                            android:layout_weight="1"
+
+                            android:text="الاجمالى"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
+                        <com.ebda3.design.MyTextViewBold
+                            android:layout_marginRight="8dp"
+
+                            android:textSize="18dp"
+                            android:id="@+id/net_price"
+                            android:textColor="@color/black"
+                            android:layout_weight="1"
+
+                            android:text="500 جنية"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
+
+                    </LinearLayout>
+
+
+
+
+                </LinearLayout>
+
+                </LinearLayout>
+
+
+
+
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+
+
+
+
+
+
+
+
+</LinearLayout>

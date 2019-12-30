@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layoutDirection="rtl"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <include
+        layout="@layout/app_toolbar_activity"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <com.ebda3.design.MyTextView
+            android:layout_marginTop="25dp"
+            android:gravity="center"
+            android:textSize="25dp"
+            android:textColor="@color/black"
+            android:text="رصيد النقاط"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <LinearLayout
+            android:gravity="center"
+            android:orientation="vertical"
+            android:background="@drawable/linear_circle"
+            android:layout_marginTop="20dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_width="150dp"
+            android:layout_height="150dp">
+
+            <com.ebda3.design.MyTextView
+                android:maxLines="1"
+                android:id="@+id/points_id"
+                android:text=""
+                android:textStyle="bold"
+                android:textColor="#0087C2"
+                android:gravity="center"
+                android:textSize="25dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+            <com.ebda3.design.MyTextView
+                android:maxLines="1"
+                android:text="نقطة"
+                android:textColor="#0087C2"
+                android:gravity="center_horizontal|top"
+                android:textSize="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+</LinearLayout>

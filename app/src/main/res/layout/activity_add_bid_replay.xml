@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    android:layoutDirection="rtl">
+
+
+
+    <LinearLayout
+        android:padding="15dp"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.ebda3.design.MyTextView
+            android:text="من فضلك اكتب مواصفات المناقصة"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <EditText
+
+            android:id="@+id/details"
+            android:lines="8"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+
+        <LinearLayout
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="15dp"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.ebda3.design.MyTextView
+                android:text="السعر"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <com.ebda3.design.MyEditText
+                android:id="@+id/cost"
+                android:inputType="number"
+                android:layout_weight="1"
+                android:layout_marginRight="15dp"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+
+
+
+        <LinearLayout
+            android:id="@+id/progress1"
+            android:visibility="gone"
+            android:gravity="center"
+            android:padding="8dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ProgressBar
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:clickable="true"
+            android:id="@+id/add"
+            android:padding="8dp"
+            android:background="@color/custom_main"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:layout_marginLeft="5dp"
+                android:src="@drawable/ic_check_circle_white_24dp"
+                android:layout_width="28dp"
+                android:layout_height="28dp" />
+
+            <com.ebda3.design.MyTextViewSemibold
+                android:textSize="18dp"
+                android:textColor="@color/white"
+                android:text="ارسال الرد  "
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+
+
+
+    </LinearLayout>
+
+
+
+
+</LinearLayout>

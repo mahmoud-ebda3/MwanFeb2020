@@ -1,0 +1,170 @@
+<LinearLayout  xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layoutDirection="rtl"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    >
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_weight="3"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <com.ebda3.design.MyTextViewSemibold
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="التسجيل"
+                        android:textSize="21dp"
+                        android:layout_gravity="center"
+                        android:gravity="center" />
+                </LinearLayout>
+                <ScrollView
+                    android:layout_weight="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                <LinearLayout
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="0dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    >
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginLeft="30dp"
+                        android:layout_marginRight="30dp"
+                        android:layout_width="match_parent"
+                        android:background="@drawable/shape"
+                        android:layout_height="60dp">
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:layout_weight="1"
+                            android:gravity="center_vertical"
+                            android:layout_marginBottom="5dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+                        <com.ebda3.design.MyEditText
+                            android:gravity="center_vertical|right"
+                            android:inputType="number"
+                            android:layoutDirection="rtl"
+                            android:id="@+id/log_supp_email"
+                            android:paddingRight="10dp"
+                            android:hint="الموييل"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@android:color/transparent"/>
+
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <com.ebda3.design.MyTextView
+                            android:layout_marginLeft="5dp"
+                            android:gravity="center"
+                            android:textSize="16dp"
+                            android:layout_weight="3"
+                            android:text="002"
+                            android:textColor="@color/black"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent" />
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_marginTop="15dp"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginLeft="30dp"
+                        android:layout_marginRight="30dp"
+                        android:layout_width="match_parent"
+                        android:background="@drawable/shape"
+                        android:layout_height="60dp">
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:layout_weight="1"
+                            android:gravity="center_vertical"
+                            android:layout_marginBottom="5dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                        <com.ebda3.design.MyEditText
+                            android:gravity="center_vertical|right"
+                            android:inputType="textPassword"
+                            android:id="@+id/log_supp_pass"
+                            android:paddingRight="10dp"
+                            android:hint="كلمة المرور"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@android:color/transparent"/>
+
+                        </com.google.android.material.textfield.TextInputLayout>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:gravity="center"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginLeft="30dp"
+                        android:layout_marginRight="30dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="45dp">
+
+                    <com.ebda3.design.MyButton
+                        android:id="@+id/login_button"
+                        android:background="@drawable/shape_circle_button"
+                        android:textColor="@android:color/white"
+                        android:layout_gravity="center"
+                        android:text="تسجيل الدخول"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp" />
+
+                        </LinearLayout>
+                    <LinearLayout
+                        android:gravity="center"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginBottom="0dp"
+                        android:layout_marginLeft="30dp"
+                        android:layout_marginRight="30dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="45dp">
+                        <com.ebda3.design.MyTextView
+                            android:clickable="true"
+                            android:id="@+id/new_user_account"
+                            android:textSize="16dp"
+                            android:textColor="@android:color/holo_blue_light"
+                            android:gravity="center"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:text="انشاء حساب مستخدم جديد"/>
+                        </LinearLayout>
+                    <LinearLayout
+                        android:gravity="center"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginLeft="30dp"
+                        android:layout_marginRight="30dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="45dp">
+                        <com.ebda3.design.MyTextView
+                            android:clickable="true"
+                            android:id="@+id/new_supplier_account"
+                            android:textSize="16dp"
+                            android:textColor="@android:color/holo_blue_light"
+                            android:gravity="center"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:text="انشاء حساب مورد جديد"/>
+                    </LinearLayout>
+                </LinearLayout>
+                </ScrollView>
+            </LinearLayout>
+
+</LinearLayout>

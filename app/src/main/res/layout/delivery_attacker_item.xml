@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layoutDirection="rtl"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="60dp">
+        <com.ebda3.design.MyTextView
+            android:textSize="16dp"
+            android:id="@+id/deliver_address"
+            android:background="@drawable/shape_textview_border_left"
+            android:gravity="center"
+            android:layout_weight=".6"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <com.ebda3.design.MyTextView
+            android:textSize="16dp"
+            android:gravity="center"
+            android:id="@+id/delivery_date"
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </LinearLayout>
+
+</LinearLayout>

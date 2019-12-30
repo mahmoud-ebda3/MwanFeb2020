@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="3dp"
+        android:layout_marginBottom="3dp"
+        >
+        <LinearLayout
+            android:gravity="center"
+android:layoutDirection="rtl"
+            android:orientation="horizontal"
+android:padding="7dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:src="@drawable/m3"
+                android:id="@+id/worker_image"
+                android:layout_width="60dp"
+                android:layout_marginLeft="15dp"
+                android:layout_height="60dp" />
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                >
+
+                <com.ebda3.design.MyTextView
+                    android:textColor="@color/black"
+                    android:id="@+id/worker_name"
+                    android:textSize="14.5dp"
+                    android:text="تفاصيل "
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+                <LinearLayout
+                    android:visibility="gone"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:src="@drawable/ic_phone_black_24dp"
+                        android:layout_width="15dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginLeft="5dp"
+                        android:layout_height="15dp" />
+
+
+                    <com.ebda3.design.MyTextView
+                        android:id="@+id/worker_contact"
+                         android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_marginTop="5dp"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:layout_marginTop="8dp"
+                        android:src="@drawable/ic_place_black_24dp"
+                        android:layout_width="15dp"
+                        android:layout_marginLeft="5dp"
+                        android:layout_height="15dp" />
+
+
+                    <com.ebda3.design.MyTextView
+                        android:id="@+id/worker_address"
+                        android:text="04111111 "
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:gravity="center"
+                android:orientation="vertical"
+                android:layout_width="130dp"
+                android:layout_height="wrap_content">
+
+                <com.ebda3.design.MyTextView
+                    android:id="@+id/items_count"
+                    android:gravity="center"
+                    android:text="cdxccxc"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <com.ebda3.design.MyTextView
+                    android:id="@+id/total_price"
+                    android:gravity="center"
+                    android:textSize="22dp"
+                    android:textColor="#008D4C"
+                    android:text="cdxccxc"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <com.ebda3.design.MyTextView
+                    android:textColor="@color/black"
+                     android:gravity="center"
+                    android:text="جنية"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+
+</LinearLayout>

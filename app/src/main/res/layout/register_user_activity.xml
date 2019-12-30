@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout  xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layoutDirection="rtl"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    >
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+            <LinearLayout
+                android:gravity="center_vertical"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:gravity="center_vertical"
+                    android:orientation="vertical"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_weight="2"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <com.ebda3.design.MyTextViewSemibold
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="التسجيل"
+                        android:textColor="@color/black"
+                        android:textSize="21dp"
+                        android:layout_gravity="center"
+                        android:gravity="center" />
+
+                </LinearLayout>
+                <ScrollView
+                    android:layout_weight=".7"
+                    android:id="@+id/scroll_info"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                <LinearLayout
+                    android:layout_weight="1"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="0dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    >
+                    <LinearLayout
+                        android:layout_marginTop="15dp"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginLeft="30dp"
+                        android:layout_marginRight="30dp"
+                        android:layout_width="match_parent"
+                        android:background="@drawable/shape"
+                        android:layout_height="60dp">
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:layout_marginTop="5dp"
+                            android:layout_marginBottom="5dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+                        <com.ebda3.design.MyEditText
+                            android:gravity="center_vertical|right"
+                            android:inputType="textPersonName"
+                            android:id="@+id/user_name"
+                            android:paddingRight="10dp"
+                            android:hint="الاسم"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@android:color/transparent"/>
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginLeft="30dp"
+                        android:layout_marginRight="30dp"
+                        android:layout_width="match_parent"
+                        android:background="@drawable/shape"
+                        android:layout_height="60dp">
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:layout_marginTop="5dp"
+                            android:layout_marginBottom="5dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+                        <com.ebda3.design.MyEditText
+                            android:gravity="center_vertical|right"
+                            android:inputType="textPassword"
+                            android:id="@+id/user_password"
+                            android:paddingRight="10dp"
+                            android:hint="كلمة المرور"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@android:color/transparent"/>
+                        </com.google.android.material.textfield.TextInputLayout>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginLeft="30dp"
+                        android:layout_marginRight="30dp"
+                        android:layout_width="match_parent"
+                        android:background="@drawable/shape"
+                        android:layout_height="60dp">
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:layout_weight="1"
+                            android:gravity="center_vertical"
+                            android:layout_marginBottom="5dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                        <com.ebda3.design.MyEditText
+                            android:gravity="center_vertical|right"
+                            android:inputType="number"
+                            android:id="@+id/user_phone"
+                            android:paddingRight="10dp"
+                            android:hint="الموبايل"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@android:color/transparent"/>
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <com.ebda3.design.MyTextView
+                            android:layout_marginLeft="5dp"
+                            android:layoutDirection="ltr"
+                            android:gravity="center"
+                            android:textSize="16dp"
+                            android:layout_weight="3"
+                            android:text="002"
+                            android:textColor="@color/black"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent" />
+
+                    </LinearLayout>
+
+
+
+
+                    <LinearLayout
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="0dp"
+                        android:layout_marginLeft="30dp"
+                        android:layout_marginRight="30dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp">
+
+                        <LinearLayout
+                            android:textColor="@color/white"
+                            android:textColorHint="@color/white"
+                            android:gravity="center"
+                            android:layout_weight="1"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+                            <ProgressBar
+                                android:id="@+id/register_user_progress"
+                                android:visibility="gone"
+                                android:layout_centerInParent="true"
+                                android:layout_width="wrap_content"
+                                android:layout_height="30dp" />
+                            <ImageView
+                                android:clickable="true"
+                                android:id="@+id/forward_page_user"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:background="@drawable/forward_arrow_2"/>
+                        </LinearLayout>
+
+                    </LinearLayout>
+                </LinearLayout>
+                </ScrollView>
+            </LinearLayout>
+
+
+    </RelativeLayout>
+
+</LinearLayout>

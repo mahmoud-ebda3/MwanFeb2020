@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+    <include
+        layout="@layout/app_toolbar_activity"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <LinearLayout
+
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+            <LinearLayout
+                android:gravity="center"
+                android:layout_weight=".8"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <com.ebda3.design.MyTextView
+                    android:layout_margin="10dp"
+                    android:gravity="center"
+                    android:id="@+id/textView3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="تقييم الموان" />
+
+                <RatingBar
+                    android:layoutDirection="rtl"
+                    android:progressTint="@android:color/holo_orange_dark"
+                    android:numStars="5"
+                    android:gravity="center"
+                    android:id="@+id/user_rating_bar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <com.ebda3.design.MyTextView
+                    android:layout_marginTop="50dp"
+                    android:layout_marginBottom="10dp"
+                    android:gravity="center"
+                    android:id="@+id/textView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="كتابة تعليق" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:background="@drawable/shape"
+                android:layout_weight=".8"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <com.ebda3.design.MyEditText
+                    android:gravity="right"
+                    android:padding="10dp"
+                    android:background="@android:color/transparent"
+                    android:id="@+id/user_comment"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:gravity="bottom"
+                android:layout_weight="1.2"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <com.ebda3.design.MyButton
+                    android:layout_marginBottom="10dp"
+                    android:background="@drawable/shape_circle_button"
+                    android:layout_gravity="center"
+                    android:id="@+id/finish_user_rate"
+                    android:textColor="@android:color/white"
+                    android:layout_width="150dp"
+                    android:layout_height="40dp"
+                    android:text="انهاء" />
+            </LinearLayout>
+
+    </LinearLayout>
+</LinearLayout>

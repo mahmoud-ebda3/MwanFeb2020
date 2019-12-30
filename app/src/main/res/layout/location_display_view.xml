@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="60dp"
+     android:background="@drawable/half_circle"
+
+    android:onClick="onPickButtonClick"
+    >
+
+
+    <ImageView
+        android:padding="5dp"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:src="@android:drawable/ic_menu_search"/>
+
+    <LinearLayout
+        android:padding="15dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="4"
+        android:orientation="vertical">
+
+   <!--     <TextView
+            android:id="@+id/address_line1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:gravity="center"
+            android:text=""
+            android:textColor="@android:color/holo_green_dark"
+            android:textSize="12sp" />-->
+
+        <com.ebda3.design.MyTextView
+            android:id="@+id/address_line2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:layout_centerHorizontal="true"
+            android:gravity="center"
+            android:text=""
+            android:maxLength="25"
+
+            android:textColor="@android:color/black"
+            android:textSize="14sp" />
+    </LinearLayout>
+
+
+
+</LinearLayout>

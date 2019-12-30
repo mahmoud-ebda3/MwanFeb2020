@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layoutDirection="rtl">
+
+    <include
+        layout="@layout/app_toolbar_activity"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+
+
+    <LinearLayout
+        android:gravity="center"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+
+        <com.ebda3.design.MyTextView
+            android:id="@+id/no_data"
+            android:visibility="gone"
+            android:layout_gravity="center_vertical"
+            android:text="لا توجد عروض"
+            android:textAlignment="center"
+            android:layout_width="match_parent"
+            android:textSize="22dp"
+            android:layout_height="wrap_content" />
+
+        <ProgressBar
+            android:id="@+id/loadProgress"
+            android:layout_gravity="center_horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <GridView xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/offersList"
+            android:numColumns="2"
+            android:verticalSpacing="5dp"
+            android:horizontalSpacing="5dp"
+            android:stretchMode="columnWidth"
+            android:gravity="center"
+            />
+
+
+        <GridView
+
+            android:visibility="gone"
+
+            android:background="#f9f9f9"
+            android:divider="@android:color/transparent"
+            android:dividerHeight="14.5sp"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="90"
+            >
+
+        </GridView>
+
+
+
+
+
+    </LinearLayout>
+
+
+
+</LinearLayout>

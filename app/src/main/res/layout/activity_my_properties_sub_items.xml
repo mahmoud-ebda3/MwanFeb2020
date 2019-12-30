@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    android:layoutDirection="rtl">
+
+
+
+    <LinearLayout
+        android:padding="15dp"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.ebda3.design.MyTextViewBold
+            android:id="@+id/name"
+            android:textColor="@color/black"
+            android:textSize="19dp"
+            android:text="رمل"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+
+
+
+        <LinearLayout
+            android:id="@+id/orderDetails"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+
+
+            <LinearLayout
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:paddingRight="17dp"
+                android:layoutDirection="rtl"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <com.ebda3.design.MyTextView
+                    android:gravity="center"
+                    android:textColor="@color/black"
+                    android:layout_weight="2"
+                    android:text="الصنف"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+                <com.ebda3.design.MyTextView
+                    android:textColor="@color/black"
+                    android:gravity="center"
+                    android:text="الكمية"
+                    android:layout_width="60dp"
+                    android:layout_height="wrap_content" />
+                <com.ebda3.design.MyTextView
+                    android:textColor="@color/black"
+                    android:gravity="center"
+                    android:text="السعر"
+                    android:layout_width="50dp"
+                    android:layout_height="wrap_content" />
+                <com.ebda3.design.MyTextView
+                    android:textColor="@color/black"
+                    android:layout_marginLeft="8dp"
+
+                    android:gravity="center"
+                    android:text="الاجمالى"
+                    android:layout_width="60dp"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+
+            <ListView
+                android:id="@+id/list"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+            </ListView>
+
+        </LinearLayout>
+
+
+
+    </LinearLayout>
+
+
+
+
+</LinearLayout>

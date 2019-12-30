@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="wrap_content"
+    android:padding="10dp"
+    android:layout_height="wrap_content"
+    >
+    <ImageView
+        android:layout_marginTop="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:src="@drawable/cancel"
+
+        />
+    <com.ebda3.design.MyTextView
+        android:id="@+id/message"
+        android:textColor="#000"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:text=" لا يوجد فرع متاح الان الرجاء المحاوله لاحقا "
+        android:gravity="center"
+        />
+
+    <com.ebda3.design.MyButton
+        android:layout_gravity="center"
+        android:id="@+id/idButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="الغاء"
+        />
+</LinearLayout>

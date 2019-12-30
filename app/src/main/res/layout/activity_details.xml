@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layoutDirection="rtl"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        tools:context=".MaterialsDetailsActivity">
+
+        <include
+            layout="@layout/app_toolbar_activity"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/item_photo"
+        android:layout_width="match_parent"
+        android:layout_height="170dp"
+        android:layout_marginBottom="5dp"
+        android:scaleType="fitXY" />
+
+    <com.ebda3.design.MyTextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:text="تحديد مواصفات الصنف"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <ListView
+        android:id="@+id/details_list_view"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:padding="8dp"
+        tools:listitem="@layout/details_list_item" />
+    <LinearLayout
+        android:visibility="gone"
+        android:layout_margin="8dp"
+        android:layout_marginBottom="30dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical|right"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.ebda3.design.MyTextView
+            android:layout_weight="1"
+            android:textSize="16dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:textColor="@color/black"
+            android:gravity="center_vertical|right"
+            android:text="الكمية"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+
+        <LinearLayout
+            android:layout_marginLeft="10dp"
+            android:background="@drawable/full_border"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+        <com.ebda3.design.MyEditText
+            android:id="@+id/item_count"
+            android:gravity="center"
+            android:textColor="@color/black"
+            android:background="@android:color/transparent"
+            android:inputType="number"
+            android:layout_width="80dp"
+            android:layout_height="match_parent"/>
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/add_cart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="15dp"
+        android:background="@drawable/add_to_cart"
+        android:orientation="horizontal"
+        android:padding="12dp">
+
+
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginLeft="6dp"
+            android:layout_marginTop="6dp"
+            android:src="@drawable/ic_add_shopping_cart_white_24dp" />
+
+        <com.ebda3.design.MyTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:text="أضف الي السلة"
+            android:textColor="@color/white"
+            android:textSize="16sp" />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/cart_info"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/background_color"
+        android:visibility="gone">
+
+        <com.ebda3.design.MyTextViewBold
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="15dp"
+            android:text="تم اضافة الصنف الى السلة"
+            android:textColor="@color/white"
+            android:textSize="14dp" />
+
+        <com.ebda3.design.MyButton
+            android:id="@+id/cart_button"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="3dp"
+            android:layout_marginTop="3dp"
+            android:layout_marginBottom="3dp"
+            android:background="#086058"
+            android:text="اتمام الشراء"
+            android:textColor="@color/white" />
+    </RelativeLayout>
+
+</LinearLayout>
+

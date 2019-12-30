@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:id="@+id/custom_dialog_accountant_change"
+        android:padding="15dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layoutDirection="rtl"
+            android:orientation="horizontal"
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        <com.ebda3.design.MyTextView
+            android:id="@+id/dialog_name"
+            android:gravity="center"
+            android:textSize="16dp"
+            android:text="السعر"
+            android:layout_weight="1.5"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+        <com.ebda3.design.MyEditText
+            android:layout_weight="1"
+            android:gravity="center"
+            android:id="@+id/dialog_new_price"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:ems="10"
+            android:inputType="numberDecimal"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layoutDirection="rtl"
+            android:orientation="horizontal"
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        <com.ebda3.design.MyTextView
+             android:gravity="center"
+            android:textSize="16dp"
+            android:text="الكمية المتاحة"
+            android:layout_weight="1.5"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+        <com.ebda3.design.MyEditText
+            android:layout_weight="1"
+            android:gravity="center"
+            android:id="@+id/dialog_new_amount"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:ems="10"
+            android:inputType="number"/>
+        </LinearLayout>
+        <ProgressBar
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:layout_marginTop="10dp"
+            android:id="@+id/save_price_product"
+            android:visibility="gone"
+            android:layout_centerInParent="true"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp" />
+
+        <com.ebda3.design.MyButtonSemiBold
+            android:layout_weight="1"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:layout_marginTop="10dp"
+            android:id="@+id/dialog_button_done"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:backgroundTint="#0087C2"
+            android:textColor="@android:color/white"
+            android:textSize="15dp"
+            android:text="حفظ" />
+    </LinearLayout>
+</LinearLayout>

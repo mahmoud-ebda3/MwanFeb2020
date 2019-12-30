@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+        <item
+            android:id="@+id/nav_orders"
+            android:icon="@drawable/ic_purchase"
+            android:title="طلبات العملاء" />
+
+        <item
+            android:id="@+id/nav_change_price"
+            android:icon="@drawable/ic_price"
+            android:title="قائمة الأسعار" />
+        <item
+            android:id="@+id/bids"
+            android:icon="@drawable/ic_price"
+            android:title="المناقصات" />
+        <item
+            android:id="@+id/supp_sign_out"
+            android:icon="@drawable/ic_sign_out"
+            android:title="تسجيل الخروج" />
+
+</menu>

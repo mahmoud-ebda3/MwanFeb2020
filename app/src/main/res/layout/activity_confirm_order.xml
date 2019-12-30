@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    tools:context="com.ebda3.mwan.ConfirmOrder">
+
+    <LinearLayout
+
+        android:background="@color/white"
+        android:layout_width="280dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:visibility="gone"
+            android:id="@+id/orderDetails"
+            android:padding="7dp"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.ebda3.design.MyTextView
+                android:textSize="22dp"
+                android:gravity="center"
+                android:text="شكرا على طلبك"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+            <com.ebda3.design.MyTextView
+                android:gravity="center"
+                android:text="رقم طلبك هو    "
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <com.ebda3.design.MyTextView
+                android:textColor="@color/background_color"
+                android:textSize="28dp"
+                android:id="@+id/order_number"
+                android:gravity="center"
+                android:text="55555"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <com.ebda3.design.MyButton
+                android:id="@+id/my_orders"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"
+                android:text="متابعة طلباتى"
+                android:textColor="@color/white"
+                android:background="@color/background_color"
+                android:layout_gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/orderData"
+            android:padding="7dp"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+            <LinearLayout
+
+                android:id="@+id/Linear_spinner_property"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <com.ebda3.design.MyTextView
+
+                    android:textColor="@color/oil"
+                    android:text="اختر العقار"
+                    android:gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <Spinner
+                    android:textAlignment="center"
+                    android:layout_marginTop="12dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="5"
+
+                    android:id="@+id/spinner_property"
+
+                    />
+
+                <com.ebda3.design.MyTextView
+                    android:layout_marginBottom="8dp"
+                    android:textSize="11dp"
+                    android:clickable="true"
+                    android:gravity="left"
+                    android:text="اضافة عقار جديد ؟"
+                    android:id="@+id/add_new_property"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:id="@+id/Linear_text_property"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <com.ebda3.design.MyTextView
+
+                    android:textColor="@color/oil"
+                    android:text="اكتب اسم العقار لتتمكن من متابعة المشتريات"
+                    android:gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <com.ebda3.design.MyEditText
+                    android:hint="اسم العقار"
+                    android:id="@+id/property_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layoutDirection="rtl"
+                android:id="@+id/choose_date"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:layout_marginTop="2dp"
+                android:clickable="true"
+                android:gravity="right"
+                android:padding="8dp">
+
+                <com.ebda3.design.MyTextView
+                    android:text="موعد الاستلام     "
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <ImageView
+                    android:layout_marginTop="2dp"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_marginLeft="5dp"
+                    android:src="@drawable/ic_date_range_black_24dp" />
+
+                <com.ebda3.design.MyTextViewSemibold
+                    android:id="@+id/ch_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="28/12/2018"
+                    android:textSize="16dp" />
+
+            </LinearLayout>
+
+
+            <com.ebda3.design.MyTextView
+
+                android:textColor="@color/oil"
+                android:text="ملاحظات الطلب"
+                android:gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <com.ebda3.design.MyEditText
+                android:id="@+id/notes"
+                android:lines="3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <ProgressBar
+                android:visibility="gone"
+                android:id="@+id/progress"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+            <com.ebda3.design.MyButton
+                android:id="@+id/submit"
+                android:textColor="@color/white"
+                android:background="#0087C2"
+                android:text="اتمام الطلب"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

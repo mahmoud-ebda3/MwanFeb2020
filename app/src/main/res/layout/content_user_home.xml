@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="com.ebda3.mwan.UserHomeActivity"
+    tools:showIn="@layout/app_bar_user_home">
+
+    <LinearLayout
+        android:gravity="center"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+
+        <com.ebda3.design.MyTextView
+            android:id="@+id/no_data"
+            android:visibility="gone"
+            android:layout_gravity="center_vertical"
+            android:text="لا توجد عروض"
+            android:textAlignment="center"
+            android:layout_width="match_parent"
+            android:textSize="22dp"
+            android:layout_height="wrap_content" />
+
+        <ProgressBar
+            android:id="@+id/loadProgress"
+            android:layout_gravity="center_horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <ListView
+
+            android:visibility="gone"
+            android:id="@+id/offersList"
+            android:background="#f9f9f9"
+
+            android:divider="@android:color/transparent"
+            android:dividerHeight="14.5sp"
+
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="90"
+
+
+            >
+        </ListView>
+
+
+
+
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

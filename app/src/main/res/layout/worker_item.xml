@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="3dp"
+        android:layout_marginBottom="3dp"
+        >
+        <LinearLayout
+android:layoutDirection="rtl"
+            android:orientation="horizontal"
+android:padding="7dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:src="@drawable/m3"
+                android:id="@+id/worker_image"
+                android:layout_width="80dp"
+                android:layout_marginLeft="18dp"
+                android:layout_height="80dp" />
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                >
+
+                <com.ebda3.design.MyTextView
+                    android:textColor="@color/black"
+                    android:id="@+id/worker_name"
+                    android:textSize="16dp"
+                    android:text="تفاصيل "
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+                <LinearLayout
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:src="@drawable/ic_phone_black_24dp"
+                        android:layout_width="18dp"
+                        android:layout_marginLeft="5dp"
+                        android:layout_height="18dp" />
+
+
+                    <com.ebda3.design.MyTextView
+                        android:id="@+id/worker_contact"
+                         android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:src="@drawable/ic_place_black_24dp"
+                        android:layout_width="18dp"
+                        android:layout_marginLeft="5dp"
+                        android:layout_height="18dp" />
+
+
+                    <com.ebda3.design.MyTextView
+                        android:id="@+id/worker_address"
+                        android:text="04111111 "
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+
+</LinearLayout>

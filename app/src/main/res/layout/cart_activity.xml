@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+    <include
+        layout="@layout/app_toolbar_activity"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <GridView
+        android:layout_weight="1"
+        android:id="@+id/grid_cart_products"
+        android:padding="5dp"
+        android:numColumns="1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <com.ebda3.design.MyTextView
+        android:textSize="22dp"
+        android:gravity="center"
+        android:visibility="gone"
+        android:id="@+id/no_data"
+        android:text="  سلة المشتريات فارغة  "
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <LinearLayout
+        android:background="@color/custom_bg_grey"
+        android:orientation="vertical"
+        android:padding="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        >
+        <LinearLayout
+            android:layoutDirection="rtl"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.ebda3.design.MyTextView
+                android:gravity="left"
+                android:paddingLeft="15dp"
+                android:layout_weight="1"
+
+                android:text="المجموع"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+            <com.ebda3.design.MyTextViewBold
+
+                android:id="@+id/total_price"
+                android:layout_weight="1"
+
+                android:text="500 جنية"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/Totals"
+            android:layoutDirection="rtl"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.ebda3.design.MyTextView
+                android:gravity="left"
+                android:paddingLeft="15dp"
+                android:layout_weight="1"
+
+                android:text="تكلفة الشحن"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+            <com.ebda3.design.MyTextViewBold
+
+                android:id="@+id/shiping_price"
+                android:layout_weight="1"
+
+                android:text="500 جنية"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layoutDirection="rtl"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.ebda3.design.MyTextView
+                android:gravity="left"
+                android:paddingLeft="15dp"
+                android:layout_weight="1"
+
+                android:text="الاجمالى"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+            <com.ebda3.design.MyTextViewBold
+android:textSize="18dp"
+                android:id="@+id/net_price"
+                android:textColor="@color/black"
+                android:layout_weight="1"
+
+                android:text="500 جنية"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+
+
+
+
+        <com.ebda3.design.MyButton
+            android:id="@+id/buy_cart_product"
+            android:layout_gravity="bottom|center_horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="اتمام عمللية الشراء"
+            android:textColor="@android:color/white"
+            android:textSize="16dp"
+            android:backgroundTint="#0087C2"/>
+
+    </LinearLayout>
+
+
+
+</LinearLayout>
