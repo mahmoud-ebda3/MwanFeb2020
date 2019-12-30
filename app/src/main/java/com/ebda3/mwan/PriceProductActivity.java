@@ -19,6 +19,7 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ScrollView;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -62,6 +63,7 @@ public class PriceProductActivity extends AppCompatActivity {
     public ScrollView scrollprice;
     Activity context = this;
     Activity activity = this;
+    TextView link_txt;
 
 
     public static String  chosen_type , chosen_cat;
@@ -85,12 +87,16 @@ public class PriceProductActivity extends AppCompatActivity {
         spinner_kind = (Spinner) findViewById(R.id.spinner_kind);
         list_price = (ListView) findViewById(R.id.list_price);
         go_home_page = (Button) findViewById(R.id.go_home_button);
+        link_txt = (TextView) findViewById(R.id.link_id);
         products =  new ArrayList<>();
 
         progressDialog = new ProgressDialog(activity,
                 R.style.AppTheme_Dark_Dialog);
         progressDialog.setIndeterminate(true);
         progressDialog.setMessage("جارى التحميل...");
+
+
+        link_txt.setText("http://adc-company.net/mwan/");
 
         LoadData();
 

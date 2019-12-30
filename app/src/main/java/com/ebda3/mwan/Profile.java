@@ -491,7 +491,7 @@ public class Profile extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                Intent intent = new Intent (context,MainActivity.class);
+                Intent intent = new Intent (context,UserHomeActivity.class);
                 startActivity(intent);
                 return true;
         }

@@ -470,7 +470,7 @@ public class UserHomeActivity extends AppCompatActivity
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
-            onBackPressed();
+            finish();
         }
         return super.onKeyDown(keyCode, event);
     }
@@ -490,7 +490,7 @@ public class UserHomeActivity extends AppCompatActivity
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
-            onBackPressed();
+            finish();
             return true;
         }
         return super.onOptionsItemSelected(item);
