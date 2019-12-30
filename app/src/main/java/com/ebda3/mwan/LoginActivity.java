@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
@@ -42,7 +43,7 @@ public class LoginActivity extends AppCompatActivity {
     public EditText emailtext, passtext;
     public TextView create_new_user, create_new_supplier;
     public Button logbutton;
-    public String myresponse, myemail, mypassword, myid, name, username, phone, u_type, photo;
+    public String myresponse, myemail, mypassword, myid, name, email, phone, u_type, photo;
     Activity activity = this;
     InputMethodManager imm;
     public String u_email, u_password;
@@ -59,7 +60,7 @@ public class LoginActivity extends AppCompatActivity {
         logbutton = (Button) findViewById(R.id.login_button);
         create_new_supplier = (TextView) findViewById(R.id.new_supplier_account);
         create_new_user = (TextView) findViewById(R.id.new_user_account);
-        imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+
         progressDialog = new ProgressDialog(activity,
                 R.style.AppTheme_Dark_Dialog);
         progressDialog.setIndeterminate(true);
@@ -81,7 +82,7 @@ public class LoginActivity extends AppCompatActivity {
                 finish();
             }
         });
-
+        imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         emailtext.setOnFocusChangeListener((v, hasFocus) -> {
             if (hasFocus) {
                 emailtext.setGravity(Gravity.CENTER_VERTICAL | Gravity.LEFT);
@@ -95,15 +96,16 @@ public class LoginActivity extends AppCompatActivity {
         logbutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                imm.hideSoftInputFromWindow(emailtext.getWindowToken(), 0);
                 u_email = emailtext.getText().toString();
                 u_password = passtext.getText().toString();
                 checklogin(u_email, u_password);
-                imm.hideSoftInputFromWindow(emailtext.getWindowToken(), 0);
             }
         });
 
 
     }
+
 
     public void checklogin(final String user_email, final String user_password) {
         boolean t = isNetworkConnected();
@@ -119,11 +121,11 @@ public class LoginActivity extends AppCompatActivity {
                             try {
                                 jObj = new JSONObject(response);
                                 if (jObj.has("ID")) {
-                                    name = jObj.getString("name");
-                                    username = jObj.getString("username");
+                                    name = jObj.getString("username");
+                                    email = jObj.getString("email");
                                     phone = jObj.getString("phone");
                                     photo = jObj.getString("photo");
-//                                    myemail = jObj.getString("email");
+                                    myemail = jObj.getString("email");
                                     mypassword = jObj.getString("password");
                                     u_type = jObj.getString("type");
                                     myid = jObj.getString("ID");
@@ -137,7 +139,7 @@ public class LoginActivity extends AppCompatActivity {
                                 Log.d("resss", "sssssss");
                                 progressDialog.dismiss();
                                 e.printStackTrace();
-//                                Toast.makeText(LoginActivity.this, e.toString(), Toast.LENGTH_LONG).show();
+                                Toast.makeText(LoginActivity.this, e.toString(), Toast.LENGTH_LONG).show();
                             }
                         }
                     },
@@ -146,7 +148,7 @@ public class LoginActivity extends AppCompatActivity {
                         public void onErrorResponse(VolleyError error) {
                             Log.d("resss", "ssssss222");
                             progressDialog.dismiss();
-//                            Toast.makeText(LoginActivity.this, error.toString(), Toast.LENGTH_LONG).show();
+                            Toast.makeText(LoginActivity.this, error.toString(), Toast.LENGTH_LONG).show();
                         }
                     }) {
                 @Override
@@ -171,8 +173,8 @@ public class LoginActivity extends AppCompatActivity {
         SharedPreferences sp = getSharedPreferences("Login", 0);
         SharedPreferences.Editor Ed = sp.edit();
         Ed.putString("ID", myid);
-        Ed.putString("username", username);
-        Ed.putString("name", name);
+        Ed.putString("username", name);
+        Ed.putString("email", phone);
         Ed.putString("photo", photo);
         Ed.putString("phone", phone);
         Ed.putString("normal_password", passtext.getText().toString());
@@ -200,5 +202,19 @@ public class LoginActivity extends AppCompatActivity {
         ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
 
         return cm.getActiveNetworkInfo() != null;
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            onBackPressed();
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+
+    @Override
+    public void onBackPressed() {
+        finish();
     }
 }
