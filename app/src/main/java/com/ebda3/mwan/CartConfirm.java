@@ -12,17 +12,17 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-
 import com.ebda3.adapters.SupplierConfirmItemsListAdapter;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import static com.ebda3.Helpers.Config.cartData;
 
@@ -53,6 +53,7 @@ public class CartConfirm extends AppCompatActivity {
     private ArrayList<String> Amount = new  ArrayList<String>();
     private ArrayList<String> ItemAvailableAmount = new  ArrayList<String>();
     private ArrayList<String> totalPrice = new  ArrayList<String>();
+    private ArrayList<String> Info = new  ArrayList<String>();
 
 
     String items , IDS ,  Net ;
@@ -119,8 +120,9 @@ public class CartConfirm extends AppCompatActivity {
                     Amount.add(row.getString("Amount").toString());
                     ItemAvailableAmount.add(row.getString("ItemAvailableAmount").toString());
                     totalPrice.add(row.getString("totalPrice").toString());
+                    Info.add(row.getString("Info").toString());
                 }
-                adapter = new SupplierConfirmItemsListAdapter(context, Name, Photo , Amount , ItemAvailableAmount , totalPrice   );
+                adapter = new SupplierConfirmItemsListAdapter(context, Name, Photo , Amount , ItemAvailableAmount , totalPrice ,Info  );
                 listView.setAdapter(adapter);
                 orderDetails.setVisibility(View.VISIBLE);
             }

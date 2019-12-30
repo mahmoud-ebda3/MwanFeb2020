@@ -12,14 +12,34 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <com.ebda3.design.MyTextView
-            android:id="@+id/item_name"
-            android:gravity="center"
-            android:textColor="@color/black"
+        <LinearLayout
             android:layout_weight="2"
-            android:text="الصنف"
+            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content">
+
+            <com.ebda3.design.MyTextView
+                android:layout_marginBottom="5dp"
+                android:id="@+id/item_name"
+                android:gravity="center"
+                android:textColor="@color/black"
+                android:text="الصنف"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <LinearLayout
+                android:gravity="center"
+                android:orientation="vertical"
+                android:id="@+id/info_linear"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+
         <com.ebda3.design.MyTextView
             android:id="@+id/item_amount"
             android:textColor="@color/black"
