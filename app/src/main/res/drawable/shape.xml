@@ -3,12 +3,12 @@
     android:shape="rectangle"   >
 
     <solid
-         >
+         android:color="@color/gray_color">
     </solid>
 
     <stroke
         android:width="2dp"
-        android:color="@android:color/black" >
+        android:color="@color/button_blue" >
     </stroke>
 
     <padding
