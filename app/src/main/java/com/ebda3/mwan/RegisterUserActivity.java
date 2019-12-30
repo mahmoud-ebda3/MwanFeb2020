@@ -82,7 +82,6 @@ public class RegisterUserActivity extends AppCompatActivity {
                 String UserPhone = supplier_phone.getText().toString().trim();
                 String UserPassword = supplier_password.getText().toString().trim();
 
-
                 if (Name.length() < 4) {
                     supplier_name.setError("من فضلك أدخل الأسم بطريقة صحيحة");
                 }
