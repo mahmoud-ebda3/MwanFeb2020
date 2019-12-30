@@ -182,7 +182,7 @@ public class MyOrders extends AppCompatActivity {
                 StringRequest stringRequest = new StringRequest(Request.Method.POST, VolleyUrl, new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        Log.d("response", response);
+                        Log.d("ordersresponse", response);
                         //response = fixEncoding (response);
                         //Log.d("response", response);
                         listView.removeFooterView(footerView);
@@ -201,7 +201,7 @@ public class MyOrders extends AppCompatActivity {
                                     JSONObject row = array.getJSONObject(i);
                                     ID.add(row.getString("ID").toString());
                                     Date.add(row.getString("add_date").toString());
-                                    Items.add(row.getString("items").toString());
+                                    Items.add(row.getString("Items").toString());
                                     Net.add(row.getString("net").toString());
                                     Total.add(row.getString("total").toString());
                                     shippingCost.add(row.getString("shippingCost").toString());

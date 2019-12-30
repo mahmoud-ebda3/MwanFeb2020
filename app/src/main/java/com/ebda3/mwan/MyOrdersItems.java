@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -120,14 +121,18 @@ public class MyOrdersItems extends AppCompatActivity {
         IntentStatus = getIntent().getStringExtra("Status");
         IntentDate = getIntent().getStringExtra("Date");
 
+        Log.d("orrrrrddd",IntentID +"----"+IntentName +"----"+IntentItems +"----"+IntentTotal +"----"
+                +IntentshippingCost +"----"+IntentNet +"----"+IntentSupplierPhone +"----"
+                +IntentSupplierName +"----"+IntentSupplierPhoto +"----"+IntentStatus +"----"+IntentDate +"----");
 
-        if (IntentStatus.equals("1")) {
+
+//        if (IntentStatus.equals("1")) {
             step2.setVisibility(View.VISIBLE);
-        }
-        if (IntentStatus.equals("2")) {
-            step2.setVisibility(View.VISIBLE);
-            step3.setVisibility(View.VISIBLE);
-        }
+//        }
+//        if (IntentStatus.equals("2")) {
+//            step2.setVisibility(View.VISIBLE);
+//            step3.setVisibility(View.VISIBLE);
+//        }
 
 
         PartnerName.setText(IntentSupplierName);
