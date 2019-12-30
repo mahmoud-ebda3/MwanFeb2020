@@ -6,14 +6,18 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
+
 import androidx.appcompat.app.AppCompatActivity;
+
 import android.util.Log;
+import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
+
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -21,9 +25,11 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
 import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.Map;
@@ -36,35 +42,40 @@ import static com.ebda3.Helpers.Config.SignUpUser;
 
 public class RegisterUserActivity extends AppCompatActivity {
 
-    public EditText supplier_name,supplier_password,supplier_phone;
+    public EditText supplier_name, supplier_password, supplier_phone;
     //EditText supplier_address,supplier_phone,supplier_email , job, company;
     public ImageView forward_page;
     public ProgressBar register_progress;
     public static String reg_id;
-    public String myresponse , myemail , mypassword, myid, name , email , phone ,u_type,my_normal_pass  ;
+    public String myresponse, myemail, mypassword, myid, name, email, phone, u_type, my_normal_pass;
 
 
     @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.register_user_activity);
-
-
         supplier_name = (EditText) findViewById(R.id.user_name);
-        supplier_password = (EditText)findViewById(R.id.user_password);
-       // supplier_address = (EditText)findViewById(R.id.user_address);
-        supplier_phone = (EditText)findViewById(R.id.user_phone);
+        supplier_password = (EditText) findViewById(R.id.user_password);
+        // supplier_address = (EditText)findViewById(R.id.user_address);
+        supplier_phone = (EditText) findViewById(R.id.user_phone);
         //supplier_email = (EditText)findViewById(R.id.user_email);
-        register_progress = (ProgressBar)findViewById(R.id.register_user_progress);
+        register_progress = (ProgressBar) findViewById(R.id.register_user_progress);
         forward_page = (ImageView) findViewById(R.id.forward_page_user);
         //job = (EditText) findViewById(R.id.user_job);
         //company = (EditText) findViewById(R.id.user_company);
 
+        supplier_phone.setOnFocusChangeListener((v, hasFocus) -> {
+            if (hasFocus) {
+                supplier_phone.setGravity(Gravity.CENTER_VERTICAL | Gravity.LEFT);
+                supplier_phone.setHint("01xxxxxxxxx");
+            } else {
+                supplier_phone.setHint("");
+            }
+        });
+
         forward_page.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view)
-            {
+            public void onClick(View view) {
                 String Name = supplier_name.getText().toString().trim();
                 //String Email = supplier_email.getText().toString().trim();
                 //String UserAddress = supplier_address.getText().toString().trim();
@@ -72,33 +83,23 @@ public class RegisterUserActivity extends AppCompatActivity {
                 String UserPassword = supplier_password.getText().toString().trim();
 
 
-                if (Name.length() < 4 )
-                {
+                if (Name.length() < 4) {
                     supplier_name.setError("من فضلك أدخل الأسم بطريقة صحيحة");
                 }
 //                else if ( Email.length() < 4)
 //                {
 //                    supplier_email.setError("من فضلك اكتب البريد الإلكترونى بطريقة صحيحة");
 //                }
-                else if ( UserPassword.length() < 6  )
-                {
+                else if (UserPassword.length() < 6) {
                     supplier_password.setError("كلمة المرور من 6 الى 20 حرف");
-                }
-
-                else if (! (UserPhone.length() == 11) )
-                {
+                } else if (!(UserPhone.length() == 11)) {
                     supplier_phone.setError("من فضلك أدخل رقم الجوال بطريقة صحيحة");
-                }
-                else
-                {
+                } else {
                     boolean t = isNetworkConnected();
-                    if (t)
-                    {
+                    if (t) {
                         register_owner();
-                    }
-                    else
-                    {
-                        Toast.makeText(RegisterUserActivity.this,"من فضلك تأكد من اتصاللك بالإنترنت" , Toast.LENGTH_LONG).show();
+                    } else {
+                        Toast.makeText(RegisterUserActivity.this, "من فضلك تأكد من اتصاللك بالإنترنت", Toast.LENGTH_LONG).show();
                     }
                     //sendData(Name,UserName, UserEmail, UserPhone, UserPassword);
                 }
@@ -106,8 +107,7 @@ public class RegisterUserActivity extends AppCompatActivity {
         });
     }
 
-    public void register_owner()
-    {
+    public void register_owner() {
         forward_page.setVisibility(View.GONE);
         register_progress.setVisibility(View.VISIBLE);
         StringRequest stringRequest = new StringRequest(Request.Method.POST, SignUpUser,
@@ -117,7 +117,7 @@ public class RegisterUserActivity extends AppCompatActivity {
 
                         register_progress.setVisibility(View.GONE);
                         forward_page.setVisibility(View.VISIBLE);
-                        Log.d("responseee",response);
+                        Log.d("responseee", response);
                         response = fixEncoding(response);
                         // Toast.makeText(MainActivity.this, String.valueOf(response), Toast.LENGTH_LONG).show();
 
@@ -130,22 +130,17 @@ public class RegisterUserActivity extends AppCompatActivity {
                                 email = jObj.getString("email");
                                 phone = jObj.getString("phone");
                                 myemail = jObj.getString("email");
-                                my_normal_pass =supplier_password.getText().toString();
+                                my_normal_pass = supplier_password.getText().toString();
                                 mypassword = jObj.getString("password");
                                 u_type = jObj.getString("type");
                                 myid = jObj.getString("ID");
                                 savesharedprefernce();
 
 
-
-                            }
-                            else {
+                            } else {
                                 Toast.makeText(RegisterUserActivity.this, "من فضلك تاكد من البيانات !", Toast.LENGTH_LONG).show();
                             }
                             //progressDialog.dismiss();
-
-
-
 
 
                         } catch (JSONException e) {
@@ -155,16 +150,15 @@ public class RegisterUserActivity extends AppCompatActivity {
 
 
                             e.printStackTrace();
-                            Log.d("responseee",String.valueOf(e));
+                            Log.d("responseee", String.valueOf(e));
                             Toast.makeText(RegisterUserActivity.this, e.toString(), Toast.LENGTH_LONG).show();
                             JSONArray array = null;
                             try {
                                 array = new JSONArray(response);
-                                if ( array.getString(0).equals("Field password  From 6 To 20") ) {
+                                if (array.getString(0).equals("Field password  From 6 To 20")) {
                                     supplier_password.setError("كلمة المرور من 6 الى 20 حرف");
                                     supplier_password.setFocusable(true);
-                                }
-                                else if ( array.getString(0).equals("Field phone  Already exist") ) {
+                                } else if (array.getString(0).equals("Field phone  Already exist")) {
                                     supplier_phone.setError("هذا الرقم موجود مسبقا");
                                     supplier_phone.setText("");
                                     supplier_phone.setFocusable(true);
@@ -177,7 +171,7 @@ public class RegisterUserActivity extends AppCompatActivity {
 //                                    supplier_email.setText("");
 //                                    supplier_email.setFocusable(true);
 //                                }
-                                else if ( array.getString(0).equals("Field username  Already exist") ) {
+                                else if (array.getString(0).equals("Field username  Already exist")) {
                                     supplier_name.setError("اسم المستخدم مسبقا");
                                     supplier_name.setText("");
                                     supplier_name.setFocusable(true);
@@ -207,8 +201,8 @@ public class RegisterUserActivity extends AppCompatActivity {
                 map.put("name", supplier_name.getText().toString());
                 map.put("password", supplier_password.getText().toString());
                 //map.put("address", supplier_address.getText().toString());
-                map.put("phone","002"+ supplier_phone.getText().toString());
-                map.put("username", "002"+supplier_phone.getText().toString());
+                map.put("phone", "002" + supplier_phone.getText().toString());
+                map.put("username", "002" + supplier_phone.getText().toString());
                 //map.put("username", supplier_email.getText().toString());
                 //map.put("job", job.getText().toString());
                 //map.put("company", company.getText().toString());
@@ -232,30 +226,27 @@ public class RegisterUserActivity extends AppCompatActivity {
         return response;
     }
 
-    public void savesharedprefernce()
-    {
-        SharedPreferences sp=getSharedPreferences("Login", 0);
-        SharedPreferences.Editor Ed=sp.edit();
-        Ed.putString("ID",myid);
-        Ed.putString("username",name);
-        Ed.putString("email",phone);
-        Ed.putString("phone",phone);
-        Ed.putString("normal_password",my_normal_pass);
-        Ed.putString("password",mypassword);
-        Ed.putString("type",u_type);
+    public void savesharedprefernce() {
+        SharedPreferences sp = getSharedPreferences("Login", 0);
+        SharedPreferences.Editor Ed = sp.edit();
+        Ed.putString("ID", myid);
+        Ed.putString("username", name);
+        Ed.putString("email", phone);
+        Ed.putString("phone", phone);
+        Ed.putString("normal_password", my_normal_pass);
+        Ed.putString("password", mypassword);
+        Ed.putString("type", u_type);
         Ed.commit();
         openProfile();
     }
 
-    public void openProfile()
-    {
+    public void openProfile() {
 
         Intent myIntent = new Intent(RegisterUserActivity.this, UserHomeActivity.class);
         startActivity(myIntent);
     }
 
-    public boolean isNetworkConnected()
-    {
+    public boolean isNetworkConnected() {
         ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
 
         return cm.getActiveNetworkInfo() != null;
@@ -269,6 +260,7 @@ public class RegisterUserActivity extends AppCompatActivity {
         }
         return super.onKeyDown(keyCode, event);
     }
+
     public void onBackPressed() {
         finish();
     }

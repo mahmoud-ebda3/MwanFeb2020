@@ -2,7 +2,7 @@
 <resources>
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#3F51B5</color>
-    <color name="colorAccent">#FF4081</color>
+    <color name="colorAccent">#0087C2</color>
 
 
     <color name="primary">#0087C2</color>
@@ -27,7 +27,9 @@
     <color name="white_greyish">#EEEEEE</color>
     <color name="button_selectorcolor">#9E9E9E</color>
 
-
+    <color name="text_color_blue">#0d72c2</color>
+    <color name="button_blue">#3c8dbc</color>
+    <color name="gray_color">#f5f7f6</color>
     <color name="button">#11304C</color>
     <color name="red">#f20000</color>
     <color name="land">#E5E5E5</color>

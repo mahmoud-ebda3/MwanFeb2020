@@ -6,9 +6,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
+
 import androidx.appcompat.app.AppCompatActivity;
+
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -35,12 +38,12 @@ import static com.ebda3.Helpers.Config.LoginUrl;
 
 public class LoginActivity extends AppCompatActivity {
 
-    public EditText emailtext , passtext ;
-    public TextView create_new_user , create_new_supplier;
+    public EditText emailtext, passtext;
+    public TextView create_new_user, create_new_supplier;
     public Button logbutton;
-    public String myresponse , myemail , mypassword, myid, name , email , phone ,u_type,photo;
+    public String myresponse, myemail, mypassword, myid, name, email, phone, u_type, photo;
     Activity activity = this;
-    public String u_email,u_password;
+    public String u_email, u_password;
     public ProgressDialog progressDialog;
 
     @Override
@@ -49,11 +52,11 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.login_activity);
 
 
-        emailtext = (EditText)findViewById(R.id.log_supp_email);
-        passtext = (EditText)findViewById(R.id.log_supp_pass);
+        emailtext = (EditText) findViewById(R.id.log_supp_email);
+        passtext = (EditText) findViewById(R.id.log_supp_pass);
         logbutton = (Button) findViewById(R.id.login_button);
-        create_new_supplier= (TextView) findViewById(R.id.new_supplier_account);
-        create_new_user= (TextView) findViewById(R.id.new_user_account);
+        create_new_supplier = (TextView) findViewById(R.id.new_supplier_account);
+        create_new_user = (TextView) findViewById(R.id.new_user_account);
 
         progressDialog = new ProgressDialog(activity,
                 R.style.AppTheme_Dark_Dialog);
@@ -77,30 +80,37 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
+        emailtext.setOnFocusChangeListener((v, hasFocus) -> {
+            if (hasFocus) {
+                emailtext.setGravity(Gravity.CENTER_VERTICAL | Gravity.LEFT);
+                emailtext.setHint("01xxxxxxxxx");
+            } else {
+                emailtext.setHint("");
+            }
+        });
+
         logbutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 u_email = emailtext.getText().toString();
                 u_password = passtext.getText().toString();
-                checklogin(u_email,u_password);
+                checklogin(u_email, u_password);
             }
         });
 
 
     }
 
-
-    public void checklogin(final String user_email ,final String user_password)
-    {
+    public void checklogin(final String user_email, final String user_password) {
         boolean t = isNetworkConnected();
-        if(t) {
+        if (t) {
             progressDialog.show();
 
-            StringRequest stringRequest = new StringRequest(Request.Method.POST,LoginUrl,
+            StringRequest stringRequest = new StringRequest(Request.Method.POST, LoginUrl,
                     new Response.Listener<String>() {
                         @Override
                         public void onResponse(String response) {
-                            Log.d("resss",response);
+                            Log.d("resss", response);
                             JSONObject jObj;
                             try {
                                 jObj = new JSONObject(response);
@@ -114,14 +124,13 @@ public class LoginActivity extends AppCompatActivity {
                                     u_type = jObj.getString("type");
                                     myid = jObj.getString("ID");
                                     savesharedprefernce();
-                                }
-                                else {
+                                } else {
                                     Toast.makeText(LoginActivity.this, "من فضلك تاكد من البيانات !", Toast.LENGTH_LONG).show();
                                 }
                                 progressDialog.dismiss();
 
                             } catch (JSONException e) {
-                                Log.d("resss","sssssss");
+                                Log.d("resss", "sssssss");
                                 progressDialog.dismiss();
                                 e.printStackTrace();
                                 Toast.makeText(LoginActivity.this, e.toString(), Toast.LENGTH_LONG).show();
@@ -131,7 +140,7 @@ public class LoginActivity extends AppCompatActivity {
                     new Response.ErrorListener() {
                         @Override
                         public void onErrorResponse(VolleyError error) {
-                            Log.d("resss","ssssss222");
+                            Log.d("resss", "ssssss222");
                             progressDialog.dismiss();
                             Toast.makeText(LoginActivity.this, error.toString(), Toast.LENGTH_LONG).show();
                         }
@@ -140,7 +149,7 @@ public class LoginActivity extends AppCompatActivity {
                 protected Map<String, String> getParams() throws AuthFailureError {
                     Map<String, String> map = new HashMap<String, String>();
                     map.put("do", "log");
-                    map.put("username", "002"+user_email);
+                    map.put("username", "002" + user_email);
                     map.put("password", user_password);
                     return map;
                 }
@@ -148,49 +157,42 @@ public class LoginActivity extends AppCompatActivity {
 
             RequestQueue requestQueue = Volley.newRequestQueue(this);
             requestQueue.add(stringRequest);
-        }
-        else
-        {
+        } else {
             Toast.makeText(LoginActivity.this, "من فضلك تأكد من اتصالك بالإنترنت", Toast.LENGTH_LONG).show();
         }
 
     }
 
-    public void savesharedprefernce()
-    {
-        SharedPreferences sp=getSharedPreferences("Login", 0);
-        SharedPreferences.Editor Ed=sp.edit();
-        Ed.putString("ID",myid);
-        Ed.putString("username",name);
-        Ed.putString("email",phone);
-        Ed.putString("photo",photo);
-        Ed.putString("phone",phone);
-        Ed.putString("normal_password",passtext.getText().toString());
-        Ed.putString("password",mypassword);
-        Ed.putString("type",u_type);
+    public void savesharedprefernce() {
+        SharedPreferences sp = getSharedPreferences("Login", 0);
+        SharedPreferences.Editor Ed = sp.edit();
+        Ed.putString("ID", myid);
+        Ed.putString("username", name);
+        Ed.putString("email", phone);
+        Ed.putString("photo", photo);
+        Ed.putString("phone", phone);
+        Ed.putString("normal_password", passtext.getText().toString());
+        Ed.putString("password", mypassword);
+        Ed.putString("type", u_type);
         Ed.commit();
         openProfile();
     }
 
-    private void openProfile(){
+    private void openProfile() {
         progressDialog.dismiss();
         //session.setlogin(true);
-        if (u_type.equals("user"))
-        {
+        if (u_type.equals("user")) {
             Intent intent = new Intent(LoginActivity.this, UserHomeActivity.class);
             startActivity(intent);
             finish();
-        }
-        else
-        {
+        } else {
             Intent myIntent = new Intent(LoginActivity.this, HomeActivity.class);
             startActivity(myIntent);
             finish();
         }
     }
 
-    public boolean isNetworkConnected()
-    {
+    public boolean isNetworkConnected() {
         ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
 
         return cm.getActiveNetworkInfo() != null;
