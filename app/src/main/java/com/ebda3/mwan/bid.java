@@ -155,7 +155,7 @@ public class bid extends AppCompatActivity {
                                     int position, long id) {
                 // TODO Auto-generated method stub
 
-                Intent intent = new Intent(context, bid_offers.class);
+                Intent intent = new Intent(context, BidOffers.class);
                 intent.putExtra("ID", ID.get(position));
                 intent.putExtra("Details", Details.get(position));
                 intent.putExtra("BidDate", BidDate.get(position));

@@ -133,7 +133,7 @@ public class SupplierBids extends AppCompatActivity {
                                     int position, long id) {
                 // TODO Auto-generated method stub
 
-                Intent intent = new Intent(context, bid_offers.class);
+                Intent intent = new Intent(context, BidOffers.class);
                 intent.putExtra("ID", ID.get(position));
                 intent.putExtra("addReplay", 1);
                 intent.putExtra("Details", Details.get(position));

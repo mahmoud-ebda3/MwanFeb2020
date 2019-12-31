@@ -27,7 +27,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-public class bid_offers extends AppCompatActivity {
+public class BidOffers extends AppCompatActivity {
 
     Activity activity = this;
 

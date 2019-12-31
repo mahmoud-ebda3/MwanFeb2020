@@ -29,6 +29,15 @@
         android:roundIcon="@mipmap/ic_launcher_mwan"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
+
+        <activity
+            android:name=".OffersActivity"
+            android:hardwareAccelerated="true"
+            android:label=""
+            android:theme="@style/AppTheme.NoActionBar"
+            >
+        </activity>
         <activity
             android:name=".MaterialsDetailsActivity"
             android:hardwareAccelerated="true"
@@ -192,7 +201,7 @@
             android:label=""
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".bid_offers"
+            android:name=".BidOffers"
             android:label=""
             android:theme="@style/AppTheme.NoActionBar" />
         <activity

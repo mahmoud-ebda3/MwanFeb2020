@@ -439,6 +439,13 @@ public class UserHomeActivity extends AppCompatActivity
         } else if (id == R.id.builing_needs_id) {
 
 
+        } else if (id == R.id.offers_id)
+        {
+            myIntent = new Intent(UserHomeActivity.this, OffersActivity.class);
+            startActivity(myIntent);
+
+
+
         } else if (id == R.id.myrealstates_id) {
             myIntent = new Intent(UserHomeActivity.this, MyProperties.class);
             startActivity(myIntent);
@@ -446,7 +453,7 @@ public class UserHomeActivity extends AppCompatActivity
             myIntent = new Intent(UserHomeActivity.this, Prices.class);
             startActivity(myIntent);
         } else if (id == R.id.bid_id) {
-            myIntent = new Intent(UserHomeActivity.this, bid.class);
+            myIntent = new Intent(UserHomeActivity.this, BidOffers.class);
             startActivity(myIntent);
         } else if (id == R.id.mypoint_id) {
 
@@ -543,6 +550,8 @@ public class UserHomeActivity extends AppCompatActivity
     public void onItemClick(OptionObject object) {
         switch (object.getName()) {
             case "العروض":
+                myIntent = new Intent(UserHomeActivity.this, OffersActivity.class);
+                startActivity(myIntent);
                 break;
             case "انشاءات":
                 myIntent = new Intent(UserHomeActivity.this, MaterialActivity.class);

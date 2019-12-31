@@ -86,7 +86,7 @@ public class AddBidReplay extends AppCompatActivity {
                     new Response.Listener<String>() {
                         @Override
                         public void onResponse(String response) {
-                            Intent intent = new Intent(context , bid_offers.class );
+                            Intent intent = new Intent(context , BidOffers.class );
                             intent.putExtra("ID",BidID);
                             intent.putExtra("addReplay",1);
                             intent.putExtra("Bids",response);
