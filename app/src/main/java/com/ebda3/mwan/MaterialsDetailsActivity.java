@@ -141,7 +141,6 @@ public class MaterialsDetailsActivity extends AppCompatActivity {
                     cart.setID(Integer.parseInt(ItemID));
                     cart.setName(ItemName);
                     cart.setPhoto(ItemPhoto);
-
                     Gson gson = new Gson();
                     Log.d("selected_items","before :"+gson.toJson(selectedItems));
 

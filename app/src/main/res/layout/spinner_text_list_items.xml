@@ -13,6 +13,8 @@
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
         android:textColor="@color/black"
+        android:maxLines="1"
+        android:ellipsize="end"
         android:textSize="18sp"
         android:textStyle="bold"
         tools:text="hello" />
