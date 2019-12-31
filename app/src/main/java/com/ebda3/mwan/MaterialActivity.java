@@ -10,6 +10,7 @@ import android.os.CountDownTimer;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
@@ -19,6 +20,8 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
@@ -92,6 +95,10 @@ public class MaterialActivity extends AppCompatActivity {
         toolbar = (Toolbar) findViewById(R.id.app_toolbar);
         setSupportActionBar(toolbar);
         headline = (TextView) toolbar.findViewById(R.id.app_headline);
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
 
 
 
@@ -330,8 +337,18 @@ public class MaterialActivity extends AppCompatActivity {
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
-            onBackPressed();
+            Intent myIntent = new Intent(MaterialActivity.this, UserHomeActivity.class);
+            startActivity(myIntent);
         }
         return super.onKeyDown(keyCode, event);
+    }
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            Intent myIntent = new Intent(MaterialActivity.this, UserHomeActivity.class);
+            startActivity(myIntent);
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

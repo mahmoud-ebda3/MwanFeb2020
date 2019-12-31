@@ -125,17 +125,17 @@ public class MaterialsDetailsActivity extends AppCompatActivity {
                 Cart cart = new Cart();
 
                 Boolean AddToArray = true;
-
-                for(Cart cart1 : cartData) {
-                    if(cart1.getID() != 0 && cart1.getID() == Integer.parseInt(ItemID) ) {
-
-//                    cart1.setPrice( ItemPrice.get(position) );
-//                    cart1.setShippingCost( shippingCost.get(position) );
-                        cart1.setAmount(cart1.getAmount()+1);
-                        AddToArray = false;
-                        //Toast.makeText(context, "Found it! " + String.valueOf(cart1.getAmount())   , Toast.LENGTH_SHORT).show();
-                    }
-                }
+//
+//                for(Cart cart1 : cartData) {
+//                    if(cart1.getID() != 0 && cart1.getID() == Integer.parseInt(ItemID) ) {
+//
+////                    cart1.setPrice( ItemPrice.get(position) );
+////                    cart1.setShippingCost( shippingCost.get(position) );
+//                        cart1.setAmount(cart1.getAmount()+1);
+//                        AddToArray = false;
+//                        //Toast.makeText(context, "Found it! " + String.valueOf(cart1.getAmount())   , Toast.LENGTH_SHORT).show();
+//                    }
+//                }
 
                 if ( AddToArray ) {
                     cart.setID(Integer.parseInt(ItemID));
