@@ -187,15 +187,9 @@ public class LoginActivity extends AppCompatActivity {
     private void openProfile() {
         progressDialog.dismiss();
         //session.setlogin(true);
-        if (u_type.equals("user")) {
             Intent intent = new Intent(LoginActivity.this, UserHomeActivity.class);
             startActivity(intent);
             finish();
-        } else {
-            Intent myIntent = new Intent(LoginActivity.this, HomeActivity.class);
-            startActivity(myIntent);
-            finish();
-        }
     }
 
     public boolean isNetworkConnected() {

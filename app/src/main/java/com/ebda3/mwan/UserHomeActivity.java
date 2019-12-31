@@ -34,6 +34,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
@@ -44,6 +47,8 @@ import com.android.volley.RetryPolicy;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.ebda3.Model.OptionObject;
+import com.ebda3.adapters.OptionsItemAdapter;
 import com.ebda3.adapters.offersListAdapter;
 import com.ebda3.design.FontsOverride;
 import com.google.android.material.navigation.NavigationView;
@@ -64,7 +69,7 @@ import static com.ebda3.Helpers.Config.imageupload;
 import static com.ebda3.Helpers.Config.isOpened;
 
 public class UserHomeActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener, OptionsItemAdapter.RecyclerViewItemOnClickListener {
     public String u_email, u_name, u_photo;
 
     Intent myIntent = null;
@@ -76,9 +81,10 @@ public class UserHomeActivity extends AppCompatActivity
     final static String[] PERMISSIONS = {android.Manifest.permission.ACCESS_COARSE_LOCATION,
             android.Manifest.permission.ACCESS_FINE_LOCATION};
 
-    offersListAdapter adapter;
+    offersListAdapter offersAdapter;
+    OptionsItemAdapter optionsAdapter;
 
-    ListView listView;
+    RecyclerView offersRecyclerView, optionsRecyclerView;
     public TextView no_data;
     Typeface typeface;
     LinearLayout profile;
@@ -94,6 +100,7 @@ public class UserHomeActivity extends AppCompatActivity
     public ArrayList<String> OfferName = new ArrayList<String>();
     public ArrayList<String> OfferPhoto = new ArrayList<String>();
     public ArrayList<String> offerItems = new ArrayList<String>();
+    private ArrayList<OptionObject> objectItems = new ArrayList<>();
 
     public Boolean setAdapterStatus = false;
 
@@ -154,64 +161,87 @@ public class UserHomeActivity extends AppCompatActivity
         Ed.commit();
 
 
-        listView =  findViewById(R.id.offersList);
+        offersRecyclerView = findViewById(R.id.offers_items_rv);
+        optionsRecyclerView = findViewById(R.id.options_item_rv);
+        optionsRecyclerView.setLayoutManager(new GridLayoutManager(this, 3));
+        optionsRecyclerView.setLayoutFrozen(true);
+        offersRecyclerView.setLayoutManager(new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false));
+
         loadProgress = (ProgressBar) findViewById(R.id.loadProgress);
         footerView = ((LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.loading_footer, null, false);
         no_data = (TextView) findViewById(R.id.no_data);
-        listView.setVisibility(View.VISIBLE);
+        offersRecyclerView.setVisibility(View.VISIBLE);
+        objectItems.add(new OptionObject(R.drawable.ic_price, "العروض"));
+        objectItems.add(new OptionObject(R.drawable.ic_account_balance_black_24dp, "انشاءات"));
+        objectItems.add(new OptionObject(R.drawable.ic_brush_black_24dp, "تشطيبات"));
+        objectItems.add(new OptionObject(R.drawable.ic_building_needs, "احتياجات عقارك"));
+        objectItems.add(new OptionObject(R.drawable.ic_build_black_24dp, "طلب صنايعى"));
+        objectItems.add(new OptionObject(R.drawable.ic_home_black_24dp, "متابعة عقارك"));
+        objectItems.add(new OptionObject(R.drawable.ic_gavel_black_24dp, "مناقصة موان"));
+        objectItems.add(new OptionObject(R.drawable.ic_mypoints, "نقاط الشراء"));
+        objectItems.add(new OptionObject(R.drawable.ic_shopping_cart_black_24dp, "سلة المشتريات"));
+        objectItems.add(new OptionObject(R.drawable.ic_mwan_community, "مجتمع موان"));
+        objectItems.add(new OptionObject(R.drawable.ic_trending_up_black_24dp, "بورصة الاسعار"));
+        objectItems.add(new OptionObject(R.drawable.ic_library_books_black_24dp, "مشترياتى"));
+        objectItems.add(new OptionObject(R.drawable.ic_report_problem_black_24dp, "الإبلاغ عن مشكلة"));
+        objectItems.add(new OptionObject(R.drawable.ic_manage_account, "إدارة الحساب"));
+        objectItems.add(new OptionObject(R.drawable.ic_sign_out, "تسجيل الخروج"));
+        optionsAdapter = new OptionsItemAdapter(this, objectItems, this);
+        optionsRecyclerView.setAdapter(optionsAdapter);
+
         loadData();
 
-        listView.setOnScrollListener(new AbsListView.OnScrollListener() {
-            @Override
-            public void onScroll(AbsListView view,
-                                 int firstVisibleItem, int visibleItemCount,
-                                 int totalItemCount) {
-                //Algorithm to check if the last item is visible or not
-                final int lastItem = firstVisibleItem + visibleItemCount;
-                Log.d("lastItem", String.valueOf(visibleItemCount));
-                if (lastItem == totalItemCount) {
-                    // loadData();
-                }
-            }
+//        offersRecyclerView.setOnScrollListener(new AbsListView.OnScrollListener() {
+//            @Override
+//            public void onScroll(AbsListView view,
+//                                 int firstVisibleItem, int visibleItemCount,
+//                                 int totalItemCount) {
+//                //Algorithm to check if the last item is visible or not
+//                final int lastItem = firstVisibleItem + visibleItemCount;
+//                Log.d("lastItem", String.valueOf(visibleItemCount));
+//                if (lastItem == totalItemCount) {
+//                    // loadData();
+//                }
+//            }
+//
+//            @Override
+//            public void onScrollStateChanged(AbsListView view, int scrollState) {
+//                if (scrollState == AbsListView.OnScrollListener.SCROLL_STATE_IDLE
+//                        && (offersRecyclerView.getLastVisiblePosition() - offersRecyclerView.getHeaderViewsCount() -
+//                        offersRecyclerView.getFooterViewsCount()) >= (adapter.getCount() - 3)) {
+//
+//                    loadData();
+//                }
+//            }
+//        });
 
-            @Override
-            public void onScrollStateChanged(AbsListView view, int scrollState) {
-                if (scrollState == AbsListView.OnScrollListener.SCROLL_STATE_IDLE
-                        && (listView.getLastVisiblePosition() - listView.getHeaderViewsCount() -
-                        listView.getFooterViewsCount()) >= (adapter.getCount() - 3)) {
 
-                    loadData();
-                }
-            }
-        });
-
-
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view,
-                                    int position, long id) {
-                // TODO Auto-generated method stub
-                /*
-                String Slecteditem= OfferID.get(position);
-                Intent intent = new Intent(getContext(),offerDetails.class);
-                intent.putExtra("OfferID",OfferID.get(position));
-                intent.putExtra("OfferName",OfferName.get(position));
-                intent.putExtra("OfferPhoto",OfferPhoto.get(position));
-                intent.putExtra("OfferDetail",OfferDetail.get(position));
-                intent.putExtra("partnerID",partnerID.get(position));
-                intent.putExtra("partnerName",partnerName.get(position));
-                intent.putExtra("partnerLogo",partnerLogo.get(position));
-                intent.putExtra("partnerPhone",partnerPhone.get(position));
-                intent.putExtra("partnerEmail",partnerEmail.get(position));
-                intent.putExtra("partnerWebsite",partnerWebsite.get(position));
-                intent.putExtra("partnerDescription",partnerDescription.get(position));
-                intent.putExtra("partnerAddress",partnerAddress.get(position));
-                intent.putExtra("partnerCat",partnerCat.get(position));
-                startActivity(intent);
-                */
-            }
-        });
+        //        offersRecyclerView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//
+//            @Override
+//            public void onItemClick(AdapterView<?> parent, View view,
+//                                    int position, long id) {
+//                // TODO Auto-generated method stub
+//                /*
+//                String Slecteditem= OfferID.get(position);
+//                Intent intent = new Intent(getContext(),offerDetails.class);
+//                intent.putExtra("OfferID",OfferID.get(position));
+//                intent.putExtra("OfferName",OfferName.get(position));
+//                intent.putExtra("OfferPhoto",OfferPhoto.get(position));
+//                intent.putExtra("OfferDetail",OfferDetail.get(position));
+//                intent.putExtra("partnerID",partnerID.get(position));
+//                intent.putExtra("partnerName",partnerName.get(position));
+//                intent.putExtra("partnerLogo",partnerLogo.get(position));
+//                intent.putExtra("partnerPhone",partnerPhone.get(position));
+//                intent.putExtra("partnerEmail",partnerEmail.get(position));
+//                intent.putExtra("partnerWebsite",partnerWebsite.get(position));
+//                intent.putExtra("partnerDescription",partnerDescription.get(position));
+//                intent.putExtra("partnerAddress",partnerAddress.get(position));
+//                intent.putExtra("partnerCat",partnerCat.get(position));
+//                startActivity(intent);
+//                */
+//            }
+//        });
         //Toast.makeText(UserHomeActivity.this,My_Loc,Toast.LENGTH_SHORT).show();
         View hView = navigationView.getHeaderView(0);
 
@@ -231,12 +261,25 @@ public class UserHomeActivity extends AppCompatActivity
         user_name2.setText(u_name);
         user_email2.setText(u_email);
 
-        Picasso.with(this).load(imageupload + u_photo)
-                .resize(160, 160)
-                .centerCrop()
-                .transform(new CropCircleTransformation())
-                .error(R.drawable.ic_account_circle_white_48dp)
-                .into(user_photo2);
+        Picasso.with(this).
+
+                load(imageupload + u_photo)
+                .
+
+                        resize(160, 160)
+                .
+
+                        centerCrop()
+                .
+
+                        transform(new CropCircleTransformation())
+                .
+
+                        error(R.drawable.ic_account_circle_white_48dp)
+                .
+
+                        into(user_photo2);
+
     }
 
 
@@ -247,7 +290,7 @@ public class UserHomeActivity extends AppCompatActivity
             VolleyCurrentConnection = 1;
             String VolleyUrl = "http://adc-company.net/mwan/offers-edit-1.html?json=true&ajax_page=true" + "&start=" + String.valueOf(StartFrom) + "&end=" + String.valueOf(LimitBerRequest);
             Log.d("responser", String.valueOf(VolleyUrl));
-            listView.addFooterView(footerView);
+//            listView.addFooterView(footerView);
             try {
                 StringRequest stringRequest = new StringRequest(Request.Method.GET, VolleyUrl, new Response.Listener<String>() {
                     @Override
@@ -255,7 +298,7 @@ public class UserHomeActivity extends AppCompatActivity
                         Log.d("328944289", response);
                         response = fixEncoding(response);
                         Log.d("response", response);
-                        listView.removeFooterView(footerView);
+//                        listView.removeFooterView(footerView);
                         loadProgress.setVisibility(View.GONE);
 
 
@@ -280,11 +323,11 @@ public class UserHomeActivity extends AppCompatActivity
 
 
                                 if (!setAdapterStatus) {
-                                    adapter = new offersListAdapter(context, OfferName, OfferPhoto, offerItems);
-                                    listView.setAdapter(adapter);
+                                    offersAdapter = new offersListAdapter(context, OfferName, OfferPhoto, offerItems);
+                                    offersRecyclerView.setAdapter(offersAdapter);
                                     setAdapterStatus = true;
                                 } else {
-                                    adapter.notifyDataSetChanged();
+                                    offersAdapter.notifyDataSetChanged();
                                 }
 
 
@@ -308,7 +351,7 @@ public class UserHomeActivity extends AppCompatActivity
                         new CountDownTimer(3000, 1000) {
                             public void onFinish() {
                                 VolleyCurrentConnection = 0;
-                                listView.removeFooterView(footerView);
+//                                listView.removeFooterView(footerView);
                                 loadData();
                             }
 
@@ -381,8 +424,6 @@ public class UserHomeActivity extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
-
-
         if (id == R.id.construction_id || id == R.id.finishing_id) {
             myIntent = new Intent(UserHomeActivity.this, MaterialActivity.class);
             myIntent.putExtra("Market", false);
@@ -488,6 +529,7 @@ public class UserHomeActivity extends AppCompatActivity
             return false;
         }
     }
+
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
@@ -495,5 +537,88 @@ public class UserHomeActivity extends AppCompatActivity
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onItemClick(OptionObject object) {
+        switch (object.getName()) {
+            case "العروض":
+                break;
+            case "انشاءات":
+                myIntent = new Intent(UserHomeActivity.this, MaterialActivity.class);
+                myIntent.putExtra("Market", false);
+                myIntent.putExtra("id", "121");
+                startActivity(myIntent);
+                break;
+            case "تشطيبات":
+                myIntent = new Intent(UserHomeActivity.this, MaterialActivity.class);
+                myIntent.putExtra("Market", false);
+                myIntent.putExtra("id", "122");
+                startActivity(myIntent);
+                break;
+            case "احتياجات عقارك":
+                break;
+            case "طلب صنايعى":
+                myIntent = new Intent(UserHomeActivity.this, Workers.class);
+                startActivity(myIntent);
+                break;
+            case "متابعة عقارك":
+                myIntent = new Intent(UserHomeActivity.this, MyProperties.class);
+                startActivity(myIntent);
+                break;
+            case "مناقصة موان":
+                myIntent = new Intent(UserHomeActivity.this, bid.class);
+                startActivity(myIntent);
+                break;
+            case "نقاط الشراء":
+                myIntent = new Intent(UserHomeActivity.this, MyPoints.class);
+                startActivity(myIntent);
+                break;
+            case "سلة المشتريات":
+                myIntent = new Intent(UserHomeActivity.this, NewCart.class);
+                startActivity(myIntent);
+                break;
+            case "مجتمع موان":
+                break;
+            case "بورصة الاسعار":
+                myIntent = new Intent(UserHomeActivity.this, Prices.class);
+                startActivity(myIntent);
+                break;
+            case "مشترياتى":
+                myIntent = new Intent(UserHomeActivity.this, MyOrders.class);
+                startActivity(myIntent);
+                break;
+            case "الإبلاغ عن مشكلة":
+                myIntent = new Intent(UserHomeActivity.this, Support.class);
+                startActivity(myIntent);
+                break;
+            case "إدارة الحساب":
+                Intent intent = new Intent(context, Profile.class);
+                startActivity(intent);
+                break;
+            case "تسجيل الخروج":
+                AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
+                alertDialog.setTitle("تسجيل الخروج");
+                alertDialog.setMessage("هل تود تسجيل الخروج من البرنامج ؟");
+                alertDialog.setPositiveButton("نعم", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        SharedPreferences sp = getSharedPreferences("Login", 0);
+                        SharedPreferences.Editor Ed = sp.edit();
+                        Ed.putString("email", "");
+                        Ed.putString("normal_password", "");
+                        Ed.commit();
+                        myIntent = new Intent(UserHomeActivity.this, LoginActivity.class);
+                        startActivity(myIntent);
+                    }
+                });
+                alertDialog.setNegativeButton("الغاء", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.dismiss();
+                    }
+                });
+                alertDialog.show();
+        }
     }
 }

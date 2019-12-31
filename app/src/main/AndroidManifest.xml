@@ -29,10 +29,11 @@
         android:roundIcon="@mipmap/ic_launcher_mwan"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MaterialsDetailsActivity"
+        <activity
+            android:name=".MaterialsDetailsActivity"
+            android:hardwareAccelerated="true"
             android:label=""
-            android:theme="@style/AppTheme.Dark"
-            android:hardwareAccelerated="true"/>
+            android:theme="@style/AppTheme.Dark" />
         <activity
             android:name=".chooseMap"
             android:label=""
@@ -79,9 +80,9 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".MaterialActivity"
+            android:hardwareAccelerated="true"
             android:label=""
-            android:theme="@style/AppTheme.NoActionBar"
-            android:hardwareAccelerated="true"/>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".SupplierProductActivity"
             android:label=""
@@ -124,6 +125,7 @@
         <activity
             android:name=".UserHomeActivity"
             android:label=""
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".Workers"

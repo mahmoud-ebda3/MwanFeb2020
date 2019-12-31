@@ -24,7 +24,7 @@
                 android:layout_gravity="center"
                 android:id="@+id/app_headline"
                 android:layout_marginLeft="20dp"
-                android:text="العروض"
+                android:text="الرئيسية"
                 android:gravity="center"
                 android:textSize="18dp"
                 android:layout_width="wrap_content"

@@ -27,7 +27,7 @@ public class DeliveryAttackersActivity extends AppCompatActivity {
     public TextView delivery_points;
     public ArrayList<DeliveryOrder> deliveryOrders = new ArrayList<>();
     DeliveryAttackersAdapter adapter;
-    private HomeActivity mClass;
+//    private HomeActivity mClass;
 
     public Toolbar toolbar;
     public TextView headline;

@@ -9,6 +9,10 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.ebda3.Model.OptionObject;
 import com.ebda3.mwan.R;
 import com.squareup.picasso.Picasso;
 
@@ -16,47 +20,66 @@ import java.util.ArrayList;
 
 import static com.ebda3.Helpers.Config.imageupload;
 
-public class offersListAdapter extends ArrayAdapter<String> {
+public class offersListAdapter extends RecyclerView.Adapter<offersListAdapter.OffersListViewHolder> {
 
     private final Activity context;
     private final ArrayList<String> OfferName;
     private final ArrayList<String> OfferPhoto;
     private final ArrayList<String> offerItems;
 
-    public offersListAdapter(Activity context, ArrayList<String> OfferName, ArrayList<String> OfferPhoto , ArrayList<String> offerItems ) {
-        super(context, R.layout.offer_item  ,  OfferPhoto);
-        // TODO Auto-generated constructor stub
 
-        this.context=context;
-        this.OfferName=OfferName;
-        this.OfferPhoto=OfferPhoto;
-        this.offerItems=offerItems;
+    public offersListAdapter(Activity context, ArrayList<String> OfferName, ArrayList<String> OfferPhoto, ArrayList<String> offerItems) {
+
+        this.context = context;
+        this.OfferName = OfferName;
+        this.OfferPhoto = OfferPhoto;
+        this.offerItems = offerItems;
 
     }
 
-    public View getView(int position, View view, ViewGroup parent) {
-        LayoutInflater inflater=context.getLayoutInflater();
-        View rowView=inflater.inflate(R.layout.offer_item, null,true);
+    @NonNull
+    @Override
+    public OffersListViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        LayoutInflater inflater = LayoutInflater.from(parent.getContext());
+        View rowView = inflater.inflate(R.layout.offer_item, parent, false);
+        return new OffersListViewHolder(rowView);
+    }
 
+    @Override
+    public void onBindViewHolder(@NonNull OffersListViewHolder holder, int position) {
+        String name = OfferName.get(position);
+        String image = OfferPhoto.get(position);
+        holder.dataBinding(name, image);
+    }
 
-        ImageView imageView = (ImageView) rowView.findViewById(R.id.offer_image);
-        TextView offer_name = (TextView) rowView.findViewById(R.id.offer_name);
+    @Override
+    public int getItemCount() {
+        if (offerItems != null) {
+            return offerItems.size();
+        } else {
+            return 0;
+        }
+    }
 
+    public class OffersListViewHolder extends RecyclerView.ViewHolder {
 
+        ImageView imageView;
+        TextView offer_name;
 
+        public OffersListViewHolder(@NonNull View itemView) {
+            super(itemView);
 
+            imageView = itemView.findViewById(R.id.offer_image);
+            offer_name = itemView.findViewById(R.id.offer_name);
+        }
 
-
-
-        offer_name.setText(OfferName.get(position));
-        Picasso.with(this.getContext()).load(imageupload+OfferPhoto.get(position)  )
-                .resize(626, 250)
-                .centerCrop()
-
-                .error(R.drawable.image_not_found)
-                .into(imageView);
-        //imageView.setImageResource(map_img[position]);
-        return rowView;
-
-    };
+        private void dataBinding(String name, String photo) {
+            offer_name.setText(name);
+            Picasso.with(context).load(imageupload + photo)
+                    .resize(626, 250)
+                    .centerCrop()
+                    .error(R.drawable.image_not_found)
+                    .into(imageView);
+        }
+    }
 }

@@ -99,8 +99,6 @@ public class NewCart extends AppCompatActivity implements OnMapReadyCallback {
     private GoogleMap mMap;
     public Boolean waitGPS = true;
     String Location , LastLocation , LanLongLoc;
-
-
     RelativeLayout shopping_cart_image;
     Double mLat = 0.0;
     Double mLong = 0.0;

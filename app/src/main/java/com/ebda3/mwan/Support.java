@@ -7,9 +7,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.os.CountDownTimer;
+
 import androidx.appcompat.app.AlertDialog;
+
 import android.os.Bundle;
+
 import androidx.appcompat.widget.Toolbar;
+
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -53,7 +57,7 @@ public class Support extends MainActivity {
     Activity activity = this;
     public Boolean setAdapterStatus = false;
     SupportAdapter adapter;
-    public TextView d_subject, d_time , d_msg_content, d_msg_contentReplay , d_exit;
+    public TextView d_subject, d_time, d_msg_content, d_msg_contentReplay, d_exit;
 
 
     private ArrayList<String> CustomerID = new ArrayList<String>();
@@ -70,11 +74,11 @@ public class Support extends MainActivity {
     public int StartFrom = 0;
     public int LastStartFrom = 0;
     ListView customer_messages;
-    public String u_email ,u_password;
+    public String u_email, u_password;
 
     AlertDialog.Builder builder;
     public LayoutInflater inflater;
-    public View dialoglayout ;
+    public View dialoglayout;
     public Button btn_problem;
 
 
@@ -83,15 +87,10 @@ public class Support extends MainActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_support);
 
-
-
-
-
         toolbar_headline = (TextView) findViewById(R.id.app_headline);
         toolbar_headline.setText("الدعم الفنى");
 
-
-        customer_messages = (ListView)findViewById(R.id.msg_list_view);
+        customer_messages = (ListView) findViewById(R.id.msg_list_view);
         btn_problem = (Button) findViewById(R.id.btn_problem);
 
 
@@ -100,7 +99,7 @@ public class Support extends MainActivity {
             public void onClick(View view) {
 
 
-                final  android.app.AlertDialog.Builder adb = new  android.app.AlertDialog.Builder(context);
+                final android.app.AlertDialog.Builder adb = new android.app.AlertDialog.Builder(context);
                 final View Fview = LayoutInflater.from(context).inflate(R.layout.report_problem, null);
                 adb.setView(Fview);
                 final Dialog dialog;
@@ -115,7 +114,7 @@ public class Support extends MainActivity {
                 btn_problem.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        if ( complaint.getText().length() > 0 ) {
+                        if (complaint.getText().length() > 0) {
 
                             boolean t = isNetworkConnected();
                             if (t) {
@@ -160,7 +159,7 @@ public class Support extends MainActivity {
                                     protected Map<String, String> getParams() throws AuthFailureError {
                                         Map<String, String> params = new HashMap<>();
                                         params.put("do", "AddComplaint");
-                                        params.put("json_email", Config.getJsonEmail(context) );
+                                        params.put("json_email", Config.getJsonEmail(context));
                                         params.put("json_password", Config.getJsonPassword(context));
                                         params.put("complaint", complaint.getText().toString());
                                         Log.d("Response", params.toString());
@@ -173,31 +172,20 @@ public class Support extends MainActivity {
                                         DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
                                         DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
 
-                            }
-                            else
-                            {
-                                Toast.makeText(Support.this,"please check your internet connection",Toast.LENGTH_LONG).show();
+                            } else {
+                                Toast.makeText(Support.this, "please check your internet connection", Toast.LENGTH_LONG).show();
                             }
 
 
-                        }
-                        else
-                        {
+                        } else {
                             complaint.setError("برجاء كتابة المشكلة");
                         }
                     }
                 });
 
 
-
             }
         });
-
-
-
-
-
-
 
 
 //        customer_messages.setOnScrollListener(new AbsListView.OnScrollListener() {
@@ -224,7 +212,7 @@ public class Support extends MainActivity {
 
         boolean t = isNetworkConnected();
         if (t) {
-            progressDialog = ProgressDialog.show(Support.this,"", "جارى التحميل",true,true);
+            progressDialog = ProgressDialog.show(Support.this, "", "جارى التحميل", true, true);
 
             loadData();
 
@@ -268,10 +256,10 @@ public class Support extends MainActivity {
 
                     final AlertDialog ad = builder.show();
 
-                    d_exit = (TextView) dialoglayout.findViewById(R.id.dialog_msg_exit) ;
-                    d_msg_content = (TextView) dialoglayout.findViewById(R.id.dialog_msg_content) ;
-                    d_msg_contentReplay = (TextView) dialoglayout.findViewById(R.id.dialog_msg_repaly) ;
-                    d_time = (TextView) dialoglayout.findViewById(R.id.dialog_msg_time) ;
+                    d_exit = (TextView) dialoglayout.findViewById(R.id.dialog_msg_exit);
+                    d_msg_content = (TextView) dialoglayout.findViewById(R.id.dialog_msg_content);
+                    d_msg_contentReplay = (TextView) dialoglayout.findViewById(R.id.dialog_msg_repaly);
+                    d_time = (TextView) dialoglayout.findViewById(R.id.dialog_msg_time);
 
                     d_time.setText(AddDate.get(position));
                     d_msg_content.setText(Complaint.get(position));
@@ -286,20 +274,14 @@ public class Support extends MainActivity {
                     });
                 }
             });
+        } else {
+            Toast.makeText(Support.this, "please check your internet connection", Toast.LENGTH_LONG).show();
         }
-        else
-        {
-            Toast.makeText(Support.this,"please check your internet connection",Toast.LENGTH_LONG).show();
-        }
-
-
-
-
 
 
     }
-    public boolean isNetworkConnected()
-    {
+
+    public boolean isNetworkConnected() {
         ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
 
         return cm.getActiveNetworkInfo() != null;
@@ -313,7 +295,7 @@ public class Support extends MainActivity {
                 VolleyCurrentConnection = 1;
                 //"http://falcon-egy.com/module-driver_message?ajax_page_l=yes&json=true"
                 String VolleyUrl = "http://adc-company.net/mwan/include/webService.php?json=true" + "&start=" + String.valueOf(StartFrom) + "&end=" + String.valueOf(LimitBerRequest);
-                Log.d("myurlll",VolleyUrl);
+                Log.d("myurlll", VolleyUrl);
                 try {
                     StringRequest stringRequest = new StringRequest(Request.Method.POST, VolleyUrl, new Response.Listener<String>() {
                         @Override
@@ -343,7 +325,7 @@ public class Support extends MainActivity {
                                     }
 
                                     if (!setAdapterStatus) {
-                                        adapter = new SupportAdapter(activity, Status,StatusText, AddDate, Complaint, fininshedComment);
+                                        adapter = new SupportAdapter(activity, Status, StatusText, AddDate, Complaint, fininshedComment);
                                         customer_messages.setAdapter(adapter);
                                         setAdapterStatus = true;
                                     } else {
@@ -365,6 +347,7 @@ public class Support extends MainActivity {
                                     VolleyCurrentConnection = 0;
                                     loadData();
                                 }
+
                                 public void onTick(long millisUntilFinished) {
                                     progressDialog.dismiss();
                                     // millisUntilFinished    The amount of time until finished.
@@ -376,7 +359,7 @@ public class Support extends MainActivity {
                         protected Map<String, String> getParams() throws AuthFailureError {
                             Map<String, String> paramas = new HashMap();
                             paramas.put("do", "getComplaint");
-                            paramas.put("json_email", Config.getJsonEmail(context) );
+                            paramas.put("json_email", Config.getJsonEmail(context));
                             paramas.put("json_password", Config.getJsonPassword(context));
                             return paramas;
                         }
@@ -394,10 +377,8 @@ public class Support extends MainActivity {
                     loadData();
                 }
             }
-        }
-        else
-        {
-            Toast.makeText(Support.this,"please check your internet connection",Toast.LENGTH_LONG).show();
+        } else {
+            Toast.makeText(Support.this, "please check your internet connection", Toast.LENGTH_LONG).show();
         }
     }
 
@@ -420,7 +401,11 @@ public class Support extends MainActivity {
         }
         return super.onKeyDown(keyCode, event);
     }
+
+    @Override
     public void onBackPressed() {
-        super.onBackPressed();
+        Intent i = new Intent(context, UserHomeActivity.class);
+        startActivity(i);
+        finish();
     }
 }
