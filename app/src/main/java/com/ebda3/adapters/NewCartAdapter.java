@@ -14,6 +14,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.ebda3.Model.CalcCart;
+import com.ebda3.design.MyTextView;
 import com.ebda3.mwan.MaterialsDetailsActivity;
 import com.ebda3.mwan.R;
 import com.squareup.picasso.Picasso;
@@ -153,9 +154,9 @@ public class NewCartAdapter extends ArrayAdapter<String> {
                Log.d("ttrrrttt",CartDetailsName.get(position).get(i));
                String name = CartDetailsName.get(position).get(i);
                String value = CartDetailsValuew.get(position).get(i);
-               TextView valueTV = new TextView(context);
+               MyTextView valueTV = new MyTextView(context);
                valueTV.setText(name + " : " + value);
-               valueTV.setTextSize(11);
+               valueTV.setTextSize(10);
                valueTV.setGravity(Gravity.CENTER);
                valueTV.setTextColor(Color.parseColor("#0087C2"));
                valueTV.setLayoutParams(new ViewGroup.LayoutParams(
