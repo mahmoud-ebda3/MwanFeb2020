@@ -100,7 +100,6 @@ public class NewCart extends AppCompatActivity implements OnMapReadyCallback {
 
 
     RelativeLayout shopping_cart_image;
-
     Double mLat = 0.0;
     Double mLong = 0.0;
     final static int PERMISSION_ALL = 1;

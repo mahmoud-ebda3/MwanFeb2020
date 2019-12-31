@@ -6,8 +6,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
+
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -50,15 +52,15 @@ import static com.ebda3.Helpers.Config.isOpened;
  */
 
 public class PriceProductActivity extends AppCompatActivity {
-    public Spinner spinner_field,spinner_kind;
+    public Spinner spinner_field, spinner_kind;
     public ListView list_price;
-    public LinearLayout trade_linear,tax_linear;
+    public LinearLayout trade_linear, tax_linear;
     public Button go_home_page;
-    public ArrayList<Product> products =  new ArrayList<>();
+    public ArrayList<Product> products = new ArrayList<>();
     public PriceProductAdapter adapter;
     public LinearLayout progress_step;
     public LayoutInflater inflater;
-    public View dialoglayout ;
+    public View dialoglayout;
     AlertDialog.Builder builder;
     public ScrollView scrollprice;
     Activity context = this;
@@ -66,7 +68,7 @@ public class PriceProductActivity extends AppCompatActivity {
     TextView link_txt;
 
 
-    public static String  chosen_type , chosen_cat;
+    public static String chosen_type, chosen_cat;
 
     public ArrayList<String> ProducTypeName = new ArrayList<>();
     public ArrayList<String> ProducTypeID = new ArrayList<>();
@@ -88,7 +90,7 @@ public class PriceProductActivity extends AppCompatActivity {
         list_price = (ListView) findViewById(R.id.list_price);
         go_home_page = (Button) findViewById(R.id.go_home_button);
         link_txt = (TextView) findViewById(R.id.link_id);
-        products =  new ArrayList<>();
+        products = new ArrayList<>();
 
         progressDialog = new ProgressDialog(activity,
                 R.style.AppTheme_Dark_Dialog);
@@ -100,10 +102,8 @@ public class PriceProductActivity extends AppCompatActivity {
 
         LoadData();
 
-        if(isOpened)
-        {
+        if (isOpened) {
             progress_step.setVisibility(View.GONE);
-
         }
 
 //        for (int i =0 ; i<10 ; i++)
@@ -116,7 +116,7 @@ public class PriceProductActivity extends AppCompatActivity {
 //            products.add(my_product);
 //        }
 
-        adapter = new PriceProductAdapter(PriceProductActivity.this,products);
+        adapter = new PriceProductAdapter(PriceProductActivity.this, products);
         list_price.setAdapter(adapter);
 
         go_home_page.setOnClickListener(new View.OnClickListener() {
@@ -127,12 +127,11 @@ public class PriceProductActivity extends AppCompatActivity {
                 finish();
             }
         });
-
         spinner_field.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
                 //Toast.makeText(getContext(),SpinCompany.get(position),Toast.LENGTH_SHORT).show();
-                chosen_type= ProducTypeID.get(position);
+                chosen_type = ProducTypeID.get(position);
 
                 ProductCatID = new ArrayList<>();
                 ProductCatName = new ArrayList<>();
@@ -144,8 +143,8 @@ public class PriceProductActivity extends AppCompatActivity {
                 LoadKinds();
 
 
-
             }
+
             @Override
             public void onNothingSelected(AdapterView<?> parentView) {
                 // your code here
@@ -156,10 +155,11 @@ public class PriceProductActivity extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
                 //Toast.makeText(getContext(),SpinCompany.get(position),Toast.LENGTH_SHORT).show();
-                chosen_cat= ProductCatID.get(position);
+                chosen_cat = ProductCatID.get(position);
                 load_items();
 
             }
+
             @Override
             public void onNothingSelected(AdapterView<?> parentView) {
                 // your code here
@@ -168,28 +168,26 @@ public class PriceProductActivity extends AppCompatActivity {
         });
 
     }
-    public void LoadData()
-    {
+
+    public void LoadData() {
         progressDialog.show();
         StringRequest stringRequest = new StringRequest(Request.Method.POST, GetCategory,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        Log.d("priceres","hello");
-                        Log.d("priceres",response);
+                        Log.d("priceres", "hello");
+                        Log.d("priceres", response);
                         progressDialog.dismiss();
                         try {
                             JSONArray jsonArray = new JSONArray(response);
-                            if (jsonArray.length() > 0)
-                            {
-                                for (int i=0 ; i<jsonArray.length() ; i++)
-                                {
+                            if (jsonArray.length() > 0) {
+                                for (int i = 0; i < jsonArray.length(); i++) {
                                     JSONObject jsonObject = new JSONObject(jsonArray.get(i).toString());
                                     String id = jsonObject.getString("ID");
                                     String name = jsonObject.getString("name");
                                     ProducTypeID.add(jsonObject.getString("ID"));
-                                    ProducTypeName.add( jsonObject.getString("name"));
-                                    Log.d("my data",id);
+                                    ProducTypeName.add(jsonObject.getString("name"));
+                                    Log.d("my data", id);
                                 }
                                 ArrayAdapter<String> adapter2 = new ArrayAdapter<String>(context, android.R.layout.simple_spinner_item, ProducTypeName);
                                 adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -204,7 +202,7 @@ public class PriceProductActivity extends AppCompatActivity {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Log.d("priceres",String.valueOf(error));
+                        Log.d("priceres", String.valueOf(error));
                         //Toast.makeText(MainActivity.this, error.toString(), Toast.LENGTH_LONG).show();
                     }
                 }) {
@@ -219,95 +217,86 @@ public class PriceProductActivity extends AppCompatActivity {
         requestQueue.add(stringRequest);
     }
 
-    public void LoadKinds()
-    {
+    public void LoadKinds() {
         products = new ArrayList<>();
-        adapter = new PriceProductAdapter(PriceProductActivity.this,products);
+        adapter = new PriceProductAdapter(PriceProductActivity.this, products);
         list_price.setAdapter(adapter);
 
 
         progressDialog.show();
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://adc-company.net/mwan/include/cats_json.php?type=items&id="+chosen_type,
-            new Response.Listener<String>() {
-                @Override
-                public void onResponse(String response) {
-                    progressDialog.dismiss();
-                    Log.d("priceres","hello");
-                    Log.d("priceres2",response);
-                    //Toast.makeText(PriceProductActivity.this,response,Toast.LENGTH_LONG).show();
-                    try {
-                        JSONArray jsonArray = new JSONArray(response);
-                        if (jsonArray.length() > 0)
-                        {
-                            for (int i=0 ; i<jsonArray.length() ; i++)
-                            {
-                                JSONObject jsonObject = new JSONObject(jsonArray.get(i).toString());
-                                String id = jsonObject.getString("ID");
-                                String name = jsonObject.getString("name");
-                                ProductCatID.add(jsonObject.getString("ID"));
-                                ProductCatName.add( jsonObject.getString("name"));
-                                Log.d("my data",id);
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://adc-company.net/mwan/include/cats_json.php?type=items&id=" + chosen_type,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        progressDialog.dismiss();
+                        Log.d("priceres", "hello");
+                        Log.d("priceres2", response);
+                        //Toast.makeText(PriceProductActivity.this,response,Toast.LENGTH_LONG).show();
+                        try {
+                            JSONArray jsonArray = new JSONArray(response);
+                            if (jsonArray.length() > 0) {
+                                for (int i = 0; i < jsonArray.length(); i++) {
+                                    JSONObject jsonObject = new JSONObject(jsonArray.get(i).toString());
+                                    String id = jsonObject.getString("ID");
+                                    String name = jsonObject.getString("name");
+                                    ProductCatID.add(jsonObject.getString("ID"));
+                                    ProductCatName.add(jsonObject.getString("name"));
+                                    Log.d("my data", id);
+                                }
+                                ArrayAdapter<String> adapter = new ArrayAdapter<String>(context, android.R.layout.simple_spinner_item, ProductCatName);
+                                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                                spinner_kind.setAdapter(adapter);
                             }
-                            ArrayAdapter<String> adapter = new ArrayAdapter<String>(context, android.R.layout.simple_spinner_item, ProductCatName);
-                            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                            spinner_kind.setAdapter(adapter);
-                        }
 
-                    } catch (JSONException e) {
-                        e.printStackTrace();
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
                     }
-                }
-            },
-            new Response.ErrorListener() {
-                @Override
-                public void onErrorResponse(VolleyError error) {
-                    progressDialog.dismiss();
-                    Log.d("priceres",String.valueOf(error));
-                    //Toast.makeText(MainActivity.this, error.toString(), Toast.LENGTH_LONG).show();
-                }
-            }) {
-        @Override
-        protected Map<String, String> getParams() throws AuthFailureError {
-            Map<String, String> map = new HashMap<String, String>();
-            return map;
-        }
-    };
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        progressDialog.dismiss();
+                        Log.d("priceres", String.valueOf(error));
+                        //Toast.makeText(MainActivity.this, error.toString(), Toast.LENGTH_LONG).show();
+                    }
+                }) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> map = new HashMap<String, String>();
+                return map;
+            }
+        };
 
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         requestQueue.add(stringRequest);
     }
 
-    public void load_items()
-    {
+    public void load_items() {
         progressDialog.show();
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://adc-company.net/mwan/items-edit-1.html?json=true&ajax_page=true&cats="+chosen_cat,
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://adc-company.net/mwan/items-edit-1.html?json=true&ajax_page=true&cats=" + chosen_cat,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
                         progressDialog.dismiss();
                         response = fixEncoding(response);
-                        Log.d("items","hello");
-                        Log.d("items",response);
+                        Log.d("items", "hello");
+                        Log.d("items", response);
                         products = new ArrayList<>();
                         //Toast.makeText(PriceProductActivity.this,response,Toast.LENGTH_LONG).show();
                         try {
                             JSONArray jsonArray = new JSONArray(response);
-                            if (jsonArray.length() > 0)
-                            {
-                                for (int i=0 ; i<jsonArray.length() ; i++)
-                                {
+                            if (jsonArray.length() > 0) {
+                                for (int i = 0; i < jsonArray.length(); i++) {
                                     JSONObject jsonObject = new JSONObject(jsonArray.get(i).toString());
                                     Product my_product = new Product();
                                     my_product.setProductImage(jsonObject.getString("photo"));
                                     my_product.setProductName(jsonObject.getString("name"));
-                                    if (jsonObject.getString("price").equals("null"))
-                                    {
+                                    if (jsonObject.getString("price").equals("null")) {
                                         my_product.setProductPrice("0" + " جنية");
 
-                                    }
-                                    else
-                                    {
-                                        my_product.setProductPrice(jsonObject.getString("price")+ " جنية");
+                                    } else {
+                                        my_product.setProductPrice(jsonObject.getString("price") + " جنية");
 
                                     }
                                     my_product.setProductID(jsonObject.getString("ID"));
@@ -315,7 +304,7 @@ public class PriceProductActivity extends AppCompatActivity {
                                     products.add(my_product);
 
                                 }
-                                adapter = new PriceProductAdapter(PriceProductActivity.this,products);
+                                adapter = new PriceProductAdapter(PriceProductActivity.this, products);
                                 list_price.setAdapter(adapter);
                             }
 
@@ -327,16 +316,15 @@ public class PriceProductActivity extends AppCompatActivity {
                 },
                 new Response.ErrorListener() {
                     @Override
-                    public void onErrorResponse(VolleyError error)
-                    {
+                    public void onErrorResponse(VolleyError error) {
                         progressDialog.dismiss();
-                        Log.d("items",String.valueOf(error));
+                        Log.d("items", String.valueOf(error));
                     }
                 }) {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> map = new HashMap<String, String>();
-                map.put("json_email", Config.getJsonEmail(context) );
+                map.put("json_email", Config.getJsonEmail(context));
                 map.put("json_password", Config.getJsonPassword(context));
                 return map;
             }
@@ -345,6 +333,7 @@ public class PriceProductActivity extends AppCompatActivity {
         requestQueue.add(stringRequest);
 
     }
+
     public static String fixEncoding(String response) {
         try {
             byte[] u = response.toString().getBytes(
@@ -356,8 +345,8 @@ public class PriceProductActivity extends AppCompatActivity {
         }
         return response;
     }
-    public boolean isNetworkConnected()
-    {
+
+    public boolean isNetworkConnected() {
         ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         return cm.getActiveNetworkInfo() != null;
     }

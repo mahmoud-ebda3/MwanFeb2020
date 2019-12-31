@@ -11,7 +11,9 @@
         android:layout_marginRight="8dp"
         android:id="@+id/section_details_name"
         android:layout_width="0dp"
-        android:layout_weight="2"
+        android:layout_weight="1"
+        android:maxLines="1"
+        android:ellipsize="end"
         android:gravity="center_vertical|right"
         android:textColor="@color/black"
         android:textSize="18sp"
@@ -23,10 +25,10 @@
         android:id="@+id/details_spinner_options"
         android:layout_width="0dp"
         android:layout_weight="1"
-        android:gravity="center"
         android:backgroundTint="@color/black"
         android:dropDownSelector="@color/black"
         android:layout_height="match_parent"
+        tools:listitem="@layout/spinner_text_list_items"
         android:theme="@style/AppTheme"/>
 
 </LinearLayout>

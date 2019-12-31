@@ -19,6 +19,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
+import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -153,7 +154,7 @@ public class UserHomeActivity extends AppCompatActivity
         Ed.commit();
 
 
-        listView = (ListView) findViewById(R.id.offersList);
+        listView =  findViewById(R.id.offersList);
         loadProgress = (ProgressBar) findViewById(R.id.loadProgress);
         footerView = ((LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.loading_footer, null, false);
         no_data = (TextView) findViewById(R.id.no_data);
