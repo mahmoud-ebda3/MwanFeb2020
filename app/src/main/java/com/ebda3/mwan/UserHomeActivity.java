@@ -62,6 +62,8 @@ import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import jp.wasabeef.picasso.transformations.CropCircleTransformation;
 
@@ -93,6 +95,9 @@ public class UserHomeActivity extends AppCompatActivity
     public int LastStartFrom = 0;
     public int VolleyCurrentConnection = 0;
     public int LimitBerRequest = 5;
+
+    Timer timer;
+    public int myposition =0;
 
     View footerView;
 
@@ -243,7 +248,13 @@ public class UserHomeActivity extends AppCompatActivity
 //            }
 //        });
         //Toast.makeText(UserHomeActivity.this,My_Loc,Toast.LENGTH_SHORT).show();
+
+
+        timer = new Timer();
+        timer.scheduleAtFixedRate(new RemindTask(), 0, 3000); // delay*/
         View hView = navigationView.getHeaderView(0);
+
+
 
         profile = (LinearLayout) hView.findViewById(R.id.profile);
         profile.setOnClickListener(new View.OnClickListener() {
@@ -400,6 +411,32 @@ public class UserHomeActivity extends AppCompatActivity
         }
         return response;
     }
+
+    private class RemindTask extends TimerTask {
+        //int current = viewPager.getCurrentItem();
+
+        @Override
+        public void run() {
+            runOnUiThread(new Runnable() {
+                public void run() {
+                    if(myposition==OfferName.size())
+                    {
+                        myposition = 0;
+                        myposition++;
+                    }
+                    else
+                    {
+                        myposition++;
+                    }
+                        //offersRecyclerView.getLayoutManager().scrollToPosition(myposition);
+
+                // or use
+                      offersRecyclerView.smoothScrollToPosition( myposition);
+                    }
+                });
+
+            }
+        }
 
     @Override
     public void onBackPressed() {
