@@ -1,19 +1,30 @@
 package com.ebda3.adapters;
 
 import android.app.Activity;
+import android.graphics.Color;
+import android.os.Build;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.ebda3.Model.CalcCart;
+import com.ebda3.mwan.MaterialsDetailsActivity;
 import com.ebda3.mwan.R;
 import com.squareup.picasso.Picasso;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
+
+import androidx.annotation.RequiresApi;
 
 import static com.ebda3.Helpers.Config.cartData;
 import static com.ebda3.Helpers.Config.imageupload;
@@ -29,13 +40,14 @@ public class NewCartAdapter extends ArrayAdapter<String> {
     private final ArrayList<String> ProductImage;
     private final ArrayList<Float> ProductPrice;
     private final ArrayList<Integer> ProductCount;
-
     private final ArrayList<String> ItemPartnerName;
+    private final ArrayList<ArrayList<String>> CartDetailsName;
+    private final ArrayList<ArrayList<String>> CartDetailsValuew;;
     private final ArrayList<Integer> ItemAvailableAmount;
     private final ArrayList<Integer> ItemPartnerID;
 
 
-    public NewCartAdapter(Activity context, ArrayList<String> OfferName, ArrayList<String> ProductImage, ArrayList<Float> ProductPrice, ArrayList<Integer> ProductCount, ArrayList<Integer> ItemAvailableAmount, ArrayList<Integer> ItemPartnerID, ArrayList<String> ItemPartnerName) {
+    public NewCartAdapter(Activity context, ArrayList<String> OfferName, ArrayList<String> ProductImage, ArrayList<Float> ProductPrice, ArrayList<Integer> ProductCount, ArrayList<Integer> ItemAvailableAmount, ArrayList<Integer> ItemPartnerID, ArrayList<String> ItemPartnerName,ArrayList<ArrayList<String>> CartDetailsName,ArrayList<ArrayList<String>> CartDetailsValuew) {
         super(context, R.layout.cart_new_activity_item, ProductImage);
         // TODO Auto-generated constructor stub
 
@@ -47,6 +59,8 @@ public class NewCartAdapter extends ArrayAdapter<String> {
         this.ItemPartnerName = ItemPartnerName;
         this.ItemAvailableAmount = ItemAvailableAmount;
         this.ItemPartnerID = ItemPartnerID;
+        this.CartDetailsName = CartDetailsName;
+        this.CartDetailsValuew = CartDetailsValuew;
     }
 
     private boolean removeItemByPosition(int position) {
@@ -63,6 +77,7 @@ public class NewCartAdapter extends ArrayAdapter<String> {
     }
 
 
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     public View getView(final int position, View view, ViewGroup parent) {
 
         LayoutInflater inflater = context.getLayoutInflater();
@@ -73,6 +88,7 @@ public class NewCartAdapter extends ArrayAdapter<String> {
         ImageView minus_count_product = (ImageView) rowView.findViewById(R.id.minus_product_count);
         TextView product_name = (TextView) rowView.findViewById(R.id.txt_product_name_cart);
         final TextView my_price_pre_dis = (TextView) rowView.findViewById(R.id.txt_product_count_cart);
+        LinearLayout information_linaer = (LinearLayout) rowView.findViewById(R.id.details_linear_id);
 
         Picasso.with(this.getContext()).load(imageupload + ProductImage.get(position))
                 .resize(250, 250)
@@ -126,6 +142,33 @@ public class NewCartAdapter extends ArrayAdapter<String> {
 
             }
         });
+
+
+
+        Log.d("detailsinadapterss",CartDetailsName.toString());
+       if (CartDetailsName.get(position).size()>= 0)
+       {
+           for (int i = 0; i < CartDetailsName.get(position).size(); i++)
+           {
+               Log.d("ttrrrttt",CartDetailsName.get(position).get(i));
+               String name = CartDetailsName.get(position).get(i);
+               String value = CartDetailsValuew.get(position).get(i);
+               TextView valueTV = new TextView(context);
+               valueTV.setText(name + " : " + value);
+               valueTV.setTextSize(11);
+               valueTV.setGravity(Gravity.CENTER);
+               valueTV.setTextColor(Color.parseColor("#0087C2"));
+               valueTV.setLayoutParams(new ViewGroup.LayoutParams(
+                       ViewGroup.LayoutParams.WRAP_CONTENT,
+                       ViewGroup.LayoutParams.WRAP_CONTENT));
+
+               information_linaer.addView(valueTV);
+
+
+           }
+       }
+
+
 
         return rowView;
     }

@@ -1,5 +1,7 @@
 package com.ebda3.Model;
 
+import java.util.ArrayList;
+
 /**
  * Created by work on 11/10/2017.
  */
@@ -15,6 +17,9 @@ public class Cart {
     public Integer PartnerID;
     public String PartnerName;
     public String SelectedItems;
+    public ArrayList<String> details_name;
+    public ArrayList<String> details_value;
+
 
     public Cart() {
         ID = 0;
@@ -25,6 +30,8 @@ public class Cart {
         Amount = 0;
         ItemAvailableAmount = 0;
         PartnerName = "";
+        details_name = new ArrayList<>();
+        details_value = new ArrayList<>();
     }
 
     public Cart(Integer ID, String Name, String Photo) {
@@ -37,9 +44,11 @@ public class Cart {
         ItemAvailableAmount = 0;
         PartnerName = "";
         SelectedItems = "";
+        details_name = new ArrayList<>();
+        details_value = new ArrayList<>();
     }
 
-    public Cart(Integer ID, String name, String photo, String PartnerName, Float price, Float shippingCost, Integer partner_ID, Integer amount, Integer ItemAvailableAmount, String SelectedItems) {
+    public Cart(Integer ID, String name, String photo, String PartnerName, Float price, Float shippingCost, Integer partner_ID, Integer amount, Integer ItemAvailableAmount, String SelectedItems, ArrayList<String> details_value, ArrayList<String> details_name) {
         this.ID = ID;
         this.Name = name;
         this.Photo = photo;
@@ -49,6 +58,8 @@ public class Cart {
         this.PartnerID = partner_ID;
         this.Amount = amount;
         this.SelectedItems = SelectedItems;
+        this.details_name = details_name;
+        this.details_value = details_value;
     }
 
 
@@ -71,6 +82,10 @@ public class Cart {
     public Float getPrice() {
         return Price;
     }
+
+    public ArrayList<String> getDetailsName() { return details_name; }
+
+    public ArrayList<String> getDetailsValue() { return details_value; }
 
     public Float getShippingCost() {
         return shippingCost;
@@ -116,13 +131,14 @@ public class Cart {
         this.shippingCost = shippingCost;
     }
 
-    public void setAmount(Integer Amount) {
-        this.Amount = Amount;
-    }
 
-    public void setItemAvailableAmount(Integer ItemAvailableAmount) {
-        this.ItemAvailableAmount = ItemAvailableAmount;
-    }
+    public void setAmount(Integer Amount) { this.Amount = Amount; }
+
+    public void setDetailsName(ArrayList<String> details_name) { this.details_name = details_name; }
+
+    public void setDetailsValue(ArrayList<String> details_value) { this.details_value = details_value; }
+
+    public void setItemAvailableAmount(Integer ItemAvailableAmount) { this.ItemAvailableAmount = ItemAvailableAmount; }
 
     public void setPartner_ID(Integer PartnerID) {
         this.PartnerID = PartnerID;

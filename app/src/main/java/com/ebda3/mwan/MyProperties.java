@@ -22,6 +22,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
@@ -78,6 +79,8 @@ LinearLayout header;
 
     public Boolean setAdapterStatus = false;
 
+    SwipeRefreshLayout swipeRefreshLayout;
+
 
 
 
@@ -99,6 +102,15 @@ LinearLayout header;
         headline = (TextView) toolbar.findViewById(R.id.app_headline);
 
         headline.setText(" متابعة العقارات  ");
+
+        swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_container);
+        swipeRefreshLayout.setRefreshing(true);
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                refreshData();
+            }
+        });
 
 
 
@@ -156,6 +168,21 @@ LinearLayout header;
 
     }
 
+    public void refreshData() {
+        if (setAdapterStatus) {
+
+            ID.clear();
+            Name.clear();
+            Items.clear();
+            Net.clear();
+            shippingCost.clear();
+            Total.clear();
+        }
+        VolleyCurrentConnection = 0;
+        StartFrom = 0;
+        loadData();
+    }
+
 
 
 
@@ -178,6 +205,7 @@ LinearLayout header;
                         //Log.d("response", response);
                         listView.removeFooterView(footerView);
                         loadProgress.setVisibility(View.GONE);
+                        swipeRefreshLayout.setRefreshing(false);
 
 
                         try {
@@ -220,6 +248,7 @@ LinearLayout header;
                         } catch (JSONException e) {
                             Log.d("ffffff",e.getMessage());
                             e.printStackTrace();
+                            swipeRefreshLayout.setRefreshing(false);
                         }
 
 
@@ -234,6 +263,7 @@ LinearLayout header;
                         new CountDownTimer(3000, 1000) {
                             public void onFinish() {
                                 VolleyCurrentConnection = 0;
+                                swipeRefreshLayout.setRefreshing(false);
                                 listView.removeFooterView(footerView);
                                 loadData();
                             }
@@ -267,6 +297,7 @@ LinearLayout header;
             }
             catch (Exception e)
             {
+                swipeRefreshLayout.setRefreshing(false);
                 //Log.d("ffffff",e.getMessage());
                 VolleyCurrentConnection = 0;
                 loadData();

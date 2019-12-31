@@ -88,6 +88,8 @@ public class NewCart extends AppCompatActivity implements OnMapReadyCallback {
     Button bu_my_location;
 
     ArrayList<String> arrayList = new  ArrayList<String>();
+    ArrayList<ArrayList<String>> DetailsName = new  ArrayList<ArrayList<String>>();
+    ArrayList<ArrayList<String>> DetailsValue = new  ArrayList<ArrayList<String>>();
 
     public Toolbar toolbar;
     public TextView headline;
@@ -182,8 +184,13 @@ public class NewCart extends AppCompatActivity implements OnMapReadyCallback {
         });
 
 
+        DetailsName.clear();
+        DetailsValue.clear();
+
 
         Cart cart = new Cart();
+
+       // Log.d("CartDataArray","after: "+String.valueOf(cartData.get(0).getDetailsName()));
 
         for(Cart cart1 : cartData) {
             ProductID.add(cart1.getID());
@@ -194,6 +201,10 @@ public class NewCart extends AppCompatActivity implements OnMapReadyCallback {
             ItemAvailableAmount.add(cart1.getItemAvailableAmount());
             ItemPartnerID.add(cart1.getPartner_ID());
             ItemPartnerName.add(cart1.getPartnerName());
+            DetailsName.add(cart1.getDetailsName());
+            DetailsValue.add(cart1.getDetailsValue());
+            Log.d("CartDataArray","after: "+String.valueOf(cart1.getDetailsName()));
+            Log.d("CartDataArray","after: "+String.valueOf(cart1.getDetailsValue()));
         }
 
 
@@ -204,7 +215,9 @@ public class NewCart extends AppCompatActivity implements OnMapReadyCallback {
 
         no_data = (TextView) findViewById(R.id.no_data);
 
-        adapter = new NewCartAdapter(activity,ProductName,Productphoto,ProductPrice,Productcount,ItemAvailableAmount,ItemPartnerID,ItemPartnerName);
+        Log.d("detailssss",DetailsName.toString());
+
+        adapter = new NewCartAdapter(activity,ProductName,Productphoto,ProductPrice,Productcount,ItemAvailableAmount,ItemPartnerID,ItemPartnerName,DetailsName,DetailsValue);
         cart_product.setAdapter(adapter);
         CalcCart calcCart = new CalcCart();
         calcCart.GetAll();

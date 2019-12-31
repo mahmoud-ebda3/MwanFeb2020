@@ -45,6 +45,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import static com.ebda3.Helpers.Config.cartData;
 
@@ -95,6 +96,7 @@ public class ItemsActivity extends AppCompatActivity {
     public static TextView notificationNum;
 
     public static CountDownTimer timer = null;
+    SwipeRefreshLayout swipeRefreshLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -110,6 +112,15 @@ public class ItemsActivity extends AppCompatActivity {
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
         headline = (TextView) toolbar.findViewById(R.id.app_headline);
+
+        swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_container);
+        swipeRefreshLayout.setRefreshing(true);
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                refreshData();
+            }
+        });
 
 
         cart_info = (RelativeLayout) findViewById(R.id.cart_info);
@@ -220,6 +231,23 @@ public class ItemsActivity extends AppCompatActivity {
 
     }
 
+    public void refreshData() {
+        if (setAdapterStatus) {
+
+            ItemID.clear();
+            ItemName.clear();
+            ItemPhoto.clear();
+            ItemAvailableAmount.clear();
+            ItemPartnerName.clear();
+            ItemPartnerID.clear();
+            ItemPrice.clear();
+            shippingCost.clear();
+        }
+        VolleyCurrentConnection = 0;
+        StartFrom = 0;
+        loadData();
+    }
+
 
     public void loadData() {
         Log.d("loadData", "loadData");
@@ -232,6 +260,7 @@ public class ItemsActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(String response) {
                         loadProgress.setVisibility(View.GONE);
+                        swipeRefreshLayout.setRefreshing(false);
                         Log.d("responseee1212", response);
                         //response = fixEncoding(response);
                         try {
@@ -262,6 +291,7 @@ public class ItemsActivity extends AppCompatActivity {
                                 }
                             }
                         } catch (JSONException e) {
+                            swipeRefreshLayout.setRefreshing(false);
                             e.printStackTrace();
                         }
                     }
@@ -294,6 +324,7 @@ public class ItemsActivity extends AppCompatActivity {
                 RequestQueue queue = Volley.newRequestQueue(context);
                 queue.add(stringRequest);
             } catch (Exception e) {
+                swipeRefreshLayout.setRefreshing(false);
                 VolleyCurrentConnection = 0;
                 loadData();
             }

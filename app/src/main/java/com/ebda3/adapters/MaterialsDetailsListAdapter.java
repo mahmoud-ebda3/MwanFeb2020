@@ -20,11 +20,15 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.ebda3.mwan.MaterialsDetailsActivity.selectedItemsdetails;
+
 public class MaterialsDetailsListAdapter extends BaseAdapter {
 
     private Context context;
     private List<DetailsObject> list;
     private SpinnerListTextAdapter adapter;
+
+    public static ArrayList<String> details_name = new ArrayList<>();
 
 
 
@@ -66,6 +70,8 @@ public class MaterialsDetailsListAdapter extends BaseAdapter {
                     JSONObject row = array.getJSONObject(i);
                     spinnerList.add(row.getString("Name"));
                 }
+                selectedItemsdetails.clear();
+                MaterialsDetailsActivity.selectedItems.clear();
                 adapter = new SpinnerListTextAdapter(context, spinnerList);
                 adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                 sectionSpinner.setAdapter(adapter);
@@ -74,7 +80,9 @@ public class MaterialsDetailsListAdapter extends BaseAdapter {
                     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                         Log.e("490", String.valueOf(sectionSpinner.getSelectedItem()) + "-" + object.getID());
                         MaterialsDetailsActivity.selectedItems.put(object.getID(),String.valueOf(sectionSpinner.getSelectedItem()));
+                        selectedItemsdetails.put(object.getSectionName(),String.valueOf(sectionSpinner.getSelectedItem()));
                         Log.d("adapter_selected_item",String.valueOf( MaterialsDetailsActivity.selectedItems));
+                        Log.d("adapter_selecteddetails",String.valueOf( selectedItemsdetails));
                     }
 
                     @Override

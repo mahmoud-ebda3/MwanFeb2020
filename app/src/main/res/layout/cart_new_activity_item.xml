@@ -21,7 +21,7 @@
             android:orientation="horizontal">
 
             <LinearLayout
-android:gravity="center"
+                android:gravity="center"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="2"
@@ -30,7 +30,7 @@ android:gravity="center"
 
                 <ImageView
 
-android:layout_margin="8dp"
+                    android:layout_margin="8dp"
                     android:id="@+id/img_my_product_cart"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -43,7 +43,7 @@ android:layout_margin="8dp"
                 android:layoutDirection="rtl"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:layout_weight="1.5"
                 android:orientation="vertical">
                 <LinearLayout
 
@@ -110,6 +110,16 @@ android:layout_margin="8dp"
                 </LinearLayout>
 
 
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/details_linear_id"
+                android:gravity="center"
+                android:layout_weight="1.8"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
             </LinearLayout>
 

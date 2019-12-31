@@ -11,7 +11,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
-
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swipe_container"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent">
 
     <LinearLayout
 
@@ -33,6 +36,7 @@
             android:layout_height="wrap_content" />
 
         <ProgressBar
+            android:visibility="gone"
             android:id="@+id/loadProgress"
             android:layout_gravity="center_horizontal"
             android:layout_width="wrap_content"
@@ -64,6 +68,8 @@
 
 
     </LinearLayout>
+
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
 
 

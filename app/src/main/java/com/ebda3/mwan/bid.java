@@ -21,6 +21,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
@@ -75,6 +76,7 @@ public class bid extends AppCompatActivity {
 
 
     public Boolean setAdapterStatus = false;
+    SwipeRefreshLayout swipeRefreshLayout;
 
     ProgressBar loadProgress;
 
@@ -90,6 +92,15 @@ public class bid extends AppCompatActivity {
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
         headline = (TextView) toolbar.findViewById(R.id.app_headline);
+
+        swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_container);
+        swipeRefreshLayout.setRefreshing(true);
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                refreshData();
+            }
+        });
 
 
         headline.setText("المناقصات  ");
@@ -156,6 +167,21 @@ public class bid extends AppCompatActivity {
         });
     }
 
+    public void refreshData() {
+        if (setAdapterStatus) {
+
+            ID.clear();
+            Details.clear();
+            BidDate.clear();
+            BidsCount.clear();
+            Bids.clear();
+
+        }
+        VolleyCurrentConnection = 0;
+        StartFrom = 0;
+        loadData();
+    }
+
 
     public void loadData() {
 
@@ -175,6 +201,7 @@ public class bid extends AppCompatActivity {
                         //Log.d("response", response);
                         listView.removeFooterView(footerView);
                         loadProgress.setVisibility(View.GONE);
+                        swipeRefreshLayout.setRefreshing(false);
 
 
                         try {
@@ -225,6 +252,7 @@ public class bid extends AppCompatActivity {
 
                         new CountDownTimer(3000, 1000) {
                             public void onFinish() {
+                                swipeRefreshLayout.setRefreshing(false);
                                 VolleyCurrentConnection = 0;
                                 listView.removeFooterView(footerView);
                                 loadData();
@@ -257,6 +285,7 @@ public class bid extends AppCompatActivity {
 
                 queue.add(stringRequest);
             } catch (Exception e) {
+                swipeRefreshLayout.setRefreshing(false);
                 //Log.d("ffffff",e.getMessage());
                 VolleyCurrentConnection = 0;
                 loadData();

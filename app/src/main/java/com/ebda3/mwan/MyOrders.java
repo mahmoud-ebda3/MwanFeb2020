@@ -22,6 +22,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
@@ -83,6 +84,8 @@ public class MyOrders extends AppCompatActivity {
 
     public Boolean setAdapterStatus = false;
 
+    SwipeRefreshLayout swipeRefreshLayout;
+
 
 
 
@@ -104,6 +107,15 @@ public class MyOrders extends AppCompatActivity {
         headline = (TextView) toolbar.findViewById(R.id.app_headline);
 
         headline.setText(" مشترياتى   ");
+
+        swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_container);
+        swipeRefreshLayout.setRefreshing(true);
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                refreshData();
+            }
+        });
 
 
 
@@ -167,6 +179,26 @@ public class MyOrders extends AppCompatActivity {
 
     }
 
+    public void refreshData() {
+        if (setAdapterStatus) {
+
+            ID.clear();
+            Date.clear();
+            Items.clear();
+            Net.clear();
+            Total.clear();
+            shippingCost.clear();
+            Status.clear();
+            SupplierName.clear();
+            SupplierPhone.clear();
+            SupplierPhoto.clear();
+            ItemsArray.clear();
+        }
+        VolleyCurrentConnection = 0;
+        StartFrom = 0;
+        loadData();
+    }
+
 
 
 
@@ -189,6 +221,7 @@ public class MyOrders extends AppCompatActivity {
                         //Log.d("response", response);
                         listView.removeFooterView(footerView);
                         loadProgress.setVisibility(View.GONE);
+                        swipeRefreshLayout.setRefreshing(false);
 
 
                         try {
@@ -228,6 +261,7 @@ public class MyOrders extends AppCompatActivity {
 
                         } catch (JSONException e) {
                             Log.d("ffffff",e.getMessage());
+                            swipeRefreshLayout.setRefreshing(false);
                             e.printStackTrace();
                         }
 
@@ -276,6 +310,7 @@ public class MyOrders extends AppCompatActivity {
             }
             catch (Exception e)
             {
+                swipeRefreshLayout.setRefreshing(false);
                 //Log.d("ffffff",e.getMessage());
                 VolleyCurrentConnection = 0;
                 loadData();

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.telecom.Call;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -28,6 +29,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
@@ -40,6 +42,7 @@ import static com.ebda3.Helpers.Config.imageupload;
 public class MaterialsDetailsActivity extends AppCompatActivity {
 
     public static HashMap<String, String> selectedItems = new HashMap<>();
+    public static HashMap<String, String> selectedItemsdetails = new HashMap<>();
     private ListView listView;
     Context context = this;
     private String ID, Name, Location, Photo, Details;
@@ -55,6 +58,9 @@ public class MaterialsDetailsActivity extends AppCompatActivity {
     Button cartButton;
     TextView numberIcon;
     String ItemName, ItemPhoto,ItemID;
+
+    ArrayList<String> DetailsName = new ArrayList<>();
+    ArrayList<String>  DetailsValue = new ArrayList<>();
 
     public static TextView notificationNum;
     public static RelativeLayout cart_info;
@@ -115,7 +121,8 @@ public class MaterialsDetailsActivity extends AppCompatActivity {
             Intent cartButton = new Intent(context, NewCart.class);
             startActivity(cartButton);
         });
-        add_cart.setOnClickListener(click -> {
+        add_cart.setOnClickListener(click ->
+        {
 
 
 
@@ -125,6 +132,12 @@ public class MaterialsDetailsActivity extends AppCompatActivity {
                 Cart cart = new Cart();
 
                 Boolean AddToArray = true;
+
+                DetailsName=null;
+                DetailsValue=null;
+                DetailsName=new ArrayList<>();
+                DetailsValue=new ArrayList<>();
+
 //
 //                for(Cart cart1 : cartData) {
 //                    if(cart1.getID() != 0 && cart1.getID() == Integer.parseInt(ItemID) ) {
@@ -143,17 +156,40 @@ public class MaterialsDetailsActivity extends AppCompatActivity {
                     cart.setPhoto(ItemPhoto);
                     Gson gson = new Gson();
                     Log.d("selected_items","before :"+gson.toJson(selectedItems));
+                    Log.d("selected_itemsdetails","before :"+gson.toJson(selectedItemsdetails));
 
-                    cart.setSelectedItems(gson.toJson(selectedItems));
-                    selectedItems.clear();
-                    Log.d("selected_items","after :"+gson.toJson(selectedItems));
+
 //                cart.setPrice(Float.parseFloat(ItemID));
 //                cart.setShippingCost(Float.parseFloat(ItemID));
 //                cart.setItemAvailableAmount(Integer.parseInt(ItemID));
 //                cart.setPartner_ID(Integer.parseInt(ItemID));
 //                cart.setPartnerName(ItemName);
+
+                    Iterator myVeryOwnIterator = selectedItemsdetails.keySet().iterator();
+                    while(myVeryOwnIterator.hasNext()) {
+                        String key=(String)myVeryOwnIterator.next();
+                        DetailsName.add(key);
+                        String value=(String)selectedItemsdetails.get(key);
+                        DetailsValue.add(value);
+                    }
+
+                    selectedItems.clear();
+                    selectedItemsdetails=null;
+                    selectedItemsdetails=new HashMap<>();
+
+                    Log.d("predetails",DetailsName.toString());
+                    cart.setDetailsName(DetailsName);
+                    cart.setDetailsValue(DetailsValue);
                     cart.setAmount(1);
                     cartData.add(cart);
+
+                    Log.d("CartDataArray","before: "+String.valueOf(cartData.get(0).getDetailsName()));
+
+                    cart.setSelectedItems(gson.toJson(selectedItems));
+
+
+                    Log.d("selected_items","after :"+gson.toJson(selectedItems));
+                    Log.d("selected_itemsdetails","after :"+gson.toJson(selectedItemsdetails));
                     //selectedItems.clear();
                 }
                 if ( cartData.size() > 0 ) {
