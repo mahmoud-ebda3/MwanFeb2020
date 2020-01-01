@@ -185,6 +185,10 @@
             android:label=""
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
+            android:name=".BuildingNeedsDetails"
+            android:label=""
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
             android:name=".ConfirmOrder"
             android:label=""
             android:theme="@style/Theme.AppCompat.Light.Dialog" />

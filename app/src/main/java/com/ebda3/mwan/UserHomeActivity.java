@@ -483,8 +483,6 @@ public class UserHomeActivity extends AppCompatActivity
             myIntent = new Intent(UserHomeActivity.this, OffersActivity.class);
             startActivity(myIntent);
 
-
-
         } else if (id == R.id.myrealstates_id) {
             myIntent = new Intent(UserHomeActivity.this, MyProperties.class);
             startActivity(myIntent);
