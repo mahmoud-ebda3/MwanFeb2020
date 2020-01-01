@@ -122,7 +122,7 @@ public class RegisterUserActivity extends AppCompatActivity {
                         forward_page.setVisibility(View.VISIBLE);
                         Log.d("responseee", response);
                         response = fixEncoding(response);
-                        // Toast.makeText(MainActivity.this, String.valueOf(response), Toast.LENGTH_LONG).show();
+
                         JSONObject jObj;
                         try {
                             jObj = new JSONObject(response);
@@ -151,7 +151,7 @@ public class RegisterUserActivity extends AppCompatActivity {
 
                             e.printStackTrace();
                             Log.d("responseee", String.valueOf(e));
-//                            Toast.makeText(RegisterUserActivity.this, e.toString(), Toast.LENGTH_LONG).show();
+
                             JSONArray array = null;
                             try {
                                 array = new JSONArray(response);

@@ -70,7 +70,7 @@ public class SetLocation extends AppCompatActivity {
             if (resultCode == RESULT_OK) {
                 Place place = PlacePicker.getPlace(data, this);
                 String toastMsg = String.format("Place: %s", place.getName());
-                //Toast.makeText(this, toastMsg, Toast.LENGTH_LONG).show();
+
 
                 Location = String.valueOf(place.getLatLng().latitude + "," + place.getLatLng().longitude ) ;
 
@@ -80,7 +80,7 @@ public class SetLocation extends AppCompatActivity {
                 Ed.commit();
 
 
-            //Toast.makeText(activity, Location, Toast.LENGTH_SHORT).show();
+
             Intent intent = new Intent( SetLocation.this , MaterialActivity.class );
 
             intent.putExtra("id",id );

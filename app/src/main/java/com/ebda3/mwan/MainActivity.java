@@ -128,7 +128,7 @@ public class MainActivity extends AppCompatActivity {
                         forward_page.setVisibility(View.VISIBLE);
                         Log.d("responseee", response.toString());
                         response = fixEncoding(response);
-//                        Toast.makeText(MainActivity.this, String.valueOf(response), Toast.LENGTH_LONG).show();
+
 
                         JSONObject jObj;
                         try {
@@ -153,7 +153,7 @@ public class MainActivity extends AppCompatActivity {
                             forward_page.setVisibility(View.VISIBLE);
                             e.printStackTrace();
                             Log.d("responseee", String.valueOf(e));
-//                            Toast.makeText(MainActivity.this, e.toString(), Toast.LENGTH_LONG).show();
+//
                             JSONArray array = null;
                             try {
                                 array = new JSONArray(response);
@@ -194,7 +194,7 @@ public class MainActivity extends AppCompatActivity {
                     public void onErrorResponse(VolleyError error) {
                         register_progress.setVisibility(View.GONE);
                         forward_page.setVisibility(View.VISIBLE);
-                        //Toast.makeText(MainActivity.this, error.toString(), Toast.LENGTH_LONG).show();
+
                     }
                 }) {
             @Override

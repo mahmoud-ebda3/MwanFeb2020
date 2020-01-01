@@ -95,7 +95,7 @@ public class MarketMaterial extends AppCompatActivity {
         headline = (TextView) toolbar.findViewById(R.id.app_headline);
 
         id = getIntent().getStringExtra("id" );
-        //Toast.makeText(activity, id, Toast.LENGTH_SHORT).show();
+
         if ( id.equals("121") )
         {
             headline.setText("الانشاءات  ");
@@ -160,7 +160,7 @@ public class MarketMaterial extends AppCompatActivity {
 
             }
         });
-        //Toast.makeText(UserHomeActivity.this,My_Loc,Toast.LENGTH_SHORT).show();
+
 
 
 

@@ -301,7 +301,7 @@ public class Profile extends AppCompatActivity {
                                             edit_email.setError("البريد الالكترونى مستخدم مسبقا");
                                             edit_email.setText("");
                                         }
-                                        //Toast.makeText(activity, array.getString(0), Toast.LENGTH_SHORT).show();
+
                                         Log.d("response",  array.getString(0));
                                     } catch (JSONException e1) {
                                         e1.printStackTrace();

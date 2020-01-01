@@ -108,7 +108,7 @@ public class SplashActivity extends AppCompatActivity {
                         @Override
                         public void onErrorResponse(VolleyError error) {
 
-                            Toast.makeText(SplashActivity.this, error.toString(), Toast.LENGTH_LONG).show();
+
                             Intent intent = new Intent(SplashActivity.this, LoginActivity.class);
                             startActivity(intent);
                         }

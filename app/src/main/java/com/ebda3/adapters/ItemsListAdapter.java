@@ -90,7 +90,7 @@ public class ItemsListAdapter extends ArrayAdapter<String> {
                         cart1.setShippingCost( shippingCost.get(position) );
                         cart1.setAmount(cart1.getAmount()+1);
                         AddToArray = false;
-                        //Toast.makeText(context, "Found it! " + String.valueOf(cart1.getAmount())   , Toast.LENGTH_SHORT).show();
+
                     }
                 }
 
@@ -106,7 +106,7 @@ public class ItemsListAdapter extends ArrayAdapter<String> {
                     cart.setAmount(1);
                     cartData.add(cart);
                 }
-                //Toast.makeText(context, String.valueOf(cartData.size()), Toast.LENGTH_SHORT).show();
+
                 Intent intent = new Intent(context, CartActivity.class);
                 context.startActivity (intent);
 

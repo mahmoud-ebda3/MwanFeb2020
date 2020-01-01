@@ -336,7 +336,7 @@ public class SupplierOrderDetails extends AppCompatActivity   implements OnMapRe
         }
         else
         {
-            Toast.makeText(context, "please Enable Your Internet Connection", Toast.LENGTH_LONG).show();
+            Toast.makeText(context, "من فضلك تأكد من اتصالك بالإنترنت", Toast.LENGTH_LONG).show();
         }
     }
 

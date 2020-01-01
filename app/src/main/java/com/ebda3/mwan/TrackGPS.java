@@ -85,7 +85,7 @@ public class TrackGPS extends Service implements LocationListener {
             }
             // if GPS Enabled get lat/long using GPS Services
             if (checkGPS) {
-                //Toast.makeText(mContext,"GPS", Toast.LENGTH_SHORT).show();
+
                 if (loc == null) {
                     try {
                         locationManager.requestLocationUpdates(

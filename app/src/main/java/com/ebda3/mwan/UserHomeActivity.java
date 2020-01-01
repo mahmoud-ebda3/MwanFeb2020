@@ -150,7 +150,7 @@ public class UserHomeActivity extends AppCompatActivity
 
         if (gps.canGetLocation()) {
             longitude = gps.getLongitude();
-            // Toast.makeText(UserHomeActivity.this,String.valueOf(longitude),Toast.LENGTH_SHORT).show();
+
             latitude = gps.getLatitude();
             My_Loc = String.valueOf(longitude) + "\\|\\|" + String.valueOf(latitude);
         } else {

@@ -119,7 +119,7 @@ public class MaterialActivity extends AppCompatActivity {
 
         try {
             id = getIntent().getStringExtra("id" );
-            //Toast.makeText(activity, id, Toast.LENGTH_SHORT).show();
+
             if ( id.equals("121") )
             {
                 headline.setText("الانشاءات  ");
@@ -193,7 +193,7 @@ public class MaterialActivity extends AppCompatActivity {
 
             }
         });
-        //Toast.makeText(UserHomeActivity.this,My_Loc,Toast.LENGTH_SHORT).show();
+
 
 
 
@@ -347,7 +347,7 @@ public class MaterialActivity extends AppCompatActivity {
             if (resultCode == RESULT_OK) {
                 Place place = PlacePicker.getPlace(data, this);
                 String toastMsg = String.format("Place: %s", place.getName());
-                Toast.makeText(this, toastMsg, Toast.LENGTH_LONG).show();
+
 
                 Location = String.valueOf(place.getLatLng().latitude + "," + place.getLatLng().longitude ) ;
 

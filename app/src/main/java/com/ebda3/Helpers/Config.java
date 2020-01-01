@@ -15,18 +15,18 @@ import java.util.ArrayList;
  */
 
 public class Config {
-    public static final String imageupload = "http://adc-company.net/mwan/uploads/";
-    public static final String imageupload1 = "http://adc-company.net/mwan/category/";
-    public static final String LoginUrl = "http://adc-company.net/mwan/include/pages/login_cust.php?json=true";
-    public static final String ServiceRequest = "http://ebda3-eg.com/maintenance/service_provider-edit-1.html?json=true&ajax_page=true";
-    public static final String SignUp = "http://adc-company.net/mwan/suppliers-edit-1.html?json=true&ajax_page=true";
-    public static final String SignUpSupplier = "http://adc-company.net/mwan/suppliers-edit-1.html?json=true&ajax_page=true";
-    public static final String SignUpUser = "http://adc-company.net/mwan/users-edit-1.html?json=true&ajax_page=true";
-    public static final String GetSection = "http://adc-company.net/mwan/sections-edit-1.html?json=true&ajax_page=true";
-    public static final String PriceUrl = "http://adc-company.net/mwan/items-edit-1.html?json=true&ajax_page=true";
-    public static final String GetCategory = "http://adc-company.net/mwan/include/cats_json.php?type=items&sub=0";
-    public static final String GetMaterials = "http://adc-company.net/mwan/include/cats_json.php?type=materials&sub=0";
-    public static final String webServiceURL = "http://adc-company.net/mwan/include/webService.php?json=true";
+    public static final String imageupload = "https://adc-company.net/mwan/uploads/";
+    public static final String imageupload1 = "https://adc-company.net/mwan/category/";
+    public static final String LoginUrl = "https://adc-company.net/mwan/include/pages/login_cust.php?json=true";
+    public static final String ServiceRequest = "https://ebda3-eg.com/maintenance/service_provider-edit-1.html?json=true&ajax_page=true";
+    public static final String SignUp = "https://adc-company.net/mwan/suppliers-edit-1.html?json=true&ajax_page=true";
+    public static final String SignUpSupplier = "https://adc-company.net/mwan/suppliers-edit-1.html?json=true&ajax_page=true";
+    public static final String SignUpUser = "https://adc-company.net/mwan/users-edit-1.html?json=true&ajax_page=true";
+    public static final String GetSection = "https://adc-company.net/mwan/sections-edit-1.html?json=true&ajax_page=true";
+    public static final String PriceUrl = "https://adc-company.net/mwan/items-edit-1.html?json=true&ajax_page=true";
+    public static final String GetCategory = "https://adc-company.net/mwan/include/cats_json.php?type=items&sub=0";
+    public static final String GetMaterials = "https://adc-company.net/mwan/include/cats_json.php?type=materials&sub=0";
+    public static final String webServiceURL = "https://adc-company.net/mwan/include/webService.php?json=true";
     public static boolean isOpened = false;
     public static ArrayList<String> WorkersCatsNames = new ArrayList<String>();
     public static ArrayList<String> WorkersCatsIDS = new ArrayList<String>();

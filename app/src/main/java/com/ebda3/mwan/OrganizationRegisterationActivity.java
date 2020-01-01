@@ -369,7 +369,7 @@ public class OrganizationRegisterationActivity extends AppCompatActivity {
                     public void onErrorResponse(VolleyError error) {
                         progressDialog.dismiss();
                         Log.d("responseee2222",String.valueOf(error));
-                        //Toast.makeText(MainActivity.this, error.toString(), Toast.LENGTH_LONG).show();
+
                     }
                 }) {
             @Override
@@ -407,7 +407,7 @@ public class OrganizationRegisterationActivity extends AppCompatActivity {
                         Log.d("responseee2222",String.valueOf(error));
                         org_progressbar.setVisibility(View.GONE);
                         finish_reg.setVisibility(View.VISIBLE);
-                        Toast.makeText(OrganizationRegisterationActivity.this, error.toString(), Toast.LENGTH_LONG).show();
+
                     }
                 }) {
             @Override

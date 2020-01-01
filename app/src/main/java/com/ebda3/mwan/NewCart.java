@@ -173,7 +173,7 @@ public class NewCart extends AppCompatActivity implements OnMapReadyCallback {
             @Override
             public void onClick(View v)
             {
-               // Toast.makeText(context,"hello",Toast.LENGTH_SHORT).show();
+
 
                 Intent intent = new Intent(context,ChooseLocation.class);
                 startActivity(intent);
@@ -307,7 +307,7 @@ public class NewCart extends AppCompatActivity implements OnMapReadyCallback {
                 mMap.addMarker(new MarkerOptions().position(sydney).title("موقعى."));
                 mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
 
-                //Toast.makeText(activity, Location, Toast.LENGTH_SHORT).show();
+
             }
         });
 
@@ -382,7 +382,7 @@ public class NewCart extends AppCompatActivity implements OnMapReadyCallback {
 
 
 
-                //Toast.makeText(activity, Location, Toast.LENGTH_SHORT).show();
+
 
             }
         });

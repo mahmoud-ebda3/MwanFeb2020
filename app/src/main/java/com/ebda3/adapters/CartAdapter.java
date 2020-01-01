@@ -96,7 +96,7 @@ public class CartAdapter extends ArrayAdapter<String> {
 
                 int mycount = cartData.get(position).getAmount();
                 mycount++;
-                //Toast.makeText(context, String.valueOf(mycount) , Toast.LENGTH_SHORT).show();
+
                 Log.d("myccccoo", String.valueOf(mycount));
                 if (mycount >= 0) {
                     cartData.get(position).setAmount(mycount);
@@ -116,7 +116,7 @@ public class CartAdapter extends ArrayAdapter<String> {
             public void onClick(View v) {
                 int mycount = cartData.get(position).getAmount();
                 mycount--;
-                //Toast.makeText(context, String.valueOf(mycount) , Toast.LENGTH_SHORT).show();
+
                 Log.d("myccccoo", String.valueOf(mycount));
                 if (mycount <= 0) {
                     cartData.get(position).setAmount(1);

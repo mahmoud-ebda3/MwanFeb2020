@@ -207,7 +207,7 @@ public class MaterialsDetailsActivity extends AppCompatActivity {
 
 
 
-            //Toast.makeText(context, String.valueOf(cartData.size()), Toast.LENGTH_SHORT).show();
+
             //Intent intent = new Intent(context, NewCart.class);
             //context.startActivity (intent);
         });

@@ -180,7 +180,7 @@ public class Support extends MainActivity {
                                         DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
 
                             } else {
-                                Toast.makeText(Support.this, "please check your internet connection", Toast.LENGTH_LONG).show();
+                                Toast.makeText(Support.this, "من فضلك تأكد من اتصالك بالإنترنت", Toast.LENGTH_LONG).show();
                             }
 
 
@@ -282,7 +282,7 @@ public class Support extends MainActivity {
                 }
             });
         } else {
-            Toast.makeText(Support.this, "please check your internet connection", Toast.LENGTH_LONG).show();
+            Toast.makeText(Support.this, "من فضلك تأكد من اتصالك بالإنترنت", Toast.LENGTH_LONG).show();
         }
 
 
@@ -311,7 +311,7 @@ public class Support extends MainActivity {
                             Log.d("response", "xcxcx");
                             Log.d("response", response);
                             //response = fixEncoding(response);
-                            //Toast.makeText(Messages.this,response,Toast.LENGTH_LONG).show();
+
                             try {
                                 JSONArray array = new JSONArray(response);
                                 if (array.length() > 0) {
@@ -380,12 +380,12 @@ public class Support extends MainActivity {
                 } catch (Exception e) {
                     progressDialog.dismiss();
                     VolleyCurrentConnection = 0;
-                    Toast.makeText(Support.this, e.toString(), Toast.LENGTH_LONG).show();
+
                     loadData();
                 }
             }
         } else {
-            Toast.makeText(Support.this, "please check your internet connection", Toast.LENGTH_LONG).show();
+            Toast.makeText(Support.this, "من فضلك تأكد من اتصالك بالإنترنت", Toast.LENGTH_LONG).show();
         }
     }
 

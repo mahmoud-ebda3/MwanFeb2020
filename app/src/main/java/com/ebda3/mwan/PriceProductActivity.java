@@ -130,7 +130,7 @@ public class PriceProductActivity extends AppCompatActivity {
         spinner_field.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
-                //Toast.makeText(getContext(),SpinCompany.get(position),Toast.LENGTH_SHORT).show();
+
                 chosen_type = ProducTypeID.get(position);
 
                 ProductCatID = new ArrayList<>();
@@ -154,7 +154,7 @@ public class PriceProductActivity extends AppCompatActivity {
         spinner_kind.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
-                //Toast.makeText(getContext(),SpinCompany.get(position),Toast.LENGTH_SHORT).show();
+
                 chosen_cat = ProductCatID.get(position);
                 load_items();
 
@@ -203,7 +203,7 @@ public class PriceProductActivity extends AppCompatActivity {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         Log.d("priceres", String.valueOf(error));
-                        //Toast.makeText(MainActivity.this, error.toString(), Toast.LENGTH_LONG).show();
+
                     }
                 }) {
             @Override
@@ -231,7 +231,7 @@ public class PriceProductActivity extends AppCompatActivity {
                         progressDialog.dismiss();
                         Log.d("priceres", "hello");
                         Log.d("priceres2", response);
-                        //Toast.makeText(PriceProductActivity.this,response,Toast.LENGTH_LONG).show();
+
                         try {
                             JSONArray jsonArray = new JSONArray(response);
                             if (jsonArray.length() > 0) {
@@ -258,7 +258,7 @@ public class PriceProductActivity extends AppCompatActivity {
                     public void onErrorResponse(VolleyError error) {
                         progressDialog.dismiss();
                         Log.d("priceres", String.valueOf(error));
-                        //Toast.makeText(MainActivity.this, error.toString(), Toast.LENGTH_LONG).show();
+
                     }
                 }) {
             @Override
@@ -283,7 +283,7 @@ public class PriceProductActivity extends AppCompatActivity {
                         Log.d("items", "hello");
                         Log.d("items", response);
                         products = new ArrayList<>();
-                        //Toast.makeText(PriceProductActivity.this,response,Toast.LENGTH_LONG).show();
+
                         try {
                             JSONArray jsonArray = new JSONArray(response);
                             if (jsonArray.length() > 0) {

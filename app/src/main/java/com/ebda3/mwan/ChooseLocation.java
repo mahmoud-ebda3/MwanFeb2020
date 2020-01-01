@@ -347,7 +347,7 @@ public class ChooseLocation extends AppCompatActivity implements OnMapReadyCallb
                 //mMap.addMarker(new MarkerOptions().position(sydney).title("موقعى."));
                 mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
 
-                //Toast.makeText(activity, Location, Toast.LENGTH_SHORT).show();
+
             }
         });
 
@@ -448,7 +448,7 @@ public class ChooseLocation extends AppCompatActivity implements OnMapReadyCallb
 
 
 
-                //Toast.makeText(activity, Location, Toast.LENGTH_SHORT).show();
+
 
             }
         });

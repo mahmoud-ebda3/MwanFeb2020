@@ -232,7 +232,7 @@ public class ConfirmOrder extends AppCompatActivity {
                 }
                 else
                 {
-                    Toast.makeText(context,"please check your internet connection",Toast.LENGTH_LONG).show();
+                    Toast.makeText(context,"من فضلك تأكد من اتصالك بالإنترنت",Toast.LENGTH_LONG).show();
                 }
             }
         });
