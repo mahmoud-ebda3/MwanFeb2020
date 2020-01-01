@@ -475,7 +475,8 @@ public class UserHomeActivity extends AppCompatActivity
             startActivity(myIntent);
         } else if (id == R.id.builing_needs_id)
         {
-            ////////
+            myIntent = new Intent(UserHomeActivity.this, BuildingNeeds.class);
+            startActivity(myIntent);
 
         } else if (id == R.id.offers_id)
         {
@@ -604,7 +605,10 @@ public class UserHomeActivity extends AppCompatActivity
                 startActivity(myIntent);
                 break;
             case "احتياجات عقارك":
+                myIntent = new Intent(UserHomeActivity.this, BuildingNeeds.class);
+                startActivity(myIntent);
                 break;
+
             case "طلب صنايعى":
                 myIntent = new Intent(UserHomeActivity.this, Workers.class);
                 startActivity(myIntent);
