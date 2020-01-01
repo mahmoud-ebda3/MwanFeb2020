@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -48,6 +49,9 @@ public class OffersActivity extends AppCompatActivity {
     Toolbar toolbar;
     TextView head_line;
 
+    SwipeRefreshLayout swipeRefreshLayout;
+    public Boolean setAdapterStatus = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,10 +65,31 @@ public class OffersActivity extends AppCompatActivity {
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
         head_line.setText("العروض");
+
+        swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_container);
+        swipeRefreshLayout.setRefreshing(true);
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                refreshData();
+            }
+        });
+
+
         loadData();
 
 
 
+    }
+
+    public void refreshData() {
+        if (setAdapterStatus) {
+
+            objects.clear();
+        }
+        VolleyCurrentConnection = 0;
+        StartFrom = 0;
+        loadData();
     }
 
     public void loadData() {
@@ -82,6 +107,7 @@ public class OffersActivity extends AppCompatActivity {
                         Log.d("328944289", response);
                         response = fixEncoding(response);
                         Log.d("response12312", response);
+                        swipeRefreshLayout.setRefreshing(false);
                         try {
                             JSONArray array = new JSONArray(response);
                             if (array.length() > 0) {
@@ -100,13 +126,21 @@ public class OffersActivity extends AppCompatActivity {
 
                                     objects.add(offerObject);
                                 }
-                                Log.d("ooobbbb", objects.get(0).getName());
-                                adapter = new OffersAdapter(OffersActivity.this, objects);
-                                listView.setAdapter(adapter);
+
+                                if (!setAdapterStatus) {
+                                    Log.d("ooobbbb", objects.get(0).getName());
+                                    adapter = new OffersAdapter(OffersActivity.this, objects);
+                                    listView.setAdapter(adapter);
+                                    setAdapterStatus = true;
+                                } else {
+                                    adapter.notifyDataSetChanged();
+                                }
+
                             }
 
 
                         } catch (JSONException e) {
+                            swipeRefreshLayout.setRefreshing(false);
                             Log.d("ffffff", e.getMessage());
                             e.printStackTrace();
                         }
@@ -147,6 +181,7 @@ public class OffersActivity extends AppCompatActivity {
                 RequestQueue queue = Volley.newRequestQueue(this);
                 queue.add(stringRequest);
             } catch (Exception e) {
+                swipeRefreshLayout.setRefreshing(false);
                 //Log.d("ffffff",e.getMessage());
                 VolleyCurrentConnection = 0;
                 loadData();

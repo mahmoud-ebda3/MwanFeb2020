@@ -473,8 +473,9 @@ public class UserHomeActivity extends AppCompatActivity
         } else if (id == R.id.workers_id) {
             myIntent = new Intent(UserHomeActivity.this, Workers.class);
             startActivity(myIntent);
-        } else if (id == R.id.builing_needs_id) {
-
+        } else if (id == R.id.builing_needs_id)
+        {
+            ////////
 
         } else if (id == R.id.offers_id)
         {
