@@ -74,37 +74,10 @@ public class BuildingNeedsDetails  extends AppCompatActivity {
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
         headline = (TextView) toolbar.findViewById(R.id.app_headline);
-
-        num_of_doors = (EditText) findViewById(R.id.num_of_doors);
-        num_of_rooms = (EditText) findViewById(R.id.num_of_rooms);
-        num_of_windows= (EditText) findViewById(R.id.num_of_windows);
-
-        next_bu = (ImageView) findViewById(R.id.forward_page_user);
-
-        next_bu.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view)
-            {
-                NumOfRooms = num_of_rooms.getText().toString();
-                NumOfDoors = num_of_doors.getText().toString();
-                NumOfWindows = num_of_windows.getText().toString();
-
-                Intent intent = new Intent( BuildingNeedsDetails.this , BuildingNeeds.class );
-
-                intent.putExtra("num_of_rooms",NumOfRooms );
-                intent.putExtra("num_of_doors",NumOfDoors);
-                intent.putExtra("num_of_windows",NumOfWindows);
-                startActivity(intent);
-
-            }
-        });
-
-
-
-
-
-
         headline.setText("احتياجات عقارك");
+
+
+
     }
 
     @Override

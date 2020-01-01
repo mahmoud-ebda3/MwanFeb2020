@@ -54,7 +54,7 @@ public class BuildingNeeds extends AppCompatActivity {
 
     String NumOfRooms , NumOfDoors , NumOfWindows;
 
-    ImageView next_bu;
+    LinearLayout next_bu;
 
     public Boolean setAdapterStatus = false;
 
@@ -78,12 +78,13 @@ public class BuildingNeeds extends AppCompatActivity {
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
         headline = (TextView) toolbar.findViewById(R.id.app_headline);
+        headline.setText("احتياجات عقارك");
 
         num_of_doors = (EditText) findViewById(R.id.num_of_doors);
         num_of_rooms = (EditText) findViewById(R.id.num_of_rooms);
         num_of_windows= (EditText) findViewById(R.id.num_of_windows);
 
-        next_bu = (ImageView) findViewById(R.id.forward_page_user);
+        next_bu = (LinearLayout) findViewById(R.id.next_button_linear);
 
         next_bu.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -131,7 +132,7 @@ public class BuildingNeeds extends AppCompatActivity {
 
 
 
-        headline.setText("احتياجات عقارك");
+
     }
 
     @Override
