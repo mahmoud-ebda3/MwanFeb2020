@@ -50,9 +50,9 @@ public class BuildingNeeds extends AppCompatActivity {
 
     View footerView;
 
-    EditText num_of_rooms,num_of_windows,num_of_doors;
+    EditText num_of_rooms,num_of_windows,num_of_doors,num_of_bathrooms,num_of_kitchens,num_of_plugs;
 
-    String NumOfRooms , NumOfDoors , NumOfWindows;
+    String NumOfRooms , NumOfDoors , NumOfWindows, NumOfBathrooms, NumOfKitchens, NumOfPlugs;
 
     LinearLayout next_bu;
 
@@ -83,6 +83,9 @@ public class BuildingNeeds extends AppCompatActivity {
         num_of_doors = (EditText) findViewById(R.id.num_of_doors);
         num_of_rooms = (EditText) findViewById(R.id.num_of_rooms);
         num_of_windows= (EditText) findViewById(R.id.num_of_windows);
+        num_of_bathrooms= (EditText) findViewById(R.id.num_of_bathrooms);
+        num_of_kitchens= (EditText) findViewById(R.id.num_of_kitchens);
+        num_of_plugs= (EditText) findViewById(R.id.num_of_plugs);
 
         next_bu = (LinearLayout) findViewById(R.id.next_button_linear);
 
@@ -93,32 +96,45 @@ public class BuildingNeeds extends AppCompatActivity {
                 NumOfRooms = num_of_rooms.getText().toString();
                 NumOfDoors = num_of_doors.getText().toString();
                 NumOfWindows = num_of_windows.getText().toString();
+                NumOfBathrooms = num_of_bathrooms.getText().toString();
+                NumOfKitchens = num_of_kitchens.getText().toString();
+                NumOfPlugs = num_of_plugs.getText().toString();
 
                 Intent intent = new Intent( BuildingNeeds.this , BuildingNeedsDetails.class );
 
                 intent.putExtra("num_of_rooms",NumOfRooms );
                 intent.putExtra("num_of_doors",NumOfDoors);
                 intent.putExtra("num_of_windows",NumOfWindows);
+                intent.putExtra("num_of_bathrooms",NumOfBathrooms);
+                intent.putExtra("num_of_kitchens",NumOfKitchens);
+                intent.putExtra("num_of_plugs",NumOfPlugs);
                 startActivity(intent);
 
             }
         });
 
-        num_of_doors.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+        num_of_plugs.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 boolean handled = false;
                 if (actionId == EditorInfo.IME_ACTION_DONE) {
                     /* Write your logic here that will be executed when user taps next button */
+
                     NumOfRooms = num_of_rooms.getText().toString();
                     NumOfDoors = num_of_doors.getText().toString();
                     NumOfWindows = num_of_windows.getText().toString();
+                    NumOfBathrooms = num_of_bathrooms.getText().toString();
+                    NumOfKitchens = num_of_kitchens.getText().toString();
+                    NumOfPlugs = num_of_plugs.getText().toString();
 
                     Intent intent = new Intent( BuildingNeeds.this , BuildingNeedsDetails.class );
 
                     intent.putExtra("num_of_rooms",NumOfRooms );
                     intent.putExtra("num_of_doors",NumOfDoors);
                     intent.putExtra("num_of_windows",NumOfWindows);
+                    intent.putExtra("num_of_bathrooms",NumOfBathrooms);
+                    intent.putExtra("num_of_kitchens",NumOfKitchens);
+                    intent.putExtra("num_of_plugs",NumOfPlugs);
                     startActivity(intent);
 
                     handled = true;

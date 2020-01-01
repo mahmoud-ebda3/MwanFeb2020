@@ -21,6 +21,7 @@
         android:layout_height="match_parent">
 
         <LinearLayout
+            android:layout_marginBottom="5dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
@@ -56,6 +57,7 @@
 
 
             <com.ebda3.design.MyTextView
+                android:textSize="15dp"
                 android:layout_marginRight="5dp"
                 android:textColor="@color/black"
                 android:text="مساحة كل غرفة"
@@ -67,7 +69,13 @@
         <androidx.cardview.widget.CardView
             android:layout_margin="10dp"
             android:layout_width="match_parent"
-            android:layout_height="200dp">
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:id="@+id/rooms_card_id"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+
 
         </androidx.cardview.widget.CardView>
 
@@ -93,6 +101,7 @@
 
 
                 <com.ebda3.design.MyTextView
+                    android:textSize="15dp"
                     android:layout_marginRight="5dp"
                     android:textColor="@color/black"
                     android:text="مساحة كل شباك"
@@ -102,9 +111,15 @@
             </LinearLayout>
 
             <androidx.cardview.widget.CardView
+
                 android:layout_margin="10dp"
                 android:layout_width="match_parent"
-                android:layout_height="200dp">
+                android:layout_height="wrap_content">
+                <LinearLayout
+                    android:id="@+id/windows_card_id"
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
 
             </androidx.cardview.widget.CardView>
 
@@ -130,6 +145,8 @@
 
 
                 <com.ebda3.design.MyTextView
+                    android:layout_marginRight="5dp"
+                    android:textSize="15dp"
                     android:textColor="@color/black"
                     android:text="مساحة كل باب"
                     android:layout_width="match_parent"
@@ -141,7 +158,12 @@
                 android:layout_marginRight="5dp"
                 android:layout_margin="10dp"
                 android:layout_width="match_parent"
-                android:layout_height="200dp">
+                android:layout_height="wrap_content">
+                <LinearLayout
+                    android:id="@+id/door_card_id"
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
 
             </androidx.cardview.widget.CardView>
 
@@ -149,6 +171,97 @@
         </LinearLayout>
 
         <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+
+            <LinearLayout
+                android:layout_marginRight="5dp"
+                android:layoutDirection="rtl"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:src="@drawable/ic_bathroom"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"/>
+
+
+                <com.ebda3.design.MyTextView
+                    android:layout_marginRight="5dp"
+                    android:textSize="15dp"
+                    android:textColor="@color/black"
+                    android:text="مساحة كل حمام"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+
+            </LinearLayout>
+
+            <androidx.cardview.widget.CardView
+                android:layout_marginRight="5dp"
+                android:layout_margin="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <LinearLayout
+                    android:id="@+id/bathroom_card_id"
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+
+            </androidx.cardview.widget.CardView>
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+
+            <LinearLayout
+                android:layout_marginRight="5dp"
+                android:layoutDirection="rtl"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:src="@drawable/ic_kitchen"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"/>
+
+
+                <com.ebda3.design.MyTextView
+                    android:layout_marginRight="5dp"
+                    android:textSize="15dp"
+                    android:textColor="@color/black"
+                    android:text="مساحة كل مطبخ"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+
+            </LinearLayout>
+
+            <androidx.cardview.widget.CardView
+                android:layout_marginRight="5dp"
+                android:layout_margin="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <LinearLayout
+                    android:id="@+id/kitchen_card_id"
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+
+            </androidx.cardview.widget.CardView>
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_marginBottom="15dp"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_marginLeft="30dp"
