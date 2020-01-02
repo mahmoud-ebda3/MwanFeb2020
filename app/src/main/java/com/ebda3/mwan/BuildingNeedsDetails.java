@@ -1,8 +1,10 @@
 package com.ebda3.mwan;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -16,12 +18,26 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+import com.ebda3.Helpers.Config;
 import com.ebda3.Model.KitchenView;
 import com.ebda3.Model.RoomView;
 import com.ebda3.adapters.MyOrdersListAdapter;
 
+import org.json.JSONObject;
+
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
@@ -75,10 +91,16 @@ public class BuildingNeedsDetails  extends AppCompatActivity {
     ArrayList<RoomView> rooms_array = new ArrayList<>();
     ArrayList<KitchenView> kitchen_array = new ArrayList<>();
 
+    List<ArrayList<String>> rooms_array_send = new ArrayList<>();
+    ArrayList<ArrayList<String>> kitchen_array_send = new ArrayList<>();
+
+    ArrayList<String> building_data = new ArrayList<>();
 
 
+    ProgressBar progressBar;
 
     public  Activity context = this;
+    boolean done =true;
 
     ProgressBar loadProgress;
 
@@ -101,6 +123,8 @@ public class BuildingNeedsDetails  extends AppCompatActivity {
         DoorsLinear = (LinearLayout) findViewById(R.id.door_card_id);
         BathroomLinear = (LinearLayout) findViewById(R.id.bathroom_card_id);
         KitchenLinear = (LinearLayout) findViewById(R.id.kitchen_card_id);
+
+        progressBar = (ProgressBar) findViewById(R.id.register_progress_organization);
 
         send_data_bu = (Button) findViewById(R.id.finish_reg_bu);
 
@@ -154,17 +178,67 @@ public class BuildingNeedsDetails  extends AppCompatActivity {
             @Override
             public void onClick(View view)
             {
-                boolean done = false;
+                done = true;
+
+
 
                 for (int i=0 ; i<rooms_array.size();i++)
                 {
+                    if (rooms_array.get(i).getLength_txt().getText().toString().length()<1)
+                    {
+                        done=false;
+
+                        rooms_array.get(i).getLength_txt().setError("");
+                        rooms_array.get(i).getLength_txt().requestFocus();
+                        rooms_array.get(i).getLength_txt().setFocusable(true);
+                        rooms_array.get(i).getLength_txt().setSelected(true);
+
+
+                        building_data=new ArrayList<>();
+                        rooms_array_send =new ArrayList<>();
+
+                        Toast.makeText(context,"برجاء استكمال جميع البيانات",Toast.LENGTH_SHORT).show();
+
+
+                        break;
+                    }
+                    else if (rooms_array.get(i).getWidth_txt().getText().toString().length()<1)
+                    {
+                        done=false;
+
+                        rooms_array.get(i).getWidth_txt().setError("");
+                        rooms_array.get(i).getWidth_txt().requestFocus();
+                        rooms_array.get(i).getWidth_txt().setFocusable(true);
+                        rooms_array.get(i).getWidth_txt().setSelected(true);
+
+                        building_data=new ArrayList<>();
+                        rooms_array_send =new ArrayList<>();
+
+                        Toast.makeText(context,"برجاء استكمال جميع البيانات",Toast.LENGTH_SHORT).show();
+
+                        break;
+                    }
+
+
+                    building_data=new ArrayList<>();
+                    building_data.add("\"len\" : " +rooms_array.get(i).getLength_txt().getText().toString()) ;
+                    building_data.add("\"wid\" : "+rooms_array.get(i).getWidth_txt().getText().toString()) ;
+
+                    Log.d("str_building",String.valueOf(building_data));
+
+                    rooms_array_send.add(building_data);
+
+                    Log.d("room_send_array",String.valueOf(rooms_array_send));
+
                     Log.d("room_object", rooms_array.get(i).getId()+"----"+rooms_array.get(i).getName_room()+"----"+rooms_array.get(i).getLength_txt().getText()+"----"+rooms_array.get(i).getWidth_txt().getText()+"----");
                 }
 
-                for (int i=0 ; i<kitchen_array.size();i++)
+                if (done)
                 {
-                    Log.d("kitchen_object", kitchen_array.get(i).getId()+"----"+kitchen_array.get(i).getName_room()+"----"+kitchen_array.get(i).getLength_txt().getText()+"----"+kitchen_array.get(i).getWidth_txt().getText()+"----"+kitchen_array.get(i).getHeight_txt().getText()+"----");
+                    sennnd();
                 }
+
+
 
             }
         });
@@ -172,6 +246,166 @@ public class BuildingNeedsDetails  extends AppCompatActivity {
 
 
 
+    }
+
+    public void sennnd()
+    {
+
+        for (int i=0 ; i<kitchen_array.size();i++)
+        {
+
+            if (kitchen_array.get(i).getLength_txt().getText().toString().length()<1)
+            {
+                done=false;
+
+                kitchen_array.get(i).getLength_txt().setError("");
+                kitchen_array.get(i).getLength_txt().requestFocus();
+                kitchen_array.get(i).getLength_txt().setFocusable(true);
+                kitchen_array.get(i).getLength_txt().setSelected(true);
+
+
+                building_data=new ArrayList<>();
+                kitchen_array_send =new ArrayList<>();
+
+                Toast.makeText(context,"برجاء استكمال جميع البيانات",Toast.LENGTH_SHORT).show();
+
+                break;
+            }
+            else if (kitchen_array.get(i).getWidth_txt().getText().toString().length()<1)
+            {
+                done=false;
+
+                kitchen_array.get(i).getWidth_txt().setError("");
+                kitchen_array.get(i).getWidth_txt().requestFocus();
+                kitchen_array.get(i).getWidth_txt().setFocusable(true);
+                kitchen_array.get(i).getWidth_txt().setSelected(true);
+
+                building_data=new ArrayList<>();
+                kitchen_array_send =new ArrayList<>();
+
+                Toast.makeText(context,"برجاء استكمال جميع البيانات",Toast.LENGTH_SHORT).show();
+
+                break;
+
+
+            }
+            else if (kitchen_array.get(i).getHeight_txt().getText().toString().length()<1)
+            {
+                done=false;
+
+                kitchen_array.get(i).getHeight_txt().setError("");
+                kitchen_array.get(i).getHeight_txt().requestFocus();
+                kitchen_array.get(i).getHeight_txt().setFocusable(true);
+                kitchen_array.get(i).getHeight_txt().setSelected(true);
+
+
+                building_data=new ArrayList<>();
+                kitchen_array_send =new ArrayList<>();
+
+                Toast.makeText(context,"برجاء استكمال جميع البيانات",Toast.LENGTH_SHORT).show();
+
+                break;
+            }
+
+
+
+            building_data=new ArrayList<>();
+            building_data.add("\"len\" : " +kitchen_array.get(i).getLength_txt().getText().toString());
+            building_data.add("\"wid\" : " +kitchen_array.get(i).getWidth_txt().getText().toString()) ;
+            building_data.add("\"heig\" : " +kitchen_array.get(i).getHeight_txt().getText().toString());
+
+            Log.d("str_building",String.valueOf(building_data));
+
+            kitchen_array_send.add(building_data);
+
+            Log.d("kitchen_send_array",String.valueOf(kitchen_array_send));
+
+
+            Log.d("kitchen_object", kitchen_array.get(i).getId()+"----"+kitchen_array.get(i).getName_room()+"----"+kitchen_array.get(i).getLength_txt().getText()+"----"+kitchen_array.get(i).getWidth_txt().getText()+"----"+kitchen_array.get(i).getHeight_txt().getText()+"----");
+        }
+
+        if (done) {
+
+            senddata();
+        }
+    }
+
+
+    public void senddata()
+    {
+        boolean t = isNetworkConnected();
+
+        if(t) {
+
+            progressBar.setVisibility(View.VISIBLE);
+            send_data_bu.setVisibility(View.GONE);
+
+            StringRequest stringRequest = new StringRequest(Request.Method.POST, "url",
+                    new Response.Listener<String>() {
+                        @Override
+                        public void onResponse(String response) {
+                            try {
+
+                                progressBar.setVisibility(View.GONE);
+                                send_data_bu.setVisibility(View.VISIBLE);
+
+                                JSONObject jsonObject = new JSONObject ( response );
+
+
+                            }
+                            catch (Exception e)
+                            {
+
+                            }
+
+                        }
+                    },
+                    new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            progressBar.setVisibility(View.GONE);
+                            send_data_bu.setVisibility(View.VISIBLE);
+
+                        }
+                    }) {
+                @Override
+                protected Map<String, String> getParams() throws AuthFailureError {
+                    Map<String, String> params = new HashMap<>();
+                    params.put("do", "AddComplaint");
+                    params.put("json_email", Config.getJsonEmail(context));
+                    params.put("json_password", Config.getJsonPassword(context));
+                    params.put("NumOfRooms", NumOfRooms);
+                    params.put("NumOfDoors", NumOfDoors);
+                    params.put("NumOfWindows",NumOfWindows);
+                    params.put("NumOfBathrooms", NumOfBathrooms);
+                    params.put("NumOfKitchens", NumOfKitchens);
+                    params.put("RoomsData",  String.valueOf(rooms_array_send.subList(0,Integer.parseInt(NumOfRooms))));
+                    params.put("WindowsData",  String.valueOf(rooms_array_send.subList(Integer.parseInt(NumOfRooms),Integer.parseInt(NumOfRooms)+Integer.parseInt(NumOfWindows))));
+                    params.put("DoorsData",  String.valueOf(rooms_array_send.subList(Integer.parseInt(NumOfRooms)+Integer.parseInt(NumOfWindows),Integer.parseInt(NumOfRooms)+Integer.parseInt(NumOfWindows)+Integer.parseInt(NumOfDoors))));
+                    params.put("BathroomData",  String.valueOf(kitchen_array_send.subList(0,Integer.parseInt(NumOfBathrooms))));
+                    params.put("KitchenData",  String.valueOf(kitchen_array_send.subList(Integer.parseInt(NumOfBathrooms),Integer.parseInt(NumOfBathrooms)+Integer.parseInt(NumOfKitchens))));
+
+
+                    Log.d("building_send_data", params.toString());
+                    return params;
+                }
+            };
+
+            RequestQueue requestQueue = Volley.newRequestQueue(context);
+            requestQueue.add(stringRequest);
+        }
+        else
+        {
+            progressBar.setVisibility(View.GONE);
+            send_data_bu.setVisibility(View.VISIBLE);
+            Toast.makeText(context, "من فضلك تأكد من اتصالك بالإنترنت", Toast.LENGTH_LONG).show();
+        }
+    }
+
+    public boolean isNetworkConnected() {
+        ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        return cm.getActiveNetworkInfo() != null;
     }
 
     private void addLayout(LinearLayout myLinear,String name,String room_id) {

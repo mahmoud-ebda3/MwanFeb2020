@@ -93,22 +93,26 @@ public class BuildingNeeds extends AppCompatActivity {
             @Override
             public void onClick(View view)
             {
-                NumOfRooms = num_of_rooms.getText().toString();
-                NumOfDoors = num_of_doors.getText().toString();
-                NumOfWindows = num_of_windows.getText().toString();
-                NumOfBathrooms = num_of_bathrooms.getText().toString();
-                NumOfKitchens = num_of_kitchens.getText().toString();
-                NumOfPlugs = num_of_plugs.getText().toString();
 
-                Intent intent = new Intent( BuildingNeeds.this , BuildingNeedsDetails.class );
+                if (checkfields())
+                {
+                    NumOfRooms = num_of_rooms.getText().toString();
+                    NumOfDoors = num_of_doors.getText().toString();
+                    NumOfWindows = num_of_windows.getText().toString();
+                    NumOfBathrooms = num_of_bathrooms.getText().toString();
+                    NumOfKitchens = num_of_kitchens.getText().toString();
+                    NumOfPlugs = num_of_plugs.getText().toString();
 
-                intent.putExtra("num_of_rooms",NumOfRooms );
-                intent.putExtra("num_of_doors",NumOfDoors);
-                intent.putExtra("num_of_windows",NumOfWindows);
-                intent.putExtra("num_of_bathrooms",NumOfBathrooms);
-                intent.putExtra("num_of_kitchens",NumOfKitchens);
-                intent.putExtra("num_of_plugs",NumOfPlugs);
-                startActivity(intent);
+                    Intent intent = new Intent(BuildingNeeds.this, BuildingNeedsDetails.class);
+
+                    intent.putExtra("num_of_rooms", NumOfRooms);
+                    intent.putExtra("num_of_doors", NumOfDoors);
+                    intent.putExtra("num_of_windows", NumOfWindows);
+                    intent.putExtra("num_of_bathrooms", NumOfBathrooms);
+                    intent.putExtra("num_of_kitchens", NumOfKitchens);
+                    intent.putExtra("num_of_plugs", NumOfPlugs);
+                    startActivity(intent);
+                }
 
             }
         });
@@ -120,22 +124,25 @@ public class BuildingNeeds extends AppCompatActivity {
                 if (actionId == EditorInfo.IME_ACTION_DONE) {
                     /* Write your logic here that will be executed when user taps next button */
 
-                    NumOfRooms = num_of_rooms.getText().toString();
-                    NumOfDoors = num_of_doors.getText().toString();
-                    NumOfWindows = num_of_windows.getText().toString();
-                    NumOfBathrooms = num_of_bathrooms.getText().toString();
-                    NumOfKitchens = num_of_kitchens.getText().toString();
-                    NumOfPlugs = num_of_plugs.getText().toString();
+                    if (checkfields())
+                    {
+                        NumOfRooms = num_of_rooms.getText().toString();
+                        NumOfDoors = num_of_doors.getText().toString();
+                        NumOfWindows = num_of_windows.getText().toString();
+                        NumOfBathrooms = num_of_bathrooms.getText().toString();
+                        NumOfKitchens = num_of_kitchens.getText().toString();
+                        NumOfPlugs = num_of_plugs.getText().toString();
 
-                    Intent intent = new Intent( BuildingNeeds.this , BuildingNeedsDetails.class );
+                        Intent intent = new Intent(BuildingNeeds.this, BuildingNeedsDetails.class);
 
-                    intent.putExtra("num_of_rooms",NumOfRooms );
-                    intent.putExtra("num_of_doors",NumOfDoors);
-                    intent.putExtra("num_of_windows",NumOfWindows);
-                    intent.putExtra("num_of_bathrooms",NumOfBathrooms);
-                    intent.putExtra("num_of_kitchens",NumOfKitchens);
-                    intent.putExtra("num_of_plugs",NumOfPlugs);
-                    startActivity(intent);
+                        intent.putExtra("num_of_rooms", NumOfRooms);
+                        intent.putExtra("num_of_doors", NumOfDoors);
+                        intent.putExtra("num_of_windows", NumOfWindows);
+                        intent.putExtra("num_of_bathrooms", NumOfBathrooms);
+                        intent.putExtra("num_of_kitchens", NumOfKitchens);
+                        intent.putExtra("num_of_plugs", NumOfPlugs);
+                        startActivity(intent);
+                    }
 
                     handled = true;
                 }
@@ -149,6 +156,73 @@ public class BuildingNeeds extends AppCompatActivity {
 
 
 
+    }
+
+    public  boolean checkfields()
+    {
+        NumOfRooms = num_of_rooms.getText().toString();
+        NumOfDoors = num_of_doors.getText().toString();
+        NumOfWindows = num_of_windows.getText().toString();
+        NumOfBathrooms = num_of_bathrooms.getText().toString();
+        NumOfKitchens = num_of_kitchens.getText().toString();
+        NumOfPlugs = num_of_plugs.getText().toString();
+
+
+        if (num_of_rooms.getText().toString().length()<1)
+        {
+            num_of_rooms.setError("");
+            num_of_rooms.requestFocus();
+            num_of_rooms.setFocusable(true);
+            num_of_rooms.setSelected(true);
+
+        }
+        else if (num_of_doors.getText().toString().length()<1)
+        {
+            num_of_doors.setError("");
+            num_of_doors.requestFocus();
+            num_of_doors.setFocusable(true);
+            num_of_doors.setSelected(true);
+
+        }
+        else if (num_of_windows.getText().toString().length()<1)
+        {
+            num_of_windows.setError("");
+            num_of_windows.requestFocus();
+            num_of_windows.setFocusable(true);
+            num_of_windows.setSelected(true);
+
+
+        }
+        else if (num_of_bathrooms.getText().toString().length()<1)
+        {
+            num_of_bathrooms.setError("");
+            num_of_bathrooms.requestFocus();
+            num_of_bathrooms.setFocusable(true);
+            num_of_bathrooms.setSelected(true);
+
+        }
+        else if (num_of_kitchens.getText().toString().length()<1)
+        {
+            num_of_kitchens.setError("");
+            num_of_kitchens.requestFocus();
+            num_of_kitchens.setFocusable(true);
+            num_of_kitchens.setSelected(true);
+
+
+        }
+        else if (num_of_plugs.getText().toString().length()<1)
+        {
+            num_of_plugs.setError("");
+            num_of_plugs.setFocusable(true);
+            num_of_plugs.setSelected(true);
+
+        }
+        else
+        {
+            return true;
+        }
+
+        return false;
     }
 
     @Override

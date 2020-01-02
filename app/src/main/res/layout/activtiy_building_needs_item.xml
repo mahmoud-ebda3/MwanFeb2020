@@ -13,7 +13,7 @@
         android:id="@+id/container_linear_view"
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="35dp">
+        android:layout_height="45dp">
 
         <com.ebda3.design.MyTextView
             android:textStyle="bold"
@@ -35,11 +35,12 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_marginBottom="5dp"
                 android:layout_marginRight="18dp"
                 android:layout_marginLeft="16dp">
 
             <com.ebda3.design.MyEditText
-                android:textSize="11dp"
+                android:textSize="13dp"
                 android:id="@+id/length_txt"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -71,13 +72,14 @@
             android:layout_height="match_parent"
             android:background="@color/gray_color">
             <com.google.android.material.textfield.TextInputLayout
+                android:layout_marginBottom="5dp"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginRight="18dp"
                 android:layout_marginLeft="16dp">
 
             <com.ebda3.design.MyEditText
-                android:textSize="11dp"
+                android:textSize="13dp"
                 android:id="@+id/width_txt"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
