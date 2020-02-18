@@ -148,5 +148,21 @@ public class Cart {
         this.PartnerName = PartnerName;
     }
 
-
+    @Override
+    public String toString() {
+        return "Cart{" +
+                "ID=" + ID +
+                ", Name='" + Name + '\'' +
+                ", Photo='" + Photo + '\'' +
+                ", Price=" + Price +
+                ", shippingCost=" + shippingCost +
+                ", Amount=" + Amount +
+                ", ItemAvailableAmount=" + ItemAvailableAmount +
+                ", PartnerID=" + PartnerID +
+                ", PartnerName='" + PartnerName + '\'' +
+                ", SelectedItems='" + SelectedItems + '\'' +
+                ", details_name=" + details_name +
+                ", details_value=" + details_value +
+                '}';
+    }
 }

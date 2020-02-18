@@ -1,79 +1,80 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    >
-
-    <include
-        layout="@layout/app_toolbar_activity"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+    android:orientation="vertical">
 
     <GridView
-        android:layout_weight="1"
         android:id="@+id/grid_cart_products"
-        android:padding="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
         android:numColumns="1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-    <com.ebda3.design.MyTextView
-        android:textSize="22dp"
-        android:gravity="center"
-        android:visibility="gone"
-        android:id="@+id/no_data"
-        android:text="  سلة المشتريات فارغة  "
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:padding="5dp" />
 
+    <com.ebda3.design.MyTextView
+        android:id="@+id/no_data"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:text="  سلة المشتريات فارغة  "
+        android:textSize="22dp"
+        android:visibility="gone" />
 
 
     <LinearLayout
         android:id="@+id/linear_my_locaion_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:background="@color/custom_bg_grey"
         android:orientation="vertical"
         android:padding="5dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-
         >
+        <com.ebda3.design.MyButton
+            android:id="@+id/product_return_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|center_horizontal"
+            android:backgroundTint="#0087C2"
+            android:text="تكملة الشراء"
+            android:textColor="@android:color/white"
+            android:textSize="16dp" />
 
         <com.ebda3.design.MyButton
             android:id="@+id/get_my_location_button"
-            android:layout_gravity="bottom|center_horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="تحديد موقعك "
+            android:layout_gravity="bottom|center_horizontal"
+            android:backgroundTint="#0087C2"
+            android:text="تحديد موقعك وإتمام الشراء"
             android:textColor="@android:color/white"
-            android:textSize="16dp"
-            android:backgroundTint="#0087C2"/>
+            android:textSize="16dp" />
 
     </LinearLayout>
 
     <LinearLayout
         android:id="@+id/linear_buy_button"
-        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:background="@color/custom_bg_grey"
         android:orientation="vertical"
         android:padding="5dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:visibility="gone"
 
         >
 
 
         <com.ebda3.design.MyButton
             android:id="@+id/buy_cart_product"
-            android:layout_gravity="bottom|center_horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_gravity="bottom|center_horizontal"
+            android:backgroundTint="#0087C2"
             android:text="اختيار الموان المناسب "
             android:textColor="@android:color/white"
-            android:textSize="16dp"
-            android:backgroundTint="#0087C2"/>
+            android:textSize="16dp" />
 
     </LinearLayout>
-
 
 
 </LinearLayout>

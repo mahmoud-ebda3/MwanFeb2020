@@ -49,7 +49,7 @@ public class SuppliersAdapter extends ArrayAdapter<Supplier> {
         supplier_name.setText(MySuppliers.get(position).getSuppliername());
         suppler_near_loc.setText(MySuppliers.get(position).getNear_dist());
 
-        Picasso.with(context).load(imageupload + MySuppliers.get(position).getPhoto())
+        Picasso.get().load(imageupload + MySuppliers.get(position).getPhoto())
                 .resize(60,60)
                 .centerCrop()
                 .transform(new CropCircleTransformation())

@@ -11,9 +11,6 @@ import android.os.Bundle;
 import android.provider.Settings;
 import android.util.Log;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import androidx.appcompat.app.AppCompatActivity;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -29,6 +26,8 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import static com.ebda3.Helpers.Config.LoginUrl;
 
 
@@ -43,7 +42,7 @@ public class SplashActivity extends AppCompatActivity {
         setContentView(R.layout.activity_splash);
 
         SharedPreferences sp1 = this.getSharedPreferences("Login", 0);
-        u_email = sp1.getString("email", " ");
+        u_email = sp1.getString("phone", " ");
         u_password = sp1.getString("normal_password", " ");
         u_type = sp1.getString("type", " ");
 
@@ -78,6 +77,7 @@ public class SplashActivity extends AppCompatActivity {
                                     SharedPreferences sp = getSharedPreferences("Login", 0);
                                     SharedPreferences.Editor Ed = sp.edit();
                                     Ed.putString("photo", jObj.getString("photo"));
+                                    Ed.putString("name", jObj.getString("name"));
                                     Ed.putString("type", u_type);
                                     Ed.commit();
 //                                    if (jObj.getString("type").equals("user")) {
@@ -117,7 +117,7 @@ public class SplashActivity extends AppCompatActivity {
                 protected Map<String, String> getParams() throws AuthFailureError {
                     Map<String, String> map = new HashMap<String, String>();
                     map.put("do", "log");
-                    map.put("email", user_email);
+                    map.put("username", user_email);
                     map.put("password", user_password);
                     Log.d("params", map.toString());
                     return map;

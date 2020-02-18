@@ -1,38 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
-        android:paddingRight="17dp"
         android:layoutDirection="rtl"
         android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:paddingRight="17dp">
 
         <LinearLayout
-            android:layout_weight="2"
-            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:orientation="vertical">
 
             <com.ebda3.design.MyTextView
-                android:layout_marginBottom="5dp"
                 android:id="@+id/item_name"
-                android:gravity="center"
-                android:textColor="@color/black"
-                android:text="الصنف"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:gravity="center"
+                android:text="الصنف"
+                android:textColor="@color/black" />
 
             <LinearLayout
-                android:gravity="center"
-                android:orientation="vertical"
                 android:id="@+id/info_linear"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="vertical">
 
             </LinearLayout>
 
@@ -42,30 +43,48 @@
 
         <com.ebda3.design.MyTextView
             android:id="@+id/item_amount"
-            android:textColor="@color/black"
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
             android:gravity="center"
             android:text="المطلوب"
-            android:layout_width="60dp"
-            android:layout_height="wrap_content" />
-        <com.ebda3.design.MyTextView
-            android:textColor="@color/black"
-            android:id="@+id/item_available"
+            android:textColor="@color/black" />
 
+        <com.ebda3.design.MyTextView
+            android:id="@+id/item_available"
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
             android:gravity="center"
             android:text="المتاح"
-            android:layout_width="50dp"
-            android:layout_height="wrap_content" />
-        <com.ebda3.design.MyTextView
-            android:textColor="@color/black"
-            android:id="@+id/item_total"
-            android:layout_marginLeft="8dp"
+            android:textColor="@color/black" />
 
-            android:gravity="center"
-            android:text="الاجمالى"
+        <LinearLayout
             android:layout_width="60dp"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginLeft="8dp">
+
+            <com.ebda3.design.MyTextView
+                android:id="@+id/item_total"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="الاجمالى"
+                android:textColor="@color/black" />
+
+            <com.ebda3.design.MyTextView
+                android:id="@+id/item_total_before_discount"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left"
+                android:textSize="12sp"
+                android:gravity="center"
+                android:text="الخصم"
+                android:textColor="@color/black"
+                android:visibility="gone" />
+
+
+        </LinearLayout>
 
     </LinearLayout>
-
 
 </LinearLayout>

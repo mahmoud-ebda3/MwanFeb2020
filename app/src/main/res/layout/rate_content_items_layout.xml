@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_vertical"
+    android:layoutDirection="rtl"
+    android:orientation="horizontal"
+    android:padding="8dp">
+
+    <RatingBar
+        android:id="@+id/content_rating_progress"
+        style="@style/Widget.AppCompat.RatingBar.Small"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/colorAccent"
+        android:gravity="center_vertical"
+        android:progressTint="@color/colorAccent"
+        android:stepSize="0.5"
+        android:layout_marginLeft="8dp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <com.ebda3.design.MyTextView
+            android:id="@+id/content_rating_note"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginLeft="8dp"
+            android:layout_weight="1"
+            android:gravity="left"
+            android:textColor="@color/black"
+            android:textSize="12sp"
+            tools:text="hello" />
+
+        <com.ebda3.design.MyTextView
+            android:id="@+id/content_rating_date"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginLeft="8dp"
+            android:layout_weight="1"
+            android:gravity="left"
+            android:textColor="@color/black"
+            android:textSize="12sp"
+            tools:text="hello" />
+
+    </LinearLayout>
+
+</LinearLayout>

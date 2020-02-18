@@ -117,7 +117,7 @@ public class WorkersJoin extends AppCompatActivity {
             progressBar.setVisibility(View.VISIBLE);
             Join.setVisibility(View.GONE);
 
-            StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://adc-company.net/mwan/workers-edit-1.html?json=true&ajax_page=true",
+            StringRequest stringRequest = new StringRequest(Request.Method.POST, "https://www.mawaneg.com/supplier/workers-edit-1.html?json=true&ajax_page=true",
                     new Response.Listener<String>() {
                         @Override
                         public void onResponse(String response) {

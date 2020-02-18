@@ -8,7 +8,8 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.GridView;
-import android.widget.RelativeLayout;
+import android.widget.LinearLayout;
+
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -43,7 +44,7 @@ public class MwanProductActivity extends AppCompatActivity {
 
     public Toolbar toolbar;
     public TextView headline;
-    RelativeLayout shopping_cart_image;
+    LinearLayout shopping_cart_image;
     GridView product_grid;
     public static ArrayList<Product> products = new ArrayList<>();
 
@@ -67,7 +68,7 @@ public class MwanProductActivity extends AppCompatActivity {
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
         headline = (TextView) toolbar.findViewById(R.id.app_headline);
-        shopping_cart_image = (RelativeLayout) toolbar.findViewById(R.id.notificationB);
+        shopping_cart_image = toolbar.findViewById(R.id.notificationB);
         headline.setText("المنتجات");
         shopping_cart_image.setVisibility(View.VISIBLE);
         shopping_cart_image.setOnClickListener(new View.OnClickListener() {
@@ -79,8 +80,6 @@ public class MwanProductActivity extends AppCompatActivity {
         });
         products = new ArrayList<>();
         product_grid = (GridView) findViewById(R.id.products_grid_view);
-
-
         progressDialog = new ProgressDialog(activity,
                 R.style.AppTheme_Dark_Dialog);
         progressDialog.setIndeterminate(true);
@@ -98,21 +97,19 @@ public class MwanProductActivity extends AppCompatActivity {
         JSONObject jsonData2 = null;
         if (strJson.equals("0") || strJson == null || strJson.isEmpty()) {
         } else {
-
             try {
-
                 jsonData2 = new JSONObject(strJson);
-                JSONArray Jarray = jsonData2.getJSONArray("ID");
-                JSONArray Jarray2 = jsonData2.getJSONArray("Name");
-                JSONArray Jarray3 = jsonData2.getJSONArray("Photo");
-                JSONArray Jarray4 = jsonData2.getJSONArray("Count");
-                JSONArray Jarray5 = jsonData2.getJSONArray("Price");
-                for (int i = 0; i < Jarray.length(); i++) {
-                    CartProductID.add(Jarray.get(i).toString());
-                    CartProductName.add(Jarray2.get(i).toString());
-                    CartProductPhoto.add(Jarray3.get(i).toString());
-                    CartProductCount.add(Jarray4.get(i).toString());
-                    CartProductPrice.add(Jarray5.get(i).toString());
+                    JSONArray Jarray = jsonData2.getJSONArray("ID");
+                    JSONArray Jarray2 = jsonData2.getJSONArray("Name");
+                    JSONArray Jarray3 = jsonData2.getJSONArray("Photo");
+                    JSONArray Jarray4 = jsonData2.getJSONArray("Count");
+                    JSONArray Jarray5 = jsonData2.getJSONArray("Price");
+                    for (int i = 0; i < Jarray.length(); i++) {
+                        CartProductID.add(Jarray.get(i).toString());
+                        CartProductName.add(Jarray2.get(i).toString());
+                        CartProductPhoto.add(Jarray3.get(i).toString());
+                        CartProductCount.add(Jarray4.get(i).toString());
+                        CartProductPrice.add(Jarray5.get(i).toString());
                 }
 
             } catch (JSONException e) {
@@ -132,7 +129,6 @@ public class MwanProductActivity extends AppCompatActivity {
         adapter2 = new MwanProductAdapter(MwanProductActivity.this, products);
         product_grid.setAdapter(adapter2);
     }
-
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {

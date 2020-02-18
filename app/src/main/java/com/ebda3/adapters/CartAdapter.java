@@ -29,7 +29,6 @@ public class CartAdapter extends ArrayAdapter<String> {
     private final ArrayList<String> ProductImage;
     private final ArrayList<Float> ProductPrice;
     private final ArrayList<Integer> ProductCount;
-
     private final ArrayList<String> ItemPartnerName;
     private final ArrayList<Integer> ItemAvailableAmount;
     private final ArrayList<Integer> ItemPartnerID;
@@ -47,13 +46,14 @@ public class CartAdapter extends ArrayAdapter<String> {
         this.ItemPartnerName = ItemPartnerName;
         this.ItemAvailableAmount = ItemAvailableAmount;
         this.ItemPartnerID = ItemPartnerID;
+
     }
 
     private boolean removeItemByPosition(int position) {
         try {
             cartData.remove(position);
             CalcCart calcCart = new CalcCart();
-//            calcCart.GetAll();
+            calcCart.GetAll();
             context.recreate();
             return true;
         } catch (Exception e) {
@@ -64,11 +64,8 @@ public class CartAdapter extends ArrayAdapter<String> {
 
 
     public View getView(final int position, View view, ViewGroup parent) {
-
         LayoutInflater inflater = context.getLayoutInflater();
         View rowView = inflater.inflate(R.layout.cart_activity_item, null, true);
-
-
         ImageView product_image = (ImageView) rowView.findViewById(R.id.img_my_product_cart);
         ImageView delete_product = (ImageView) rowView.findViewById(R.id.delete_product);
         ImageView add_count_product = (ImageView) rowView.findViewById(R.id.plus_product_count);
@@ -77,23 +74,21 @@ public class CartAdapter extends ArrayAdapter<String> {
         TextView PartnerName = (TextView) rowView.findViewById(R.id.txt_Partner_name);
         TextView productPrice = (TextView) rowView.findViewById(R.id.txt_product_price_cart);
         final TextView my_price_pre_dis = (TextView) rowView.findViewById(R.id.txt_product_count_cart);
-
-        Picasso.with(this.getContext()).load(imageupload + ProductImage.get(position))
+        Picasso.get().load(imageupload + ProductImage.get(position))
                 .resize(626, 250)
                 .centerCrop()
                 .error(R.drawable.image_not_found)
                 .into(product_image);
+        delete_product.setOnClickListener(Click -> {
 
+        });
         product_name.setText(OfferName.get(position));
         productPrice.setText(String.valueOf(ProductPrice.get(position)) + " جنية ");
         PartnerName.setText("البائع : " + ItemPartnerName.get(position));
         my_price_pre_dis.setText(String.valueOf(ProductCount.get(position)));
-
-
         add_count_product.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 int mycount = cartData.get(position).getAmount();
                 mycount++;
 
@@ -107,8 +102,7 @@ public class CartAdapter extends ArrayAdapter<String> {
                 }
 
                 CalcCart calcCart = new CalcCart();
-//                calcCart.GetAll();
-
+                calcCart.GetAll();
             }
         });
         minus_count_product.setOnClickListener(new View.OnClickListener() {
@@ -125,7 +119,6 @@ public class CartAdapter extends ArrayAdapter<String> {
                     cartData.get(position).setAmount(mycount);
                     my_price_pre_dis.setText(String.valueOf(mycount));
                 }
-
                 CalcCart calcCart = new CalcCart();
                 calcCart.GetAll();
 
@@ -133,17 +126,6 @@ public class CartAdapter extends ArrayAdapter<String> {
             }
         });
 
-        delete_product.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                removeItemByPosition(position);
-
-
-            }
-        });
-
         return rowView;
     }
-
 }

@@ -1,108 +1,85 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-
-    android:layoutDirection="rtl">
-
-    <include
-        layout="@layout/app_toolbar_activity"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
-
-
-
-
+    android:layoutDirection="rtl"
+    android:orientation="vertical">
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/swipe_container"
         android:layout_width="wrap_content"
         android:layout_height="match_parent">
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
 
-
-
-        <LinearLayout
-            android:gravity="center"
-            android:orientation="vertical"
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-
-
-            <com.ebda3.design.MyTextView
-                android:id="@+id/no_data"
-                android:visibility="gone"
-                android:layout_gravity="center_vertical"
-                android:text="لا توجد مناقصات"
-                android:textAlignment="center"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:textSize="22dp"
-                android:layout_height="wrap_content" />
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="vertical">
 
-            <ProgressBar
-                android:visibility="gone"
-                android:id="@+id/loadProgress"
-                android:layout_gravity="center_horizontal"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
 
-            <ListView
-                android:visibility="gone"
-                android:layout_marginTop="12dp"
+                <com.ebda3.design.MyTextView
+                    android:id="@+id/no_data"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:text="لا توجد مناقصات"
+                    android:textAlignment="center"
+                    android:textSize="22dp"
+                    android:visibility="gone" />
 
-                android:id="@+id/List"
-                android:background="#f9f9f9"
+                <ProgressBar
+                    android:id="@+id/loadProgress"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:visibility="gone" />
 
-                android:divider="@android:color/transparent"
-                android:dividerHeight="0dp"
+                <ListView
+                    android:id="@+id/List"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_marginTop="12dp"
+                    android:layout_weight="90"
+                    android:background="#f9f9f9"
+                    android:divider="@android:color/transparent"
+                    android:dividerHeight="0dp"
+                    android:visibility="gone"
+                    />
 
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:id="@+id/add"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="90"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:background="@color/background_color"
+                android:clickable="true"
+                android:gravity="center"
+                android:padding="8dp">
 
+                <ImageView
+                    android:layout_width="28dp"
+                    android:layout_height="28dp"
+                    android:layout_marginLeft="5dp"
+                    android:src="@drawable/ic_add_circle_white_24dp" />
 
-                >
-            </ListView>
+                <com.ebda3.design.MyTextViewSemibold
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="اضافة مناقصة جديدة"
+                    android:textColor="@color/white"
+                    android:textSize="18dp" />
 
+            </LinearLayout>
 
-
-
-
-
-
-        </LinearLayout>
-
-
-        <LinearLayout
-            android:clickable="true"
-            android:id="@+id/add"
-            android:padding="8dp"
-            android:background="@color/background_color"
-            android:gravity="center"
-            android:layout_alignParentBottom="true"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <ImageView
-                android:layout_marginLeft="5dp"
-                android:src="@drawable/ic_add_circle_white_24dp"
-                android:layout_width="28dp"
-                android:layout_height="28dp" />
-
-            <com.ebda3.design.MyTextViewSemibold
-                android:textSize="18dp"
-                android:textColor="@color/white"
-                android:text="اضافة مناقصة جديدة"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-
-        </LinearLayout>
-
-    </RelativeLayout>
+        </RelativeLayout>
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
 

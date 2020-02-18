@@ -7,21 +7,17 @@ import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
@@ -44,7 +40,13 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class bid extends AppCompatActivity {
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+
+public class bid extends NavigationViewActivity {
 
     Activity activity = this;
 
@@ -54,7 +56,7 @@ public class bid extends AppCompatActivity {
 
     Context context = this;
     LinearLayout add;
-
+    FrameLayout frameLayout;
     ListView listView;
     public TextView no_data;
     Typeface typeface;
@@ -83,9 +85,12 @@ public class bid extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_bid);
-
-        toolbar = (Toolbar) findViewById(R.id.app_toolbar);
+        LayoutInflater inflater = (LayoutInflater) this
+                .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        View contentView = inflater.inflate(R.layout.activity_bid, null, false);
+        toolbar = drawer.findViewById(R.id.app_toolbar);
+        frameLayout = drawer.findViewById(R.id.frame_layout);
+        frameLayout.addView(contentView);
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
@@ -93,7 +98,7 @@ public class bid extends AppCompatActivity {
         }
         headline = (TextView) toolbar.findViewById(R.id.app_headline);
 
-        swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_container);
+        swipeRefreshLayout = contentView.findViewById(R.id.swipe_container);
         swipeRefreshLayout.setRefreshing(true);
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -106,7 +111,7 @@ public class bid extends AppCompatActivity {
         headline.setText("المناقصات  ");
 
 
-        add = (LinearLayout) findViewById(R.id.add);
+        add = (LinearLayout) contentView.findViewById(R.id.add);
         add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -116,10 +121,10 @@ public class bid extends AppCompatActivity {
         });
 
 
-        listView = (ListView) findViewById(R.id.List);
-        loadProgress = (ProgressBar) findViewById(R.id.loadProgress);
+        listView = (ListView) contentView.findViewById(R.id.List);
+        loadProgress = (ProgressBar) contentView.findViewById(R.id.loadProgress);
         footerView = ((LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.loading_footer, null, false);
-        no_data = (TextView) findViewById(R.id.no_data);
+        no_data = (TextView) contentView.findViewById(R.id.no_data);
         listView.setVisibility(View.VISIBLE);
         loadData();
 
@@ -188,7 +193,7 @@ public class bid extends AppCompatActivity {
         Log.d("loadData", "loadData");
         if (VolleyCurrentConnection == 0) {
             VolleyCurrentConnection = 1;
-            String VolleyUrl = "http://adc-company.net/mwan/bids-edit-1.html?json=true&ajax_page=true&my_bids=true" + "&start=" + String.valueOf(StartFrom) + "&end=" + String.valueOf(LimitBerRequest);
+            String VolleyUrl = "https://www.mawaneg.com/supplier/bids-edit-1.html?json=true&ajax_page=true&my_bids=true" + "&start=" + String.valueOf(StartFrom) + "&end=" + String.valueOf(LimitBerRequest);
             Log.d("responser", String.valueOf(VolleyUrl));
             listView.addFooterView(footerView);
             try {
@@ -271,7 +276,6 @@ public class bid extends AppCompatActivity {
 
 
                         Map<String, String> paramas = new HashMap();
-
                         paramas.put("json_email", Config.getJsonEmail(context));
                         paramas.put("json_password", Config.getJsonPassword(context));
                         return paramas;
@@ -306,9 +310,19 @@ public class bid extends AppCompatActivity {
     }
 
     @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (event.getAction() == KeyEvent.KEYCODE_BACK) {
+            Intent myIntent = new Intent(bid.this, UserHomeActivity.class);
+            startActivity(myIntent);
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+
+    @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
-            onBackPressed();
+            drawer.openDrawer(GravityCompat.START);
             return true;
         }
         return super.onOptionsItemSelected(item);

@@ -1,31 +1,30 @@
 package com.ebda3.mwan;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.KeyEvent;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
-import android.widget.ImageView;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.ebda3.adapters.MyOrdersListAdapter;
-
-import java.util.ArrayList;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+import androidx.core.view.GravityCompat;
 
-public class BuildingNeeds extends AppCompatActivity {
+import com.ebda3.adapters.MyOrdersListAdapter;
+
+public class BuildingNeeds extends NavigationViewActivity {
 
 
     Activity activity = this;
@@ -37,12 +36,12 @@ public class BuildingNeeds extends AppCompatActivity {
 
     LinearLayout header;
 
-    MyOrdersListAdapter adapter ;
+    MyOrdersListAdapter adapter;
 
     ListView listView;
     public TextView no_data;
     Typeface typeface;
-
+    FrameLayout frameLayout;
     public int StartFrom = 0;
     public int LastStartFrom = 0;
     public int VolleyCurrentConnection = 0;
@@ -50,28 +49,28 @@ public class BuildingNeeds extends AppCompatActivity {
 
     View footerView;
 
-    EditText num_of_rooms,num_of_windows,num_of_doors,num_of_bathrooms,num_of_kitchens,num_of_plugs;
+    EditText num_of_rooms, num_of_windows, num_of_doors, num_of_bathrooms, num_of_kitchens, num_of_plugs;
 
-    String NumOfRooms , NumOfDoors , NumOfWindows, NumOfBathrooms, NumOfKitchens, NumOfPlugs;
+    String NumOfRooms, NumOfDoors, NumOfWindows, NumOfBathrooms, NumOfKitchens, NumOfPlugs;
 
     LinearLayout next_bu;
 
     public Boolean setAdapterStatus = false;
 
 
-
-
-
-    public  Activity context = this;
+    public Activity context = this;
 
     ProgressBar loadProgress;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_building_needs);
-
-        toolbar = (Toolbar) findViewById(R.id.app_toolbar);
+        LayoutInflater inflater = (LayoutInflater) this
+                .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        View contentView = inflater.inflate(R.layout.activity_building_needs, null, false);
+        toolbar = drawer.findViewById(R.id.app_toolbar);
+        frameLayout = drawer.findViewById(R.id.frame_layout);
+        frameLayout.addView(contentView);
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
@@ -80,22 +79,20 @@ public class BuildingNeeds extends AppCompatActivity {
         headline = (TextView) toolbar.findViewById(R.id.app_headline);
         headline.setText("احتياجات عقارك");
 
-        num_of_doors = (EditText) findViewById(R.id.num_of_doors);
-        num_of_rooms = (EditText) findViewById(R.id.num_of_rooms);
-        num_of_windows= (EditText) findViewById(R.id.num_of_windows);
-        num_of_bathrooms= (EditText) findViewById(R.id.num_of_bathrooms);
-        num_of_kitchens= (EditText) findViewById(R.id.num_of_kitchens);
-        num_of_plugs= (EditText) findViewById(R.id.num_of_plugs);
+        num_of_doors = (EditText) contentView.findViewById(R.id.num_of_doors);
+        num_of_rooms = (EditText) contentView.findViewById(R.id.num_of_rooms);
+        num_of_windows = (EditText) contentView.findViewById(R.id.num_of_windows);
+        num_of_bathrooms = (EditText) contentView.findViewById(R.id.num_of_bathrooms);
+        num_of_kitchens = (EditText) contentView.findViewById(R.id.num_of_kitchens);
+        num_of_plugs = (EditText) contentView.findViewById(R.id.num_of_plugs);
 
-        next_bu = (LinearLayout) findViewById(R.id.next_button_linear);
+        next_bu = (LinearLayout) contentView.findViewById(R.id.next_button_linear);
 
         next_bu.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view)
-            {
+            public void onClick(View view) {
 
-                if (checkfields())
-                {
+                if (checkfields()) {
                     NumOfRooms = num_of_rooms.getText().toString();
                     NumOfDoors = num_of_doors.getText().toString();
                     NumOfWindows = num_of_windows.getText().toString();
@@ -124,8 +121,7 @@ public class BuildingNeeds extends AppCompatActivity {
                 if (actionId == EditorInfo.IME_ACTION_DONE) {
                     /* Write your logic here that will be executed when user taps next button */
 
-                    if (checkfields())
-                    {
+                    if (checkfields()) {
                         NumOfRooms = num_of_rooms.getText().toString();
                         NumOfDoors = num_of_doors.getText().toString();
                         NumOfWindows = num_of_windows.getText().toString();
@@ -151,15 +147,9 @@ public class BuildingNeeds extends AppCompatActivity {
         });
 
 
-
-
-
-
-
     }
 
-    public  boolean checkfields()
-    {
+    public boolean checkfields() {
         NumOfRooms = num_of_rooms.getText().toString();
         NumOfDoors = num_of_doors.getText().toString();
         NumOfWindows = num_of_windows.getText().toString();
@@ -168,57 +158,44 @@ public class BuildingNeeds extends AppCompatActivity {
         NumOfPlugs = num_of_plugs.getText().toString();
 
 
-        if (num_of_rooms.getText().toString().length()<1)
-        {
+        if (num_of_rooms.getText().toString().length() < 1) {
             num_of_rooms.setError("");
             num_of_rooms.requestFocus();
             num_of_rooms.setFocusable(true);
             num_of_rooms.setSelected(true);
 
-        }
-        else if (num_of_doors.getText().toString().length()<1)
-        {
+        } else if (num_of_doors.getText().toString().length() < 1) {
             num_of_doors.setError("");
             num_of_doors.requestFocus();
             num_of_doors.setFocusable(true);
             num_of_doors.setSelected(true);
 
-        }
-        else if (num_of_windows.getText().toString().length()<1)
-        {
+        } else if (num_of_windows.getText().toString().length() < 1) {
             num_of_windows.setError("");
             num_of_windows.requestFocus();
             num_of_windows.setFocusable(true);
             num_of_windows.setSelected(true);
 
 
-        }
-        else if (num_of_bathrooms.getText().toString().length()<1)
-        {
+        } else if (num_of_bathrooms.getText().toString().length() < 1) {
             num_of_bathrooms.setError("");
             num_of_bathrooms.requestFocus();
             num_of_bathrooms.setFocusable(true);
             num_of_bathrooms.setSelected(true);
 
-        }
-        else if (num_of_kitchens.getText().toString().length()<1)
-        {
+        } else if (num_of_kitchens.getText().toString().length() < 1) {
             num_of_kitchens.setError("");
             num_of_kitchens.requestFocus();
             num_of_kitchens.setFocusable(true);
             num_of_kitchens.setSelected(true);
 
 
-        }
-        else if (num_of_plugs.getText().toString().length()<1)
-        {
+        } else if (num_of_plugs.getText().toString().length() < 1) {
             num_of_plugs.setError("");
             num_of_plugs.setFocusable(true);
             num_of_plugs.setSelected(true);
 
-        }
-        else
-        {
+        } else {
             return true;
         }
 
@@ -233,11 +210,11 @@ public class BuildingNeeds extends AppCompatActivity {
         }
         return super.onKeyDown(keyCode, event);
     }
+
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
-            Intent myIntent = new Intent(BuildingNeeds.this, UserHomeActivity.class);
-            startActivity(myIntent);
+            drawer.openDrawer(GravityCompat.START);
             return true;
         }
         return super.onOptionsItemSelected(item);

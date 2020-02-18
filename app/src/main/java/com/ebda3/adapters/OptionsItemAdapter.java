@@ -52,7 +52,6 @@ public class OptionsItemAdapter extends RecyclerView.Adapter<OptionsItemAdapter.
         }
     }
 
-
     public class OptionsItemViewHolder extends RecyclerView.ViewHolder {
         ImageView icon;
         TextView name;

@@ -21,6 +21,7 @@
     <color name="base">#AAAAAA</color>
     <color name="iron">#CCCCCC</color>
     <color name="white">#FFFFFF</color>
+    <color name="selected_item">#F5F5F5</color>
 
 
     <color name="background_color">#009688</color>
@@ -33,5 +34,7 @@
     <color name="button">#11304C</color>
     <color name="red">#f20000</color>
     <color name="land">#E5E5E5</color>
+    <color name="wallet_holo_blue_light">#33b5e5</color>
+
 
 </resources>

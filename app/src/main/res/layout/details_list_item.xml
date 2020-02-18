@@ -31,4 +31,14 @@
         tools:listitem="@layout/spinner_text_list_items"
         android:theme="@style/AppTheme"/>
 
+    <LinearLayout
+        android:visibility="gone"
+        android:orientation="vertical"
+        android:id="@+id/LinearLayout_details"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="match_parent"
+        ></LinearLayout>
+
+
 </LinearLayout>

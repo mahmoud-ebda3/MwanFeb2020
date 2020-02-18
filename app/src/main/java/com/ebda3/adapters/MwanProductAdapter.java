@@ -57,7 +57,7 @@ public class MwanProductAdapter extends ArrayAdapter<Product> {
         TextView dialog_material_price = (TextView) rowView.findViewById(R.id.txt_product_price);
         TextView dialog_material_buying= (TextView) rowView.findViewById(R.id.buy_product_txt);
 
-        Picasso.with(context).load(imageupload + MyProduct.get(position).getProductImage())
+        Picasso.get().load(imageupload + MyProduct.get(position).getProductImage())
                 .resize(626, 250)
                 .centerCrop()
                 .error(R.drawable.image_not_found)

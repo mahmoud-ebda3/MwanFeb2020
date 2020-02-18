@@ -9,8 +9,12 @@
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/app_toolbar"
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
         android:background="#0087C2"
+        android:fitsSystemWindows="true"
         android:minHeight="?attr/actionBarSize"
         android:theme="@style/AppTheme.Dark">
 
@@ -34,37 +38,87 @@
             android:visibility="gone"
             app:srcCompat="@drawable/ic_add_circle_white_24dp" />
 
-        <RelativeLayout
+        <LinearLayout
             android:id="@+id/notificationB"
-            android:layout_width="48dp"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_gravity="left"
             android:layout_marginLeft="10dp"
+            android:gravity="center"
             android:visibility="visible">
 
             <ImageView
-
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="5dp"
-                android:src="@drawable/ic_shopping_cart_white_24dp" />
-
-            <TextView
-                android:id="@+id/notificationNum"
-                android:layout_width="18dp"
-                android:layout_height="18dp"
-                android:layout_alignParentRight="true"
-                android:layout_marginLeft="9dp"
-                android:background="@drawable/badge_circle"
-                android:padding="0dp"
-                android:text="9"
-                android:textAlignment="center"
-                android:textColor="#FFF"
-                android:textSize="12sp"
-                android:textStyle="bold"
+                android:id="@+id/search_icon"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:src="@drawable/ic_search_black_24dp"
                 android:visibility="gone" />
 
-        </RelativeLayout>
+            <ImageView
+                android:id="@+id/rating_star"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:src="@drawable/ic_star_border_black_24dp"
+                android:visibility="gone" />
+
+            <ImageView
+                android:id="@+id/companies_icon"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_marginRight="5dp"
+                android:src="@drawable/ic_filter_list_white_24dp"
+                android:visibility="gone" />
+
+            <ImageView
+                android:id="@+id/filteration_icon"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginRight="5dp"
+                android:src="@drawable/filter_icon"
+                android:visibility="gone" />
+
+            <RelativeLayout
+                android:id="@+id/notification_container"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone">
+
+                <ImageView
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:src="@drawable/ic_shopping_cart_white_24dp" />
+
+                <TextView
+                    android:id="@+id/notificationNum"
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginLeft="9dp"
+                    android:background="@drawable/badge_circle"
+                    android:padding="0dp"
+                    android:text="9"
+                    android:textAlignment="center"
+                    android:textColor="#FFF"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    android:visibility="gone" />
+            </RelativeLayout>
+        </LinearLayout>
     </androidx.appcompat.widget.Toolbar>
+
+    <SearchView
+        android:id="@+id/search_view_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:minHeight="?attr/actionBarSize"
+        android:queryHint="البحث عن منتج..."
+        android:visibility="gone"
+        android:searchIcon="@drawable/ic_search_black_24dp"
+        android:layoutDirection="ltr"/>
+
 </RelativeLayout>

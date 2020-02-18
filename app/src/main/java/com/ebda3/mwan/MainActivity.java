@@ -6,19 +6,12 @@ import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -36,15 +29,20 @@ import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.Map;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+
 import static com.ebda3.Helpers.Config.SignUp;
 
 public class MainActivity extends AppCompatActivity {
     Context context = this;
-    public EditText corporation_name, corporation_tel, owner_name, owner_tel, address, user_name, password, password_confirmation;
+    public EditText corporation_name, corporation_tel, owner_name, owner_tel, address, user_name, password, password_confirmation, email_edit_text;
     public TextView forward_page;
     public ProgressBar register_progress;
     public static String reg_id;
-    public String myresponse, myemail, mypassword, myid, name, email, phone, u_type, my_normal_pass;
+    public String myresponse, myemail, mypassword, myid, name, email, phone, u_type, my_normal_pass, emailAddress;
     Toolbar toolbar;
 
     @Override
@@ -62,11 +60,13 @@ public class MainActivity extends AppCompatActivity {
         owner_name = findViewById(R.id.owner_name);
         forward_page = findViewById(R.id.register_button);
         owner_tel = findViewById(R.id.owner_telephone);
+        email_edit_text = findViewById(R.id.email_edit_text);
         address = findViewById(R.id.mawan_address);
         register_progress = findViewById(R.id.registration_progress_bar);
         user_name = findViewById(R.id.mawan_user_name);
         password = findViewById(R.id.password_edit_text);
         password_confirmation = findViewById(R.id.password_confirmation_edit_text);
+        email_edit_text = findViewById(R.id.email_edit_text);
 
         forward_page.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -78,6 +78,7 @@ public class MainActivity extends AppCompatActivity {
                 String mawanAddress = address.getText().toString();
                 String mawanUserName = user_name.getText().toString();
                 String userPassword = password.getText().toString();
+                emailAddress = email_edit_text.getText().toString();
                 String userPasswordConfirmation = password_confirmation.getText().toString();
                 if (corporationName.length() < 4) {
                     corporation_name.setError("من فضلك أدخل الأسم بطريقة صحيحة");
@@ -208,6 +209,7 @@ public class MainActivity extends AppCompatActivity {
                 map.put("address", address.getText().toString());
                 map.put("username", user_name.getText().toString());
                 map.put("password", password.getText().toString());
+                map.put("email", email_edit_text.getText().toString());
                 return map;
             }
         };
@@ -229,11 +231,15 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void savesharedprefernce() {
+        String emailAddress = email_edit_text.getText().toString();
         SharedPreferences sp = getSharedPreferences("Login", 0);
         SharedPreferences.Editor Ed = sp.edit();
         Ed.putString("ID", myid);
-        Ed.putString("username", name);
-        Ed.putString("email", email);
+        Ed.putString("username", phone);
+        if (!emailAddress.isEmpty()) {
+            Ed.putString("email", emailAddress);
+            Log.e("email_addresssssss", emailAddress);
+        }
         Ed.putString("phone", phone);
         Ed.putString("normal_password", my_normal_pass);
         Ed.putString("password", mypassword);

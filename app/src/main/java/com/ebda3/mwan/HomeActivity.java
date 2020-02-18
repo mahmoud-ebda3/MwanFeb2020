@@ -132,7 +132,7 @@ public class HomeActivity extends AppCompatActivity
         user_name.setText(u_name);
         user_email.setText(u_email);
 
-        Picasso.with(this).load(imageupload + u_photo)
+        Picasso.get().load(imageupload + u_photo)
                 .resize(60,60)
                 .centerCrop()
                 .transform(new CropCircleTransformation())
@@ -209,7 +209,7 @@ public class HomeActivity extends AppCompatActivity
         Log.d("loadData","loadData");
         if (VolleyCurrentConnection == 0) {
             VolleyCurrentConnection = 1;
-            String VolleyUrl = "http://adc-company.net/mwan/offers-edit-1.html?json=true&ajax_page=true" + "&start=" + String.valueOf(StartFrom) + "&end=" + String.valueOf(LimitBerRequest);
+            String VolleyUrl = "https://www.mawaneg.com/supplier/offers-edit-1.html?json=true&ajax_page=true" + "&start=" + String.valueOf(StartFrom) + "&end=" + String.valueOf(LimitBerRequest);
             Log.d("responser", String.valueOf(VolleyUrl));
             listView.addFooterView(footerView);
             try

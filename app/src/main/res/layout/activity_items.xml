@@ -1,83 +1,211 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layoutDirection="rtl">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layoutDirection="rtl"
+    android:orientation="vertical">
 
     <include
         layout="@layout/app_toolbar_activity"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
-    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-        android:id="@+id/swipe_container"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content" />
 
     <LinearLayout
-        android:layout_weight="1"
-        android:gravity="center"
-        android:orientation="vertical"
+        android:id="@+id/filtration_companies_container"
         android:layout_width="match_parent"
-        android:layout_height="0dp">
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
-        <com.ebda3.design.MyTextView
-            android:id="@+id/no_data"
-            android:visibility="gone"
-            android:layout_gravity="center_vertical"
-            android:text="لا توجد عروض"
-            android:textAlignment="center"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:textSize="22dp"
-            android:layout_height="wrap_content" />
+            android:layout_height="40dp"
+            android:orientation="horizontal">
 
-        <ProgressBar
-            android:visibility="gone"
-            android:id="@+id/loadProgress"
-            android:layout_gravity="center_horizontal"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            <androidx.cardview.widget.CardView
+                android:id="@+id/companies_container"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:layout_margin="4dp"
+                app:cardElevation="4dp"
+                android:padding="8dp">
 
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:visibility="visible">
 
-        <GridView
-            android:numColumns="2"
-            android:id="@+id/grid_prod"
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="3"
+                        android:orientation="vertical">
+
+                        <com.ebda3.design.MyTextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="شركات"
+                            android:textColor="@color/black"
+                            android:visibility="gone" />
+
+                        <Spinner
+                            android:id="@+id/companies_spinner"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            tools:listitem="@layout/spinner_text_list_items" />
+                    </LinearLayout>
+
+                    <ImageView
+                        android:layout_width="55dp"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/ic_filter_list_black_24dp" />
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <View
+                android:layout_width="0.1dp"
+                android:layout_height="match_parent"
+                android:visibility="gone"
+                android:background="@color/imagepicker_grey" />
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/filtration_container"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:layout_margin="4dp"
+                app:cardElevation="4dp"
+                android:padding="8dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:visibility="visible">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="3"
+                        android:orientation="vertical">
+
+                        <com.ebda3.design.MyTextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="أنواع"
+                            android:textColor="@color/black"
+                            android:visibility="gone" />
+
+                        <Spinner
+                            android:id="@+id/filtration_spinner"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            tools:listitem="@layout/spinner_text_list_items" />
+                    </LinearLayout>
+
+                    <ImageView
+                        android:layout_width="55dp"
+                        android:layout_height="match_parent"
+                        android:padding="4dp"
+                        android:src="@drawable/filter_icon_black" />
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+        </LinearLayout>
+
+        <View
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="0.8dp"
+            android:visibility="gone"
+            android:background="@color/imagepicker_grey" />
     </LinearLayout>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/no_data"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <com.ebda3.design.MyTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:gravity="center"
+                android:text="لا توجد بيانات"
+                android:textColor="@color/black"
+                android:textSize="30sp" />
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="120dp"
+                android:src="@drawable/no_search" />
+
+        </LinearLayout>
+
+        <ProgressBar
+            android:id="@+id/loadProgress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:visibility="gone" />
+
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/swipe_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <GridView
+                android:id="@+id/grid_prod"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:numColumns="2"
+                tools:listitem="@layout/item1_item" />
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+    </LinearLayout>
+
+
     <RelativeLayout
-        android:visibility="gone"
-        android:background="@color/background_color"
         android:id="@+id/cart_info"
         android:layout_width="match_parent"
-        android:layout_height="50dp">
+        android:layout_height="50dp"
+        android:background="@color/background_color"
+        android:visibility="gone">
 
         <com.ebda3.design.MyTextViewBold
-            android:textSize="14dp"
-            android:layout_marginRight="15dp"
-            android:layout_centerVertical="true"
-            android:textColor="@color/white"
-            android:text="تم اضافة الصنف الى السلة"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="15dp"
+            android:text="تم اضافة الصنف الى السلة"
+            android:textColor="@color/white"
+            android:textSize="14dp" />
 
         <com.ebda3.design.MyButton
             android:id="@+id/cart_button"
-            android:layout_marginBottom="3dp"
-            android:layout_marginTop="3dp"
-            android:textColor="@color/white"
-            android:background="#086058"
-            android:layout_marginLeft="3dp"
-            android:layout_alignParentLeft="true"
-
-            android:text="اتمام الشراء"
             android:layout_width="100dp"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="3dp"
+            android:layout_marginTop="3dp"
+            android:layout_marginBottom="3dp"
+
+            android:background="#086058"
+            android:text="اتمام الشراء"
+            android:textColor="@color/white" />
 
     </RelativeLayout>
-
-    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
-
 
 
 </LinearLayout>

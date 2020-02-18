@@ -73,7 +73,7 @@ public class PriceProductAdapter extends ArrayAdapter<Product> {
         TextView dialog_price_name = (TextView) rowView.findViewById(R.id.price_name_id);
         final TextView dialog_price_count = (TextView) rowView.findViewById(R.id.price_name_count);
 
-        Picasso.with(context).load(imageupload+MyProduct.get(position).getProductImage())
+        Picasso.get().load(imageupload+MyProduct.get(position).getProductImage())
                 .resize(25,25)
                 .centerCrop()
                 .transform(new CropCircleTransformation())
@@ -107,7 +107,7 @@ public class PriceProductAdapter extends ArrayAdapter<Product> {
 
                         done_button.setVisibility(View.GONE);
                         save_progress.setVisibility(View.VISIBLE);
-                        StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://adc-company.net/mwan/item_prices-edit-1.html?json=true&ajax_page=true",
+                        StringRequest stringRequest = new StringRequest(Request.Method.POST, "https://www.mawaneg.com/supplier/item_prices-edit-1.html?json=true&ajax_page=true",
                                 new Response.Listener<String>() {
                                     @Override
                                     public void onResponse(String response) {

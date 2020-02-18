@@ -14,9 +14,9 @@ import android.view.View;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.android.volley.AuthFailureError;
@@ -58,7 +58,6 @@ import static com.ebda3.mwan.MaterialsDetailsActivity.selectedItems;
 public class SuppliersCart extends AppCompatActivity {
 
 
-
     Activity activity = this;
 
     public Toolbar toolbar;
@@ -66,13 +65,11 @@ public class SuppliersCart extends AppCompatActivity {
     public String id;
 
 
-
-
-    SuppliersCartListAdapter adapter ;
+    SuppliersCartListAdapter adapter;
 
     Button Join;
     ListView listView;
-    public TextView no_data;
+    public LinearLayout no_data;
     Typeface typeface;
 
     public int StartFrom = 0;
@@ -82,19 +79,21 @@ public class SuppliersCart extends AppCompatActivity {
 
     View footerView;
 
-    public  ArrayList<String> ID = new  ArrayList<String>() ;
-    public  ArrayList<String> supplier_name = new  ArrayList<String>() ;
-    public  ArrayList<String> supplier_photo = new  ArrayList<String>() ;
-    public  ArrayList<String> supplier_phone  = new  ArrayList<String>()  ;
-    public  ArrayList<String> distance  = new  ArrayList<String>()  ;
-    public  ArrayList<String> shippingCost  = new  ArrayList<String>()  ;
-    public  ArrayList<String> Net  = new  ArrayList<String>()  ;
-    public  ArrayList<String> total  = new  ArrayList<String>()  ;
-    public  ArrayList<String> TotalItemsCount  = new  ArrayList<String>()  ;
-    public  ArrayList<String> itemsCount  = new  ArrayList<String>()  ;
-    public  ArrayList<String> items  = new  ArrayList<String>()  ;
-
-
+    public ArrayList<String> ID = new ArrayList<String>();
+    public ArrayList<String> supplier_description = new ArrayList<>();
+    public ArrayList<String> supplier_name = new ArrayList<String>();
+    public ArrayList<String> supplier_photo = new ArrayList<String>();
+    public ArrayList<String> supplier_phone = new ArrayList<String>();
+    public ArrayList<String> distance = new ArrayList<String>();
+    public ArrayList<String> shippingCost = new ArrayList<String>();
+    public ArrayList<String> Net = new ArrayList<String>();
+    public ArrayList<String> total = new ArrayList<String>();
+    public ArrayList<String> rate = new ArrayList<>();
+    public ArrayList<String> rateCount = new ArrayList<>();
+    public ArrayList<String> rateContent = new ArrayList<>();
+    public ArrayList<String> TotalItemsCount = new ArrayList<String>();
+    public ArrayList<String> itemsCount = new ArrayList<String>();
+    public ArrayList<String> items = new ArrayList<String>();
 
 
     public Boolean setAdapterStatus = false;
@@ -103,14 +102,26 @@ public class SuppliersCart extends AppCompatActivity {
 
     String ItemaJson;
     String jsonselectedItems;
+    LinearLayout notificationContainer;
+    TextView notificationNumber;
 
-
-    public  Activity context = this;
+    public Activity context = this;
 
     ProgressBar loadProgress;
 
-    RelativeLayout shopping_cart_image;
+    LinearLayout shopping_cart_image;
     public static TextView notificationNum;
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (cartData.size() > 0) {
+            notificationNumber.setVisibility(View.VISIBLE);
+            notificationNumber.setText(String.valueOf(cartData.size()));
+        } else {
+            notificationNumber.setVisibility(View.GONE);
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -123,17 +134,18 @@ public class SuppliersCart extends AppCompatActivity {
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
+        notificationNumber = toolbar.findViewById(R.id.notificationNum);
+        notificationContainer = toolbar.findViewById(R.id.notificationB);
         headline = (TextView) toolbar.findViewById(R.id.app_headline);
-        shopping_cart_image = (RelativeLayout) toolbar.findViewById(R.id.notificationB);
+        shopping_cart_image = toolbar.findViewById(R.id.notificationB);
         headline.setText("سلة المشتريات");
         shopping_cart_image.setVisibility(View.VISIBLE);
 
 
-
         my_location = Config.GetUserLocation(context);
 
-        notificationNum = (TextView) findViewById(R.id.notificationNum) ;
-        if ( cartData.size() > 0 ) {
+        notificationNum = (TextView) findViewById(R.id.notificationNum);
+        if (cartData.size() > 0) {
             notificationNum.setVisibility(View.VISIBLE);
             notificationNum.setText(String.valueOf(cartData.size()));
         }
@@ -154,12 +166,12 @@ public class SuppliersCart extends AppCompatActivity {
         jsonselectedItems = gson.toJson(selectedItems);
 
 
-        Log.d("json",ItemaJson);
+        Log.d("json", ItemaJson);
 
-        listView = (ListView)findViewById(R.id.suppliers_List);
+        listView = (ListView) findViewById(R.id.suppliers_List);
         loadProgress = (ProgressBar) findViewById(R.id.loadProgress);
-        footerView = ((LayoutInflater)   getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.loading_footer, null, false);
-        no_data = (TextView) findViewById(R.id.no_data);
+        footerView = ((LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.loading_footer, null, false);
+        no_data = findViewById(R.id.no_data);
         listView.setVisibility(View.VISIBLE);
         loadData();
 
@@ -170,13 +182,14 @@ public class SuppliersCart extends AppCompatActivity {
                                  int totalItemCount) {
                 //Algorithm to check if the last item is visible or not
                 final int lastItem = firstVisibleItem + visibleItemCount;
-                Log.d("lastItem",String.valueOf(visibleItemCount));
-                if(lastItem == totalItemCount){
+                Log.d("lastItem", String.valueOf(visibleItemCount));
+                if (lastItem == totalItemCount) {
                     // loadData();
                 }
             }
+
             @Override
-            public void onScrollStateChanged(AbsListView view,int scrollState) {
+            public void onScrollStateChanged(AbsListView view, int scrollState) {
                 if (scrollState == AbsListView.OnScrollListener.SCROLL_STATE_IDLE
                         && (listView.getLastVisiblePosition() - listView.getHeaderViewsCount() -
                         listView.getFooterViewsCount()) >= (adapter.getCount() - 3)) {
@@ -194,13 +207,13 @@ public class SuppliersCart extends AppCompatActivity {
                                     int position, long id) {
                 // TODO Auto-generated method stub
 
-                Intent intent = new Intent(SuppliersCart.this , CartConfirm.class );
-                intent.putExtra("ID",ID.get(position));
-                intent.putExtra("Items",items.get(position));
-                intent.putExtra("supplier_name",supplier_name.get(position));
-                intent.putExtra("total",total.get(position));
-                intent.putExtra("shippingCost",shippingCost.get(position));
-                intent.putExtra("Net",Net.get(position));
+                Intent intent = new Intent(SuppliersCart.this, CartConfirm.class);
+                intent.putExtra("ID", ID.get(position));
+                intent.putExtra("Items", items.get(position));
+                intent.putExtra("supplier_name", supplier_name.get(position));
+                intent.putExtra("total", total.get(position));
+                intent.putExtra("shippingCost", shippingCost.get(position));
+                intent.putExtra("Net", Net.get(position));
                 startActivity(intent);
 
             }
@@ -210,18 +223,15 @@ public class SuppliersCart extends AppCompatActivity {
     }
 
 
-
-
     public void loadData() {
 
-        Log.d("loadData","loadData");
+        Log.d("loadData", "loadData");
         if (VolleyCurrentConnection == 0) {
             VolleyCurrentConnection = 1;
-            String VolleyUrl = "http://adc-company.net/mwan/include/webService.php?json=true&do=getSuppliers&start=" + String.valueOf(StartFrom) + "&end=" + String.valueOf(LimitBerRequest);
+            String VolleyUrl = "https://www.mawaneg.com/supplier/include/webService.php?json=true&do=getSuppliers&start=" + String.valueOf(StartFrom) + "&end=" + String.valueOf(LimitBerRequest);
             Log.d("responser", String.valueOf(VolleyUrl));
             listView.addFooterView(footerView);
-            try
-            {
+            try {
                 StringRequest stringRequest = new StringRequest(Request.Method.POST, VolleyUrl, new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -229,33 +239,36 @@ public class SuppliersCart extends AppCompatActivity {
                         //response = fixEncoding (response);
                         Log.d("Suppliers_response", response);
                         listView.removeFooterView(footerView);
+                        listView.setVisibility(View.VISIBLE);
+                        no_data.setVisibility(View.GONE);
                         loadProgress.setVisibility(View.GONE);
 
 
                         try {
                             JSONObject m_array = new JSONObject(response);
 
-                            JSONArray Properties = new JSONArray( m_array.getString("Properties") );
-                            if (Properties.length() > 0) {
-                                PropertyIDS.clear();
-                                PropertyNames.clear();
-                                for (int i = 0; i < Properties.length(); i++) {
-                                    JSONObject row = Properties.getJSONObject(i);
-                                    {
-                                        PropertyIDS.add(row.getString("ID").toString());
-                                        PropertyNames.add(row.getString("name").toString());
+                            if ( m_array.has("Properties") ) {
+                                JSONArray Properties = new JSONArray(m_array.getString("Properties"));
+                                if (Properties.length() > 0) {
+                                    PropertyIDS.clear();
+                                    PropertyNames.clear();
+                                    for (int i = 0; i < Properties.length(); i++) {
+                                        JSONObject row = Properties.getJSONObject(i);
+                                        {
+                                            PropertyIDS.add(row.getString("ID").toString());
+                                            PropertyNames.add(row.getString("name").toString());
+                                        }
                                     }
                                 }
                             }
 
-                            JSONArray array = new JSONArray( m_array.getString("Suppliers") );
+                            JSONArray array = new JSONArray(m_array.getString("Suppliers"));
                             if (array.length() > 0) {
 
                                 VolleyCurrentConnection = 0;
                                 StartFrom += LimitBerRequest;
                                 LastStartFrom = StartFrom;
-                                for (int i = 0; i < array.length(); i++)
-                                {
+                                for (int i = 0; i < array.length(); i++) {
                                     JSONObject row = array.getJSONObject(i);
                                     ID.add(row.getString("ID").toString());
                                     supplier_name.add(row.getString("supplier_name").toString());
@@ -264,27 +277,32 @@ public class SuppliersCart extends AppCompatActivity {
                                     distance.add(row.getString("distance").toString());
                                     shippingCost.add(row.getString("shippingCost").toString());
                                     Net.add(row.getString("Net").toString());
+                                    rate.add(row.getString("rate"));
+                                    rateCount.add(row.getString("rateCount"));
+                                    rateContent.add(row.getString("rates"));
                                     total.add(row.getString("total").toString());
+                                    supplier_description.add(row.getString("description"));
                                     TotalItemsCount.add(row.getString("TotalItemsCount").toString());
                                     itemsCount.add(row.getString("itemsCount").toString());
                                     items.add(row.getString("items").toString());
                                 }
 
                                 if (!setAdapterStatus) {
-                                    adapter = new SuppliersCartListAdapter(context, supplier_name, supplier_photo , supplier_phone , distance , shippingCost  ,total , TotalItemsCount, itemsCount );
+                                    adapter = new SuppliersCartListAdapter(context, supplier_name, supplier_photo, supplier_phone, distance, shippingCost, total, TotalItemsCount, itemsCount, supplier_description, rate, rateCount, rateContent);
                                     listView.setAdapter(adapter);
                                     setAdapterStatus = true;
                                 } else {
                                     adapter.notifyDataSetChanged();
                                 }
-
-
+                            } else {
+                                listView.setVisibility(View.GONE);
+                                no_data.setVisibility(View.VISIBLE);
                             }
 
 
-
                         } catch (JSONException e) {
-                            Log.d("ffffff",e.getMessage());
+                            no_data.setVisibility(View.VISIBLE);
+                            Log.d("ffffff", e.getMessage());
                             e.printStackTrace();
                         }
 
@@ -318,26 +336,23 @@ public class SuppliersCart extends AppCompatActivity {
 
                         Map<String, String> paramas = new HashMap();
 
-                        paramas.put("json_email", Config.getJsonEmail(context) );
+                        paramas.put("json_email", Config.getJsonEmail(context));
                         paramas.put("json_password", Config.getJsonPassword(context));
 
-                        paramas.put("Items", ItemaJson );
+                        paramas.put("Items", ItemaJson);
                         //paramas.put("jsonselectedItems", jsonselectedItems );
-                        paramas.put("Location",my_location);
-                        Log.d("getmwanparamas",paramas.toString());
+                        paramas.put("Location", my_location);
+                        Log.d("getmwanparamas", paramas.toString());
                         return paramas;
                     }
                 };
-
                 int socketTimeout = 10000;//30 seconds - change to what you want
                 RetryPolicy policy = new DefaultRetryPolicy(socketTimeout, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
                 stringRequest.setRetryPolicy(policy);
-                RequestQueue queue = Volley.newRequestQueue( this );
+                RequestQueue queue = Volley.newRequestQueue(this);
 
                 queue.add(stringRequest);
-            }
-            catch (Exception e)
-            {
+            } catch (Exception e) {
                 //Log.d("ffffff",e.getMessage());
                 VolleyCurrentConnection = 0;
                 loadData();
@@ -353,6 +368,7 @@ public class SuppliersCart extends AppCompatActivity {
         }
         return super.onKeyDown(keyCode, event);
     }
+
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == android.R.id.home) {

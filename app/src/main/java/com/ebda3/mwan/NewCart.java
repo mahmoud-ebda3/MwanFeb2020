@@ -20,11 +20,19 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.GridView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.ActivityCompat;
+import androidx.core.view.GravityCompat;
 
 import com.ebda3.Model.CalcCart;
 import com.ebda3.Model.Cart;
@@ -43,13 +51,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.core.app.ActivityCompat;
-
 import static com.ebda3.Helpers.Config.cartData;
 
 
@@ -57,39 +58,38 @@ import static com.ebda3.Helpers.Config.cartData;
  * Created by work on 29/10/2017.
  */
 
-public class NewCart extends AppCompatActivity implements OnMapReadyCallback {
+public class NewCart extends NavigationViewActivity implements OnMapReadyCallback {
 
     public ProgressDialog progressDialog;
 
     public static GridView cart_product;
     SharedPreferences sp;
-    public Button apply_buy_bu , buy_cart_product ;
-    public LinearLayout Totals ;
-    public static  TextView total_price,shiping_price,net_price ;
+    public Button apply_buy_bu, buy_cart_product;
+    public LinearLayout Totals;
+    public static TextView total_price, shiping_price, net_price;
     TextView no_data;
     Context context = this;
     Activity activity = this;
 
     public ProgressBar buy_progress;
     public LayoutInflater inflater;
-    public View dialoglayout ;
+    public View dialoglayout;
     AlertDialog.Builder builder;
-
     private ArrayList<String> ProductName = new ArrayList<String>();
     private ArrayList<Integer> ProductID = new ArrayList<Integer>();
-    private ArrayList<Integer> Productcount = new  ArrayList<Integer>();
-    private ArrayList<String> Productphoto = new  ArrayList<String>();
-    private ArrayList<Float> ProductPrice = new  ArrayList<Float>();
+    private ArrayList<Integer> Productcount = new ArrayList<Integer>();
+    private ArrayList<String> Productphoto = new ArrayList<String>();
+    private ArrayList<Float> ProductPrice = new ArrayList<Float>();
 
-    public  ArrayList<String> ItemPartnerName = new  ArrayList<String>() ;
-    public  ArrayList<Integer> ItemAvailableAmount  = new  ArrayList<Integer>()  ;
-    public  ArrayList<Integer> ItemPartnerID  = new  ArrayList<Integer>()  ;
-    LinearLayout my_location , buy_linear;
-    Button bu_my_location;
+    public ArrayList<String> ItemPartnerName = new ArrayList<String>();
+    public ArrayList<Integer> ItemAvailableAmount = new ArrayList<Integer>();
+    public ArrayList<Integer> ItemPartnerID = new ArrayList<Integer>();
+    LinearLayout my_location, buy_linear;
+    Button bu_my_location, productReturnButton;
 
-    ArrayList<String> arrayList = new  ArrayList<String>();
-    ArrayList<ArrayList<String>> DetailsName = new  ArrayList<ArrayList<String>>();
-    ArrayList<ArrayList<String>> DetailsValue = new  ArrayList<ArrayList<String>>();
+    ArrayList<String> arrayList = new ArrayList<String>();
+    ArrayList<ArrayList<String>> DetailsName = new ArrayList<ArrayList<String>>();
+    ArrayList<ArrayList<String>> DetailsValue = new ArrayList<ArrayList<String>>();
 
     public Toolbar toolbar;
     public TextView headline;
@@ -98,7 +98,7 @@ public class NewCart extends AppCompatActivity implements OnMapReadyCallback {
     String u_location;
     private GoogleMap mMap;
     public Boolean waitGPS = true;
-    String Location , LastLocation , LanLongLoc;
+    String Location, LastLocation, LanLongLoc;
     RelativeLayout shopping_cart_image;
     Double mLat = 0.0;
     Double mLong = 0.0;
@@ -116,16 +116,20 @@ public class NewCart extends AppCompatActivity implements OnMapReadyCallback {
 
     private LatLng destination = null;
     private LatLng origin;
-
+    SharedPreferences sharedPreferences;
     String[] LocationData;
+    FrameLayout frameLayout;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_new_cart);
+        LayoutInflater inflater = (LayoutInflater) this
+                .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        View contentView = inflater.inflate(R.layout.activity_new_cart, null, false);
 
-        toolbar = (Toolbar) findViewById(R.id.app_toolbar);
+        toolbar = (Toolbar) drawer.findViewById(R.id.app_toolbar);
+        frameLayout = drawer.findViewById(R.id.frame_layout);
+        frameLayout.addView(contentView);
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
@@ -133,17 +137,15 @@ public class NewCart extends AppCompatActivity implements OnMapReadyCallback {
         }
         headline = (TextView) toolbar.findViewById(R.id.app_headline);
 
-        shopping_cart_image = (RelativeLayout) toolbar.findViewById(R.id.notificationB);
-        buy_cart_product = (Button) findViewById(R.id.buy_cart_product);
-
+        shopping_cart_image = toolbar.findViewById(R.id.notification_container);
+        shopping_cart_image.setVisibility(View.VISIBLE);
+        buy_cart_product = (Button) contentView.findViewById(R.id.buy_cart_product);
+        productReturnButton = contentView.findViewById(R.id.product_return_button);
         SharedPreferences sp1 = this.getSharedPreferences("Location", 0);
-        u_location= sp1.getString("mylocation"," ");
-
-        bu_my_location = (Button) findViewById(R.id.get_my_location_button);
-        my_location = (LinearLayout) findViewById(R.id.linear_my_locaion_button);
-        buy_linear = (LinearLayout) findViewById(R.id.linear_buy_button);
-
-
+        u_location = sp1.getString("mylocation", " ");
+        bu_my_location = (Button) contentView.findViewById(R.id.get_my_location_button);
+        my_location = (LinearLayout) contentView.findViewById(R.id.linear_my_locaion_button);
+        buy_linear = (LinearLayout) contentView.findViewById(R.id.linear_buy_button);
 //        if (u_location.length()<3)
 //        {
 //            my_location.setVisibility(View.VISIBLE);
@@ -164,20 +166,20 @@ public class NewCart extends AppCompatActivity implements OnMapReadyCallback {
             @Override
             public void onClick(View v) {
                 Intent myIntent = new Intent(NewCart.this, SuppliersCart.class);
-                myIntent.putExtra("mylocation",u_location);
+                myIntent.putExtra("mylocation", u_location);
                 startActivity(myIntent);
             }
         });
-
+        productReturnButton.setOnClickListener(click -> {
+            Intent i = new Intent(this, MaterialActivity.class);
+            i.putExtra("id", "from_cart");
+            startActivity(i);
+        });
         bu_my_location.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v)
-            {
-
-
-                Intent intent = new Intent(context,ChooseLocation.class);
+            public void onClick(View v) {
+                Intent intent = new Intent(context, ChooseLocation.class);
                 startActivity(intent);
-
             }
         });
 
@@ -188,9 +190,10 @@ public class NewCart extends AppCompatActivity implements OnMapReadyCallback {
 
         Cart cart = new Cart();
 
-       // Log.d("CartDataArray","after: "+String.valueOf(cartData.get(0).getDetailsName()));
+        // Log.d("CartDataArray","after: "+String.valueOf(cartData.get(0).getDetailsName()));
 
-        for(Cart cart1 : cartData) {
+        for (Cart cart1 : cartData) {
+            Log.e("1312", cart1.toString());
             ProductID.add(cart1.getID());
             ProductName.add(cart1.getName());
             Productphoto.add(cart1.getPhoto());
@@ -201,49 +204,40 @@ public class NewCart extends AppCompatActivity implements OnMapReadyCallback {
             ItemPartnerName.add(cart1.getPartnerName());
             DetailsName.add(cart1.getDetailsName());
             DetailsValue.add(cart1.getDetailsValue());
-            Log.d("CartDataArray","after: "+String.valueOf(cart1.getDetailsName()));
-            Log.d("CartDataArray","after: "+String.valueOf(cart1.getDetailsValue()));
+            Log.d("CartDataArray", "after: " + String.valueOf(cart1.getDetailsName()));
+            Log.d("CartDataArray", "after: " + String.valueOf(cart1.getDetailsValue()));
         }
 
 
-        cart_product = (GridView)findViewById(R.id.grid_cart_products);
-        Totals = (LinearLayout) findViewById(R.id.Totals);
+        cart_product = (GridView) contentView.findViewById(R.id.grid_cart_products);
+        Totals = (LinearLayout) contentView.findViewById(R.id.Totals);
 
 
+        no_data = (TextView) contentView.findViewById(R.id.no_data);
 
-        no_data = (TextView) findViewById(R.id.no_data);
+        Log.d("detailssss", DetailsName.toString());
 
-        Log.d("detailssss",DetailsName.toString());
-
-        adapter = new NewCartAdapter(activity,ProductName,Productphoto,ProductPrice,Productcount,ItemAvailableAmount,ItemPartnerID,ItemPartnerName,DetailsName,DetailsValue);
+        adapter = new NewCartAdapter(activity, ProductName, Productphoto, ProductPrice, Productcount, ItemAvailableAmount, ItemPartnerID, ItemPartnerName, DetailsName, DetailsValue);
         cart_product.setAdapter(adapter);
         CalcCart calcCart = new CalcCart();
         calcCart.GetAll();
-
-
-        apply_buy_bu = (Button) findViewById(R.id.buy_cart_product);
-        if (ProductID.isEmpty())
-        {
+        apply_buy_bu = (Button) contentView.findViewById(R.id.buy_cart_product);
+        if (ProductID.isEmpty()) {
             no_data.setVisibility(View.VISIBLE);
             apply_buy_bu.setVisibility(View.GONE);
             //Totals.setVisibility(View.GONE);
-        }
-        else {
+        } else {
             no_data.setVisibility(View.GONE);
             apply_buy_bu.setVisibility(View.VISIBLE);
             //Totals.setVisibility(View.VISIBLE);
         }
-
-
-
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
 
-
-        if (requestCode == REQUEST_PLACE_PICKER && resultCode == Activity.RESULT_OK)
-        {
+        if (requestCode == REQUEST_PLACE_PICKER && resultCode == Activity.RESULT_OK) {
             // The user has selected a place. Extract the name and address.
             Place place = PlacePicker.getPlace(data, this);
             origin = place.getLatLng();
@@ -254,8 +248,7 @@ public class NewCart extends AppCompatActivity implements OnMapReadyCallback {
     }
 
     @Override
-    public void onMapReady(GoogleMap googleMap)
-    {
+    public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
 
 
@@ -266,20 +259,16 @@ public class NewCart extends AppCompatActivity implements OnMapReadyCallback {
             if (gps.canGetLocation()) {
 
 
-            if (u_location.length()<3)
-            {
+                if (u_location.length() < 3) {
 
-                latitude = lastlatitude;
-                longitude = lastlongitude;
-                Location = latitude + "||" + longitude;
-            }
-
-            else
-            {
-                longitude = gps.getLongitude();
-                latitude = gps.getLatitude();
-                Location = latitude + "||" + longitude;
-            }
+                    latitude = lastlatitude;
+                    longitude = lastlongitude;
+                    Location = latitude + "||" + longitude;
+                } else {
+                    longitude = gps.getLongitude();
+                    latitude = gps.getLatitude();
+                    Location = latitude + "||" + longitude;
+                }
 
                 LatLng sydney = new LatLng(latitude, longitude);
                 origin = sydney;
@@ -327,15 +316,15 @@ public class NewCart extends AppCompatActivity implements OnMapReadyCallback {
                 String lat_s = String.valueOf(lat);
                 String lng_s = String.valueOf(lng);*/
 
-                if( destination != null ){
+                if (destination != null) {
 
 
                     //getCost();
 
-                }else{
+                } else {
 
-                    mLat = Double.valueOf(mMap.getCameraPosition().target.latitude);
-                    mLong = Double.valueOf(mMap.getCameraPosition().target.longitude);
+                    mLat = mMap.getCameraPosition().target.latitude;
+                    mLong = mMap.getCameraPosition().target.longitude;
 
                     origin = new LatLng(mLat, mLong);
                     String sPlace = "";
@@ -378,10 +367,6 @@ public class NewCart extends AppCompatActivity implements OnMapReadyCallback {
                     Location = mLat + "||" + mLong + "||" + sPlace;
 
                 }
-
-
-
-
 
 
             }
@@ -454,16 +439,19 @@ public class NewCart extends AppCompatActivity implements OnMapReadyCallback {
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
-            onBackPressed();
+            Intent myIntent = new Intent(NewCart.this, UserHomeActivity.class);
+            startActivity(myIntent);
         }
         return super.onKeyDown(keyCode, event);
     }
+
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
-            onBackPressed();
+            drawer.openDrawer(GravityCompat.START);
             return true;
         }
         return super.onOptionsItemSelected(item);
     }
+
 }

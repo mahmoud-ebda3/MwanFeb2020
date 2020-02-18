@@ -68,7 +68,7 @@ public class ItemsListAdapter extends ArrayAdapter<String> {
         name.setText(ItemName.get(position));
         price.setText(String.valueOf(ItemPrice.get(position)));
 
-        Picasso.with(this.getContext()).load(imageupload+ItemPhoto.get(position)  )
+        Picasso.get().load(imageupload+ItemPhoto.get(position)  )
                 .resize(250, 180)
                 .centerCrop()
 

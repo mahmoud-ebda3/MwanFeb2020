@@ -2,7 +2,7 @@ package com.ebda3.Model;
 
 import android.util.Log;
 
-import com.ebda3.mwan.CartActivity;
+import com.ebda3.mwan.NewCart;
 
 import java.util.ArrayList;
 
@@ -17,7 +17,7 @@ public class CalcCart {
 
 
     public Float GetTotalPrice() {
-        CartActivity.total_price.setText("1500 جنية");
+        NewCart.total_price.setText("1500 جنية");
         return 1500F;
 
     }

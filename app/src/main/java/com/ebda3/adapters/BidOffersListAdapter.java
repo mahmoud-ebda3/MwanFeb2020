@@ -80,7 +80,7 @@ public class BidOffersListAdapter extends ArrayAdapter<String> {
         contact.setText(SupplierPhone.get(position));
         s_address.setText(SupplierAddress.get(position));
 
-        Picasso.with(this.getContext()).load(imageupload+SupplierPhoto.get(position)  )
+        Picasso.get().load(imageupload+SupplierPhoto.get(position)  )
                 .resize(128, 128)
 
 

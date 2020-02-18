@@ -15,11 +15,22 @@ import android.view.animation.Animation;
 import android.view.animation.Transformation;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.GridView;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.cardview.widget.CardView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
@@ -41,12 +52,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
-
 import static com.ebda3.Helpers.Config.cartData;
 
 
@@ -61,50 +66,69 @@ public class ItemsActivity extends AppCompatActivity {
 
     public Toolbar toolbar;
     public TextView headline;
-    public String id, Name, Location;
+    public String id, Name, Location, companies, filters, queryWord;
 
-
+    Spinner filtrationSpinner, companiesSpinner;
     Items1ListAdapter adapter;
     GridView product_grid;
-    public TextView no_data;
+    public LinearLayout no_data, filtrationCompaniesContainer;
     Typeface typeface;
-
+    public String filter = "";
+    public String company = "";
     public int StartFrom = 0;
     public int LastStartFrom = 0;
     public int VolleyCurrentConnection = 0;
-    public int LimitBerRequest = 5;
+    public int LimitBerRequest = 20;
     String details;
 
     View footerView;
 
     public Activity context = this;
-    public ArrayList<String> ItemName = new ArrayList<String>();
-    public ArrayList<String> ItemPhoto = new ArrayList<String>();
-    public ArrayList<Float> ItemPrice = new ArrayList<Float>();
-    public ArrayList<Float> shippingCost = new ArrayList<Float>();
-    public ArrayList<Integer> ItemID = new ArrayList<Integer>();
-    public ArrayList<String> ItemPartnerName = new ArrayList<String>();
-    public ArrayList<Integer> ItemAvailableAmount = new ArrayList<Integer>();
+    public ArrayList<String> companyNameArray = new ArrayList<>();
+    public ArrayList<String> filterNameArray = new ArrayList<>();
+    public ArrayList<String> companyIdArray = new ArrayList<>();
+    public ArrayList<String> filterIdArray = new ArrayList<>();
+    public ArrayList<String> ItemName = new ArrayList<>();
+    public ArrayList<String> ItemPhoto = new ArrayList<>();
+    public ArrayList<Float> ItemPrice = new ArrayList<>();
+    public ArrayList<Float> shippingCost = new ArrayList<>();
+    public ArrayList<Integer> ItemID = new ArrayList<>();
+    public ArrayList<String> ItemPartnerName = new ArrayList<>();
+    public ArrayList<Integer> ItemAvailableAmount = new ArrayList<>();
     public ArrayList<String> ItemPartnerID = new ArrayList<>();
+    public ArrayList<String> ItemUnit = new ArrayList<>();
+    public ArrayList<String> ItemDescription = new ArrayList<>();
     public Boolean setAdapterStatus = false;
     ProgressBar loadProgress;
-
-    RelativeLayout shopping_cart_image;
+    ArrayAdapter<String> filtrationAdapter;
+    ArrayAdapter<String> companiesAdapter;
+    CardView filtrationContainer, companiesContainer;
+    LinearLayout shopping_cart_image;
 
     public Button cart_button;
+    ImageView companiesFiltrationIcon;
+    ImageView filtrationIcon;
     public static RelativeLayout cart_info;
     public static TextView notificationNum;
-
     public static CountDownTimer timer = null;
     SwipeRefreshLayout swipeRefreshLayout;
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (cartData.size() > 0) {
+            notificationNum.setVisibility(View.VISIBLE);
+            notificationNum.setText(String.valueOf(cartData.size()));
+        } else {
+            notificationNum.setVisibility(View.GONE);
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_items);
-
         CartConfirm.BackAction = false;
-
         toolbar = (Toolbar) findViewById(R.id.app_toolbar);
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
@@ -112,8 +136,21 @@ public class ItemsActivity extends AppCompatActivity {
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
         headline = (TextView) toolbar.findViewById(R.id.app_headline);
-
+        companiesFiltrationIcon = toolbar.findViewById(R.id.companies_icon);
+        filtrationIcon = toolbar.findViewById(R.id.filteration_icon);
         swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_container);
+        filtrationContainer = findViewById(R.id.filtration_container);
+        companiesContainer = findViewById(R.id.companies_container);
+        filtrationSpinner = findViewById(R.id.filtration_spinner);
+        companiesSpinner = findViewById(R.id.companies_spinner);
+        filtrationCompaniesContainer = findViewById(R.id.filtration_companies_container);
+        filtrationAdapter = new ArrayAdapter<String>(this, R.layout.spinner_text_list_items, filterNameArray);
+        companiesAdapter = new ArrayAdapter<String>(this, R.layout.spinner_text_list_items, companyNameArray);
+        filtrationAdapter.setDropDownViewResource(R.layout.spinner_text_list_items);
+        companiesAdapter.setDropDownViewResource(R.layout.spinner_text_list_items);
+        queryWord = "";
+        filtrationSpinner.setAdapter(filtrationAdapter);
+        companiesSpinner.setAdapter(companiesAdapter);
         swipeRefreshLayout.setRefreshing(true);
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -121,20 +158,12 @@ public class ItemsActivity extends AppCompatActivity {
                 refreshData();
             }
         });
-
-
         cart_info = (RelativeLayout) findViewById(R.id.cart_info);
         cart_button = (Button) findViewById(R.id.cart_button);
-        shopping_cart_image = (RelativeLayout) toolbar.findViewById(R.id.notificationB);
+        shopping_cart_image = toolbar.findViewById(R.id.notificationB);
         headline.setText("سلة المشتريات");
         shopping_cart_image.setVisibility(View.VISIBLE);
-
-        notificationNum = (TextView) findViewById(R.id.notificationNum);
-        if (cartData.size() > 0) {
-            notificationNum.setVisibility(View.VISIBLE);
-            notificationNum.setText(String.valueOf(cartData.size()));
-        }
-
+        notificationNum = (TextView) toolbar.findViewById(R.id.notificationNum);
         cart_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -142,7 +171,6 @@ public class ItemsActivity extends AppCompatActivity {
                 startActivity(myIntent);
             }
         });
-
         shopping_cart_image.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -151,18 +179,161 @@ public class ItemsActivity extends AppCompatActivity {
             }
         });
 
-
-        try {
-            id = getIntent().getStringExtra("ID");
-        } catch (Exception e) {
-            id = "0";
+        id = getIntent().getStringExtra("ID");
+        if (id == null) {
+            id = "";
         }
         details = getIntent().getStringExtra("Details");
         Name = getIntent().getStringExtra("Name");
-        headline.setText(Name);
+        companies = getIntent().getStringExtra("companies");
+        filters = getIntent().getStringExtra("filter");
+        if (filters.length() <= 2 && companies.length() <= 2) {
+            filtrationCompaniesContainer.setVisibility(View.GONE);
+        }
+        if (filters.length() > 8) {
+            try {
+                JSONArray jsonArray = new JSONArray(filters);
+                filterNameArray.add("أختر نوع");
+                filterIdArray.add("");
+                for (int i = 0; i < jsonArray.length(); i++) {
+                    JSONObject jsonObject = jsonArray.getJSONObject(i);
+                    filterIdArray.add(jsonObject.getString("ID"));
+                    filterNameArray.add(jsonObject.getString("name"));
+                }
+                filtrationAdapter.notifyDataSetChanged();
+            } catch (Exception e) {
 
+            }
+
+            filtrationSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                    filter = filterIdArray.get(position);
+                    swipeRefreshLayout.setRefreshing(true);
+                    if (setAdapterStatus) {
+                        ItemID.clear();
+                        ItemName.clear();
+                        ItemPhoto.clear();
+                        ItemAvailableAmount.clear();
+                        ItemPartnerName.clear();
+                        ItemPartnerID.clear();
+                        ItemPrice.clear();
+                        shippingCost.clear();
+                    }
+                    VolleyCurrentConnection = 0;
+                    StartFrom = 0;
+                    loadData();
+                }
+
+                @Override
+                public void onNothingSelected(AdapterView<?> parent) {
+                    filter = "";
+                    swipeRefreshLayout.setRefreshing(true);
+                    if (setAdapterStatus) {
+                        ItemID.clear();
+                        ItemName.clear();
+                        ItemPhoto.clear();
+                        ItemAvailableAmount.clear();
+                        ItemPartnerName.clear();
+                        ItemPartnerID.clear();
+                        ItemPrice.clear();
+                        shippingCost.clear();
+                    }
+
+                    VolleyCurrentConnection = 0;
+                    StartFrom = 0;
+                    loadData();
+                }
+            });
+            swipeRefreshLayout.setRefreshing(true);
+            if (setAdapterStatus) {
+                ItemID.clear();
+                ItemName.clear();
+                ItemPhoto.clear();
+                ItemAvailableAmount.clear();
+                ItemPartnerName.clear();
+                ItemPartnerID.clear();
+                ItemPrice.clear();
+                shippingCost.clear();
+            }
+            VolleyCurrentConnection = 0;
+            StartFrom = 0;
+            loadData();
+        } else {
+            filtrationContainer.setVisibility(View.GONE);
+        }
+
+        if (companies.length() > 8) {
+            try {
+                JSONArray jsonArray = new JSONArray(companies);
+                companyNameArray.add("أختر شركة");
+                companyIdArray.add("");
+                for (int i = 0; i < jsonArray.length(); i++) {
+                    JSONObject jsonObject = jsonArray.getJSONObject(i);
+                    companyIdArray.add(jsonObject.getString("ID"));
+                    companyNameArray.add(jsonObject.getString("name"));
+                }
+                companiesAdapter.notifyDataSetChanged();
+            } catch (Exception e) {
+
+            }
+            companiesSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                    company = companyIdArray.get(position);
+                    swipeRefreshLayout.setRefreshing(true);
+                    if (setAdapterStatus) {
+                        ItemID.clear();
+                        ItemName.clear();
+                        ItemPhoto.clear();
+                        ItemAvailableAmount.clear();
+                        ItemPartnerName.clear();
+                        ItemPartnerID.clear();
+                        ItemPrice.clear();
+                        shippingCost.clear();
+                        ItemUnit.clear();
+                        ItemDescription.clear();
+                    }
+                    VolleyCurrentConnection = 0;
+                    StartFrom = 0;
+                    loadData();
+                }
+
+                @Override
+                public void onNothingSelected(AdapterView<?> parent) {
+                    company = "";
+                    swipeRefreshLayout.setRefreshing(true);
+                    if (setAdapterStatus) {
+                        ItemID.clear();
+                        ItemName.clear();
+                        ItemPhoto.clear();
+                        ItemAvailableAmount.clear();
+                        ItemPartnerName.clear();
+                        ItemPartnerID.clear();
+                        ItemPrice.clear();
+                        shippingCost.clear();
+                    }
+                    VolleyCurrentConnection = 0;
+                    StartFrom = 0;
+                    loadData();
+                }
+
+            });
+        } else {
+            companiesContainer.setVisibility(View.GONE);
+        }
+        headline.setText(Name);
         if (getIntent().hasExtra("location")) {
             Location = getIntent().getStringExtra("location");
+        } else if (getIntent().getStringExtra("extra").equals("one")) {
+            headline.setText("بحث");
+            queryWord = getIntent().getStringExtra("query_word");
+            companies = getIntent().getStringExtra("companies");
+            filters = getIntent().getStringExtra("filter");
+            filter = "";
+            company = "";
+            id = "";
+            loadData();
         } else {
             Intent intent = new Intent(context, SetLocation.class);
             intent.putExtra("ID", id);
@@ -174,20 +345,18 @@ public class ItemsActivity extends AppCompatActivity {
         loadProgress = (ProgressBar) findViewById(R.id.loadProgress);
 
         footerView = ((LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.loading_footer, null, false);
-        no_data = (TextView) findViewById(R.id.no_data);
+
+        no_data = (LinearLayout) findViewById(R.id.no_data);
+
         product_grid = (GridView) findViewById(R.id.grid_prod);
-
-
         loadData();
 
         product_grid.setOnScrollListener(new AbsListView.OnScrollListener() {
-
-
             @Override
             public void onScroll(AbsListView view,
                                  int firstVisibleItem, int visibleItemCount,
                                  int totalItemCount) {
-                //Algorithm to check if the last item is visible or not
+//Algorithm to check if the last item is visible or not
                 final int lastItem = firstVisibleItem + visibleItemCount;
                 Log.d("lastItem", String.valueOf(visibleItemCount));
                 if (lastItem == totalItemCount) {
@@ -222,8 +391,11 @@ public class ItemsActivity extends AppCompatActivity {
                 intent.putExtra("Name", ItemName.get(position));
                 intent.putExtra("Photo", ItemPhoto.get(position));
                 intent.putExtra("Details", ItemPartnerID.get(position));
+                intent.putExtra("Unit", ItemUnit.get(position));
+                intent.putExtra("Description", ItemDescription.get(position));
 
-              //  Log.d("itemphoto", String.valueOf(ItemID.get(position)));
+
+                //  Log.d("itemphoto", String.valueOf(ItemID.get(position)));
                 startActivity(intent);
 
             }
@@ -233,7 +405,6 @@ public class ItemsActivity extends AppCompatActivity {
 
     public void refreshData() {
         if (setAdapterStatus) {
-
             ItemID.clear();
             ItemName.clear();
             ItemPhoto.clear();
@@ -245,28 +416,33 @@ public class ItemsActivity extends AppCompatActivity {
         }
         VolleyCurrentConnection = 0;
         StartFrom = 0;
+        company = "";
+        filter = "";
+        queryWord = "";
+        companiesSpinner.setSelection(0);
+        filtrationSpinner.setSelection(0);
         loadData();
     }
 
 
     public void loadData() {
-        Log.d("loadData", "loadData");
         if (VolleyCurrentConnection == 0) {
             VolleyCurrentConnection = 1;
-            String VolleyUrl = "http://adc-company.net/mwan/include/webService.php?json=true&do=GetMaterials&materials=" + id + "&start=" + String.valueOf(StartFrom) + "&end=" + String.valueOf(LimitBerRequest);
-            Log.d("responseee", VolleyUrl);
+            String VolleyUrl = "https://www.mawaneg.com/supplier/include/webService.php?json=true&do=GetMaterials&materials=" + id + "&word=" + queryWord + "&company=" + company + "&filter=" + filter + "&start=" + String.valueOf(StartFrom) + "&end=" + String.valueOf(LimitBerRequest);
+            Log.d("fdfdf", VolleyUrl);
             try {
                 StringRequest stringRequest = new StringRequest(Request.Method.GET, VolleyUrl, new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
                         loadProgress.setVisibility(View.GONE);
                         swipeRefreshLayout.setRefreshing(false);
-                        Log.d("responseee1212", response);
+                        Log.d("res", response);
                         //response = fixEncoding(response);
                         try {
                             JSONArray array = new JSONArray(response);
                             if (array.length() > 0) {
-
+                                product_grid.setVisibility(View.VISIBLE);
+                                no_data.setVisibility(View.GONE);
                                 VolleyCurrentConnection = 0;
                                 StartFrom += LimitBerRequest;
                                 LastStartFrom = StartFrom;
@@ -277,22 +453,28 @@ public class ItemsActivity extends AppCompatActivity {
                                     ItemPhoto.add(row.getString("photo").toString());
                                     ItemAvailableAmount.add(row.getInt("ID"));
                                     ItemPartnerName.add(row.getString("ID").toString());
+                                    ItemUnit.add(row.getString("unit"));
+                                    ItemDescription.add(row.getString("description").toString());
                                     ItemPartnerID.add(row.getString("itemInfo"));
                                     ItemPrice.add(0F);
                                     shippingCost.add(Float.parseFloat(row.getString("ID").toString()));
+                                }
 
-                                }
-                                if (!setAdapterStatus) {
-                                    adapter = new Items1ListAdapter(context, ItemID, ItemName, ItemPhoto, ItemPrice, shippingCost, ItemAvailableAmount, ItemPartnerName);
-                                    product_grid.setAdapter(adapter);
-                                    setAdapterStatus = true;
-                                } else {
-                                    adapter.notifyDataSetChanged();
-                                }
                             }
                         } catch (JSONException e) {
                             swipeRefreshLayout.setRefreshing(false);
-                            e.printStackTrace();
+                        }
+                        if (ItemID.size() == 0) {
+                            no_data.setVisibility(View.VISIBLE);
+                            product_grid.setVisibility(View.GONE);
+                        }
+
+                        if (!setAdapterStatus) {
+                            adapter = new Items1ListAdapter(context, ItemID, ItemName, ItemPhoto, ItemPrice, shippingCost, ItemAvailableAmount, ItemPartnerName);
+                            product_grid.setAdapter(adapter);
+                            setAdapterStatus = true;
+                        } else {
+                            adapter.notifyDataSetChanged();
                         }
                     }
                 }, new Response.ErrorListener() {

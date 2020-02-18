@@ -3,13 +3,14 @@ package com.ebda3.mwan;
 import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
-import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -82,7 +83,7 @@ public class AddBidReplay extends AppCompatActivity {
             progressBar.setVisibility(View.VISIBLE);
             Add.setVisibility(View.GONE);
 
-            StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://adc-company.net/mwan/include/webService.php?json=true",
+            StringRequest stringRequest = new StringRequest(Request.Method.POST, "https://www.mawaneg.com/supplier/include/webService.php?json=true",
                     new Response.Listener<String>() {
                         @Override
                         public void onResponse(String response) {

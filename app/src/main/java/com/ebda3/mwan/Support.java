@@ -6,16 +6,8 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
-import android.os.CountDownTimer;
-
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AlertDialog;
-
 import android.os.Bundle;
-
-import androidx.appcompat.widget.Toolbar;
-
+import android.os.CountDownTimer;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -25,7 +17,7 @@ import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
+import android.widget.FrameLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -52,7 +44,13 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Support extends MainActivity {
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
+
+public class Support extends NavigationViewActivity {
     public TextView toolbar_headline;
     public Toolbar toolbar;
     ProgressDialog progressDialog;
@@ -80,25 +78,28 @@ public class Support extends MainActivity {
     public String u_email, u_password;
 
     AlertDialog.Builder builder;
-    public LayoutInflater inflater;
+    public LayoutInflater inflater2;
     public View dialoglayout;
     public Button btn_problem;
-
+    FrameLayout frameLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_support);
-        toolbar_headline = (TextView) findViewById(R.id.app_headline);
+        LayoutInflater inflater = (LayoutInflater) this
+                .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        View contentView = inflater.inflate(R.layout.activity_support, null, false);
+        toolbar_headline = (TextView) drawer.findViewById(R.id.app_headline);
+        frameLayout = drawer.findViewById(R.id.frame_layout);
+        frameLayout.addView(contentView);
         toolbar_headline.setText("الدعم الفنى");
-        toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
-        customer_messages = (ListView) findViewById(R.id.msg_list_view);
-        btn_problem = (Button) findViewById(R.id.btn_problem);
+        customer_messages = (ListView) contentView.findViewById(R.id.msg_list_view);
+        btn_problem = (Button) contentView.findViewById(R.id.btn_problem);
 
 
         btn_problem.setOnClickListener(new View.OnClickListener() {
@@ -127,7 +128,7 @@ public class Support extends MainActivity {
                             if (t) {
                                 progressBar.setVisibility(View.VISIBLE);
                                 btn_problem.setVisibility(View.GONE);
-                                StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://adc-company.net/mwan/include/webService.php?json=true", new Response.Listener<String>() {
+                                StringRequest stringRequest = new StringRequest(Request.Method.POST, "https://www.mawaneg.com/supplier/include/webService.php?json=true", new Response.Listener<String>() {
                                     @Override
                                     public void onResponse(String response) {
                                         Log.d("Response", "zx");
@@ -256,8 +257,8 @@ public class Support extends MainActivity {
                                         int position, long id) {
                     // TODO Auto-generated method stub
                     String Slecteditem = CustomerID.get(position);
-                    inflater = getLayoutInflater();
-                    dialoglayout = inflater.inflate(R.layout.custom_dialog_support, null);
+                    inflater2 = getLayoutInflater();
+                    dialoglayout = inflater2.inflate(R.layout.custom_dialog_support, null);
                     builder = new AlertDialog.Builder(Support.this);
                     builder.setView(dialoglayout);
 
@@ -301,7 +302,7 @@ public class Support extends MainActivity {
             if (VolleyCurrentConnection == 0) {
                 VolleyCurrentConnection = 1;
                 //"http://falcon-egy.com/module-driver_message?ajax_page_l=yes&json=true"
-                String VolleyUrl = "http://adc-company.net/mwan/include/webService.php?json=true" + "&start=" + String.valueOf(StartFrom) + "&end=" + String.valueOf(LimitBerRequest);
+                String VolleyUrl = "https://www.mawaneg.com/supplier/include/webService.php?json=true" + "&start=" + String.valueOf(StartFrom) + "&end=" + String.valueOf(LimitBerRequest);
                 Log.d("myurlll", VolleyUrl);
                 try {
                     StringRequest stringRequest = new StringRequest(Request.Method.POST, VolleyUrl, new Response.Listener<String>() {
@@ -402,26 +403,20 @@ public class Support extends MainActivity {
     }
 
     @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if (item.getItemId() == android.R.id.home) {
-            onBackPressed();
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
-    @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
-            onBackPressed();
+            Intent myIntent = new Intent(Support.this, UserHomeActivity.class);
+            startActivity(myIntent);
         }
         return super.onKeyDown(keyCode, event);
     }
 
     @Override
-    public void onBackPressed() {
-        Intent i = new Intent(context, UserHomeActivity.class);
-        startActivity(i);
-        finish();
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            drawer.openDrawer(GravityCompat.START);
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

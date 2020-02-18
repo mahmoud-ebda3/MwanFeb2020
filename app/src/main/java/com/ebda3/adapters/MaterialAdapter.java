@@ -42,7 +42,7 @@ public class MaterialAdapter extends ArrayAdapter<Material> {
         ImageView dialog_material_image = (ImageView) rowView.findViewById(R.id.material_img_id);
         TextView dialog_material_name = (TextView) rowView.findViewById(R.id.material_name_id);
 
-        Picasso.with(context).load(imageupload + MyMaterial.get(position).getMaterialImage())
+        Picasso.get().load(imageupload + MyMaterial.get(position).getMaterialImage())
                 .resize(25, 25)
                 .centerCrop()
                 .transform(new CropCircleTransformation())

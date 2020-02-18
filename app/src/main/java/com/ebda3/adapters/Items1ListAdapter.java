@@ -63,7 +63,7 @@ public class Items1ListAdapter extends ArrayAdapter<String> {
 
         name.setText(ItemName.get(position));
 
-        Picasso.with(this.getContext()).load(imageupload+ItemPhoto.get(position)  )
+        Picasso.get().load(imageupload+ItemPhoto.get(position)  )
                 .resize(250, 180)
                 .centerCrop()
 

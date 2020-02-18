@@ -47,6 +47,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 
+import static com.ebda3.Helpers.Config.cartData;
+
 
 public class ChooseLocation extends AppCompatActivity implements OnMapReadyCallback {
 
@@ -65,7 +67,8 @@ public class ChooseLocation extends AppCompatActivity implements OnMapReadyCallb
     double latitude; // latitude
     double longitude;
     MarkerOptions mo;
-
+    LinearLayout notificationContainer;
+    TextView notificationNumber;
     private String Location = "";
     int REQUEST_PLACE_PICKER = 1;
 
@@ -82,13 +85,25 @@ public class ChooseLocation extends AppCompatActivity implements OnMapReadyCallb
     TextView headline;
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        if (cartData.size() > 0) {
+            notificationNumber.setVisibility(View.VISIBLE);
+            notificationNumber.setText(String.valueOf(cartData.size()));
+        } else {
+            notificationNumber.setVisibility(View.GONE);
+        }
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_choose_location);
 
         detailsToolbar = findViewById(R.id.app_toolbar);
         setSupportActionBar(detailsToolbar);
-
+        notificationNumber = detailsToolbar.findViewById(R.id.notificationNum);
+        notificationContainer = detailsToolbar.findViewById(R.id.notificationB);
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
@@ -105,13 +120,11 @@ public class ChooseLocation extends AppCompatActivity implements OnMapReadyCallb
         LoadBranch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 Intent myIntent = new Intent(context, SuppliersCart.class);
                 myIntent.putExtra("mylocation", Config.GetUserLocation(context));
+                Log.e("123123", Config.GetUserLocation(context));
                 startActivity(myIntent);
-
-                    //GetData();
-
+                //GetData();
             }
         });
 
@@ -124,7 +137,6 @@ public class ChooseLocation extends AppCompatActivity implements OnMapReadyCallb
         mapFragment.getMapAsync((OnMapReadyCallback) activity);
         // mo = new MarkerOptions().position(new LatLng(0, 0)).title("موقعى الأن");
         locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
-
 
 
         if (Build.VERSION.SDK_INT >= 23 && !isPermissionGranted()) {
@@ -151,20 +163,19 @@ public class ChooseLocation extends AppCompatActivity implements OnMapReadyCallb
         final AlertDialog customDialog = builder.create();
 
         LayoutInflater layoutInflater
-                = (LayoutInflater)getApplicationContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View view=layoutInflater.inflate(R.layout.dialog,null);
+                = (LayoutInflater) getApplicationContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        View view = layoutInflater.inflate(R.layout.dialog, null);
         Button btn = (Button) view.findViewById(R.id.idButton);
         TextView message = (TextView) view.findViewById(R.id.message);
         message.setText(Message);
-        btn.setOnClickListener(new Button.OnClickListener(){
+        btn.setOnClickListener(new Button.OnClickListener() {
 
             @Override
             public void onClick(View arg0) {
                 customDialog.hide();
 
-            }});
-
-
+            }
+        });
 
 
         customDialog.setView(view);
@@ -276,8 +287,6 @@ public class ChooseLocation extends AppCompatActivity implements OnMapReadyCallb
 //        }
 
 
-
-
     public void onPickButtonClick(View v) {
         // Construct an intent for the place picker
         try {
@@ -303,8 +312,7 @@ public class ChooseLocation extends AppCompatActivity implements OnMapReadyCallb
             mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(place.getLatLng(), 16));
 
 
-        }
-        else {
+        } else {
             super.onActivityResult(requestCode, resultCode, data);
         }
     }
@@ -369,12 +377,12 @@ public class ChooseLocation extends AppCompatActivity implements OnMapReadyCallb
                 String lat_s = String.valueOf(lat);
                 String lng_s = String.valueOf(lng);*/
 
-                if( destination != null ){
+                if (destination != null) {
 
 
                     //getCost();
 
-                }else{
+                } else {
 
                     mLat = Double.valueOf(mMap.getCameraPosition().target.latitude);
                     mLong = Double.valueOf(mMap.getCameraPosition().target.longitude);
@@ -382,7 +390,7 @@ public class ChooseLocation extends AppCompatActivity implements OnMapReadyCallb
                     origin = new LatLng(mLat, mLong);
                     String sPlace = "";
 
-                    Config.SetUserLocation( context,mLat+","+mLong);
+                    Config.SetUserLocation(context, mLat + "," + mLong);
 
                     String address = "";
                     Geocoder geocoder;
@@ -396,22 +404,16 @@ public class ChooseLocation extends AppCompatActivity implements OnMapReadyCallb
                             address = addresses.get(0).getAddressLine(0);
                             String city = addresses.get(0).getAddressLine(1);
                             String country = addresses.get(0).getAddressLine(2);
-
-
                             if (address != null) {
                                 String[] splitAddress = address.split(",");
 
-                                for ( int x = 0 ; x < splitAddress.length ; x++ )
-                                {
-                                    sPlace+=  splitAddress[x] + " , " ;
+                                for (int x = 0; x < splitAddress.length; x++) {
+                                    sPlace += splitAddress[x] + " , ";
                                 }
-
-                                    if (city != null && !city.isEmpty()) {
-                                        String[] splitCity = city.split(",");
-                                        sPlace += splitCity[0];
-                                    }
-
-
+                                if (city != null && !city.isEmpty()) {
+                                    String[] splitCity = city.split(",");
+                                    sPlace += splitCity[0];
+                                }
                                 handler.postDelayed(new Runnable() {
                                     @Override
                                     public void run() {
@@ -425,7 +427,7 @@ public class ChooseLocation extends AppCompatActivity implements OnMapReadyCallb
                                     }
                                 }, 1000);
 
-                                Config.SetUserLocation( context,mLat+","+mLong+","+sPlace.replace(",","."));
+                                Config.SetUserLocation(context, mLat + "," + mLong + "," + sPlace.replace(",", "."));
 
 
 //                            TextView _address_line1 = (TextView) findViewById(R.id.address_line1);
@@ -441,13 +443,9 @@ public class ChooseLocation extends AppCompatActivity implements OnMapReadyCallb
                         e.printStackTrace();
                     }
 
-                    Location = mLat + "," + mLong  ;
+                    Location = mLat + "," + mLong;
 
                 }
-
-
-
-
 
 
             }

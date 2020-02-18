@@ -5,14 +5,12 @@ import android.app.Activity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.ebda3.Model.OptionObject;
 import com.ebda3.mwan.R;
 import com.squareup.picasso.Picasso;
 
@@ -75,7 +73,7 @@ public class offersListAdapter extends RecyclerView.Adapter<offersListAdapter.Of
 
         private void dataBinding(String name, String photo) {
             offer_name.setText(name);
-            Picasso.with(context).load(imageupload + photo)
+            Picasso.get().load(imageupload + photo)
                     .resize(626, 250)
                     .centerCrop()
                     .error(R.drawable.image_not_found)

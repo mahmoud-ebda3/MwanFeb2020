@@ -13,6 +13,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -21,8 +22,8 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
@@ -51,8 +52,7 @@ import static com.ebda3.Helpers.Config.WorkersCatsNames;
  * Created by work on 23/10/2017.
  */
 
-public class Workers extends AppCompatActivity {
-
+public class Workers extends NavigationViewActivity {
 
 
     Activity activity = this;
@@ -62,12 +62,10 @@ public class Workers extends AppCompatActivity {
     public String id;
 
 
+    WorkersCatListAdapter adapter;
 
-
-    WorkersCatListAdapter adapter ;
-
-    ImageView Join , search;
-    LinearLayout workers,workers_section;
+    ImageView Join, search;
+    LinearLayout workers, workers_section;
     ListView listView;
     public TextView no_data;
     Typeface typeface;
@@ -79,17 +77,15 @@ public class Workers extends AppCompatActivity {
 
     View footerView;
 
-    public  ArrayList<String> CatID = new  ArrayList<String>() ;
-    public  ArrayList<String> CatName = new  ArrayList<String>() ;
-    public  ArrayList<String> CatPhoto  = new  ArrayList<String>()  ;
-    public  ArrayList<String> CatNotes  = new  ArrayList<String>()  ;
-
+    public ArrayList<String> CatID = new ArrayList<String>();
+    public ArrayList<String> CatName = new ArrayList<String>();
+    public ArrayList<String> CatPhoto = new ArrayList<String>();
+    public ArrayList<String> CatNotes = new ArrayList<String>();
+    FrameLayout frameLayout;
     public Boolean setAdapterStatus = false;
 
 
-
-
-    public  Activity context = this;
+    public Activity context = this;
 
     ProgressBar loadProgress;
 
@@ -97,9 +93,13 @@ public class Workers extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_workers);
+        LayoutInflater inflater = (LayoutInflater) this
+                .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        View contentView = inflater.inflate(R.layout.activity_workers, null, false);
 
-        toolbar = (Toolbar) findViewById(R.id.app_toolbar);
+        toolbar = drawer.findViewById(R.id.app_toolbar);
+        frameLayout = drawer.findViewById(R.id.frame_layout);
+        frameLayout.addView(contentView);
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
@@ -110,17 +110,15 @@ public class Workers extends AppCompatActivity {
         headline.setText("الصنايعية  ");
 
 
-
-
-        workers_section = (LinearLayout) findViewById(R.id.workers_section);
-        workers = (LinearLayout) findViewById(R.id.workers);
-        search = (ImageView) findViewById(R.id.search_worker);
-        Join = (ImageView) findViewById(R.id.add_worker);
+        workers_section = (LinearLayout) contentView.findViewById(R.id.workers_section);
+        workers = (LinearLayout) contentView.findViewById(R.id.workers);
+        search = (ImageView) contentView.findViewById(R.id.search_worker);
+        Join = (ImageView) contentView.findViewById(R.id.add_worker);
 
         Join.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(Workers.this,WorkersJoin.class);
+                Intent intent = new Intent(Workers.this, WorkersJoin.class);
                 startActivity(intent);
             }
         });
@@ -133,10 +131,10 @@ public class Workers extends AppCompatActivity {
             }
         });
 
-        listView = (ListView)findViewById(R.id.offersList);
-        loadProgress = (ProgressBar) findViewById(R.id.loadProgress);
-        footerView = ((LayoutInflater)   getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.loading_footer, null, false);
-        no_data = (TextView) findViewById(R.id.no_data);
+        listView = (ListView) contentView.findViewById(R.id.offersList);
+        loadProgress = (ProgressBar) contentView.findViewById(R.id.loadProgress);
+        footerView = ((LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.loading_footer, null, false);
+        no_data = (TextView) contentView.findViewById(R.id.no_data);
         listView.setVisibility(View.VISIBLE);
         loadData();
 
@@ -147,13 +145,14 @@ public class Workers extends AppCompatActivity {
                                  int totalItemCount) {
                 //Algorithm to check if the last item is visible or not
                 final int lastItem = firstVisibleItem + visibleItemCount;
-                Log.d("lastItem",String.valueOf(visibleItemCount));
-                if(lastItem == totalItemCount){
+                Log.d("lastItem", String.valueOf(visibleItemCount));
+                if (lastItem == totalItemCount) {
                     // loadData();
                 }
             }
+
             @Override
-            public void onScrollStateChanged(AbsListView view,int scrollState) {
+            public void onScrollStateChanged(AbsListView view, int scrollState) {
                 if (scrollState == AbsListView.OnScrollListener.SCROLL_STATE_IDLE
                         && (listView.getLastVisiblePosition() - listView.getHeaderViewsCount() -
                         listView.getFooterViewsCount()) >= (adapter.getCount() - 3)) {
@@ -171,9 +170,9 @@ public class Workers extends AppCompatActivity {
                                     int position, long id) {
                 // TODO Auto-generated method stub
 
-                Intent intent = new Intent(Workers.this , WorkersList.class );
-                intent.putExtra("CatName",CatName.get(position));
-                intent.putExtra("CatID",CatID.get(position));
+                Intent intent = new Intent(Workers.this, WorkersList.class);
+                intent.putExtra("CatName", CatName.get(position));
+                intent.putExtra("CatID", CatID.get(position));
                 startActivity(intent);
 
             }
@@ -183,18 +182,15 @@ public class Workers extends AppCompatActivity {
     }
 
 
-
-
     public void loadData() {
 
-        Log.d("loadData","loadData");
+        Log.d("loadData", "loadData");
         if (VolleyCurrentConnection == 0) {
             VolleyCurrentConnection = 1;
-            String VolleyUrl = "http://adc-company.net/mwan/include/cats_json.php?type=workers" + "&start=" + String.valueOf(StartFrom) + "&end=" + String.valueOf(LimitBerRequest);
+            String VolleyUrl = "https://www.mawaneg.com/supplier/include/cats_json.php?type=workers" + "&start=" + String.valueOf(StartFrom) + "&end=" + String.valueOf(LimitBerRequest);
             Log.d("responser", String.valueOf(VolleyUrl));
             listView.addFooterView(footerView);
-            try
-            {
+            try {
                 StringRequest stringRequest = new StringRequest(Request.Method.GET, VolleyUrl, new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -225,13 +221,11 @@ public class Workers extends AppCompatActivity {
                                     CatNotes.add(row.getString("notes").toString());
 
 
-
                                 }
 
 
-
                                 if (!setAdapterStatus) {
-                                    adapter = new WorkersCatListAdapter(context, CatName, CatPhoto , CatNotes );
+                                    adapter = new WorkersCatListAdapter(context, CatName, CatPhoto, CatNotes);
                                     listView.setAdapter(adapter);
                                     setAdapterStatus = true;
                                 } else {
@@ -243,7 +237,7 @@ public class Workers extends AppCompatActivity {
 
 
                         } catch (JSONException e) {
-                            Log.d("ffffff",e.getMessage());
+                            Log.d("ffffff", e.getMessage());
                             e.printStackTrace();
                         }
 
@@ -286,12 +280,10 @@ public class Workers extends AppCompatActivity {
                 int socketTimeout = 10000;//30 seconds - change to what you want
                 RetryPolicy policy = new DefaultRetryPolicy(socketTimeout, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
                 stringRequest.setRetryPolicy(policy);
-                RequestQueue queue = Volley.newRequestQueue( this );
+                RequestQueue queue = Volley.newRequestQueue(this);
 
                 queue.add(stringRequest);
-            }
-            catch (Exception e)
-            {
+            } catch (Exception e) {
                 //Log.d("ffffff",e.getMessage());
                 VolleyCurrentConnection = 0;
                 loadData();
@@ -303,14 +295,16 @@ public class Workers extends AppCompatActivity {
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
-            onBackPressed();
+            Intent myIntent = new Intent(Workers.this, UserHomeActivity.class);
+            startActivity(myIntent);
         }
         return super.onKeyDown(keyCode, event);
     }
+
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
-            onBackPressed();
+            drawer.openDrawer(GravityCompat.START);
             return true;
         }
         return super.onOptionsItemSelected(item);

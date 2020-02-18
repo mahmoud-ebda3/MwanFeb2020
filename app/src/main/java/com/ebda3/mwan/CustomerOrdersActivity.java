@@ -49,18 +49,13 @@ import java.util.Map;
 
 public class CustomerOrdersActivity extends AppCompatActivity {
 
-
     Activity activity = this;
-
     public Toolbar toolbar;
     public TextView headline;
     public String id;
 
-
     LinearLayout header;
-
-    ClientOrdersListAdapter adapter ;
-
+    ClientOrdersListAdapter adapter;
     ListView listView;
     public TextView no_data;
     Typeface typeface;
@@ -69,32 +64,25 @@ public class CustomerOrdersActivity extends AppCompatActivity {
     public int LastStartFrom = 0;
     public int VolleyCurrentConnection = 0;
     public int LimitBerRequest = 50;
-
     View footerView;
-
-    public ArrayList<String> ID = new  ArrayList<String>() ;
-    public ArrayList<String> ClientName = new  ArrayList<String>() ;
-    public ArrayList<String> ClientPhone = new  ArrayList<String>() ;
-    public  ArrayList<String> OrderLocation = new  ArrayList<String>() ;
-    public  ArrayList<String> Notes = new  ArrayList<String>() ;
-    public  ArrayList<String> delivery_date = new  ArrayList<String>() ;
-    public  ArrayList<String> Date = new  ArrayList<String>() ;
-    public  ArrayList<String> Total = new  ArrayList<String>() ;
-    public  ArrayList<String> shippingCost = new  ArrayList<String>() ;
-    public  ArrayList<String> Net = new  ArrayList<String>() ;
-    public  ArrayList<String> Status = new  ArrayList<String>() ;
-    public  ArrayList<String> Items = new  ArrayList<String>() ;
-
-
-
+    public ArrayList<String> ID = new ArrayList<String>();
+    public ArrayList<String> ClientName = new ArrayList<String>();
+    public ArrayList<String> ClientPhone = new ArrayList<String>();
+    public ArrayList<String> OrderLocation = new ArrayList<String>();
+    public ArrayList<String> Notes = new ArrayList<String>();
+    public ArrayList<String> delivery_date = new ArrayList<String>();
+    public ArrayList<String> Date = new ArrayList<String>();
+    public ArrayList<String> Total = new ArrayList<String>();
+    public ArrayList<String> shippingCost = new ArrayList<String>();
+    public ArrayList<String> Net = new ArrayList<String>();
+    public ArrayList<String> Status = new ArrayList<String>();
+    public ArrayList<String> Items = new ArrayList<String>();
 
 
     public Boolean setAdapterStatus = false;
 
 
-
-
-    public  Activity context = this;
+    public Activity context = this;
 
     ProgressBar loadProgress;
 
@@ -114,13 +102,9 @@ public class CustomerOrdersActivity extends AppCompatActivity {
         headline.setText(" طلبات العملاء   ");
 
 
-
-
-
-
-        listView = (ListView)findViewById(R.id.List);
+        listView = (ListView) findViewById(R.id.List);
         loadProgress = (ProgressBar) findViewById(R.id.loadProgress);
-        footerView = ((LayoutInflater)   getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.loading_footer, null, false);
+        footerView = ((LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.loading_footer, null, false);
         no_data = (TextView) findViewById(R.id.no_data);
         listView.setVisibility(View.VISIBLE);
         loadData();
@@ -132,13 +116,14 @@ public class CustomerOrdersActivity extends AppCompatActivity {
                                  int totalItemCount) {
                 //Algorithm to check if the last item is visible or not
                 final int lastItem = firstVisibleItem + visibleItemCount;
-                Log.d("lastItem",String.valueOf(visibleItemCount));
-                if(lastItem == totalItemCount){
+                Log.d("lastItem", String.valueOf(visibleItemCount));
+                if (lastItem == totalItemCount) {
                     // loadData();
                 }
             }
+
             @Override
-            public void onScrollStateChanged(AbsListView view,int scrollState) {
+            public void onScrollStateChanged(AbsListView view, int scrollState) {
                 if (scrollState == AbsListView.OnScrollListener.SCROLL_STATE_IDLE
                         && (listView.getLastVisiblePosition() - listView.getHeaderViewsCount() -
                         listView.getFooterViewsCount()) >= (adapter.getCount() - 3)) {
@@ -155,20 +140,20 @@ public class CustomerOrdersActivity extends AppCompatActivity {
                                     int position, long id) {
                 // TODO Auto-generated method stub
 
-                Intent intent = new Intent( context , SupplierOrderDetails.class );
+                Intent intent = new Intent(context, SupplierOrderDetails.class);
 
-                intent.putExtra("ID",ID.get(position));
-                intent.putExtra("ClientName",ClientName.get(position));
-                intent.putExtra("ClientPhone",ClientPhone.get(position));
-                intent.putExtra("OrderLocation",OrderLocation.get(position));
-                intent.putExtra("Status",Status.get(position));
-                intent.putExtra("Notes",Notes.get(position));
-                intent.putExtra("delivery_date",delivery_date.get(position));
-                intent.putExtra("Name",   "طلب رقم "  +ID.get(position) );
-                intent.putExtra("Items",Items.get(position));
-                intent.putExtra("Total",Total.get(position));
-                intent.putExtra("shippingCost",shippingCost.get(position));
-                intent.putExtra("Net",Net.get(position));
+                intent.putExtra("ID", ID.get(position));
+                intent.putExtra("ClientName", ClientName.get(position));
+                intent.putExtra("ClientPhone", ClientPhone.get(position));
+                intent.putExtra("OrderLocation", OrderLocation.get(position));
+                intent.putExtra("Status", Status.get(position));
+                intent.putExtra("Notes", Notes.get(position));
+                intent.putExtra("delivery_date", delivery_date.get(position));
+                intent.putExtra("Name", "طلب رقم " + ID.get(position));
+                intent.putExtra("Items", Items.get(position));
+                intent.putExtra("Total", Total.get(position));
+                intent.putExtra("shippingCost", shippingCost.get(position));
+                intent.putExtra("Net", Net.get(position));
                 startActivity(intent);
 
             }
@@ -177,19 +162,15 @@ public class CustomerOrdersActivity extends AppCompatActivity {
     }
 
 
-
-
-
     public void loadData() {
 
-        Log.d("loadData","loadData");
+        Log.d("loadData", "loadData");
         if (VolleyCurrentConnection == 0) {
             VolleyCurrentConnection = 1;
-            String VolleyUrl = "http://adc-company.net/mwan/include/webService.php?json=true&ajax_page=true" + "&start=" + String.valueOf(StartFrom) + "&end=" + String.valueOf(LimitBerRequest);
+            String VolleyUrl = "https://www.mawaneg.com/supplier/include/webService.php?json=true&ajax_page=true" + "&start=" + String.valueOf(StartFrom) + "&end=" + String.valueOf(LimitBerRequest);
             Log.d("responser", String.valueOf(VolleyUrl));
             listView.addFooterView(footerView);
-            try
-            {
+            try {
                 StringRequest stringRequest = new StringRequest(Request.Method.POST, VolleyUrl, new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -225,7 +206,7 @@ public class CustomerOrdersActivity extends AppCompatActivity {
                                 }
 
                                 if (!setAdapterStatus) {
-                                    adapter = new ClientOrdersListAdapter(context, ID ,Date , Net , Status   );
+                                    adapter = new ClientOrdersListAdapter(context, ID, Date, Net, Status);
                                     listView.setAdapter(adapter);
                                     setAdapterStatus = true;
                                 } else {
@@ -237,7 +218,7 @@ public class CustomerOrdersActivity extends AppCompatActivity {
 
 
                         } catch (JSONException e) {
-                            Log.d("ffffff",e.getMessage());
+                            Log.d("ffffff", e.getMessage());
                             e.printStackTrace();
                         }
 
@@ -271,8 +252,8 @@ public class CustomerOrdersActivity extends AppCompatActivity {
 
                         Map<String, String> paramas = new HashMap();
                         paramas.put("do", "GetSupplierOrders");
-                        paramas.put("json_email", Config.getJsonEmail(context) );
-                        paramas.put("json_password", Config.getJsonPassword(context) );
+                        paramas.put("json_email", Config.getJsonEmail(context));
+                        paramas.put("json_password", Config.getJsonPassword(context));
                         return paramas;
                     }
                 };
@@ -280,12 +261,10 @@ public class CustomerOrdersActivity extends AppCompatActivity {
                 int socketTimeout = 10000;//30 seconds - change to what you want
                 RetryPolicy policy = new DefaultRetryPolicy(socketTimeout, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
                 stringRequest.setRetryPolicy(policy);
-                RequestQueue queue = Volley.newRequestQueue( this );
+                RequestQueue queue = Volley.newRequestQueue(this);
 
                 queue.add(stringRequest);
-            }
-            catch (Exception e)
-            {
+            } catch (Exception e) {
                 //Log.d("ffffff",e.getMessage());
                 VolleyCurrentConnection = 0;
                 loadData();
@@ -301,6 +280,7 @@ public class CustomerOrdersActivity extends AppCompatActivity {
         }
         return super.onKeyDown(keyCode, event);
     }
+
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == android.R.id.home) {

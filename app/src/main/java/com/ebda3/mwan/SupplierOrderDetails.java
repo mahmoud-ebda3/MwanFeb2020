@@ -22,12 +22,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -52,6 +46,12 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 
 /**
@@ -268,7 +268,7 @@ public class SupplierOrderDetails extends AppCompatActivity   implements OnMapRe
             progressBar.setVisibility(View.VISIBLE);
             change_status.setVisibility(View.GONE);
 
-            StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://adc-company.net/mwan/include/webService.php?json=true",
+            StringRequest stringRequest = new StringRequest(Request.Method.POST, "https://www.mawaneg.com/supplier/include/webService.php?json=true",
                     new Response.Listener<String>() {
                         @Override
                         public void onResponse(String response) {

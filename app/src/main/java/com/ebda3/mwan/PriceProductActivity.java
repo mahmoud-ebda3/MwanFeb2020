@@ -6,10 +6,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
-
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -22,6 +18,9 @@ import android.widget.ListView;
 import android.widget.ScrollView;
 import android.widget.Spinner;
 import android.widget.TextView;
+
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -98,7 +97,7 @@ public class PriceProductActivity extends AppCompatActivity {
         progressDialog.setMessage("جارى التحميل...");
 
 
-        link_txt.setText("http://adc-company.net/mwan/");
+        link_txt.setText("https://www.mawaneg.com/supplier/");
 
         LoadData();
 
@@ -224,7 +223,7 @@ public class PriceProductActivity extends AppCompatActivity {
 
 
         progressDialog.show();
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://adc-company.net/mwan/include/cats_json.php?type=items&id=" + chosen_type,
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, "https://www.mawaneg.com/supplier/include/cats_json.php?type=items&id=" + chosen_type,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -274,7 +273,7 @@ public class PriceProductActivity extends AppCompatActivity {
 
     public void load_items() {
         progressDialog.show();
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://adc-company.net/mwan/items-edit-1.html?json=true&ajax_page=true&cats=" + chosen_cat,
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, "https://www.mawaneg.com/supplier/items-edit-1.html?json=true&ajax_page=true&cats=" + chosen_cat,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {

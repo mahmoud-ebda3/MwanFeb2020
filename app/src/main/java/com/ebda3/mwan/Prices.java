@@ -2,6 +2,7 @@ package com.ebda3.mwan;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -11,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AbsListView;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -19,8 +21,8 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.android.volley.AuthFailureError;
@@ -49,8 +51,7 @@ import static com.ebda3.mwan.UserHomeActivity.fixEncoding;
  * Created by work on 23/10/2017.
  */
 
-public class Prices extends AppCompatActivity {
-
+public class Prices extends NavigationViewActivity {
 
 
     Activity activity = this;
@@ -60,12 +61,10 @@ public class Prices extends AppCompatActivity {
     public String id;
 
 
+    GovernorateListAdapter adapter;
 
-
-    GovernorateListAdapter adapter ;
-
-    ImageView Join , search;
-    LinearLayout workers,workers_section;
+    ImageView Join, search;
+    LinearLayout workers, workers_section;
     ListView listView;
     public TextView no_data;
     Typeface typeface;
@@ -77,27 +76,25 @@ public class Prices extends AppCompatActivity {
 
     View footerView;
 
-    public  ArrayList<String> ID = new  ArrayList<String>() ;
-    public  ArrayList<String> Name = new  ArrayList<String>() ;
+    public ArrayList<String> ID = new ArrayList<String>();
+    public ArrayList<String> Name = new ArrayList<String>();
 
 
     public Boolean setAdapterStatus = false;
-
-
-
-
-    public  Activity context = this;
-
+    FrameLayout frameLayout;
+    public Activity context = this;
     ProgressBar loadProgress;
     SwipeRefreshLayout swipeRefreshLayout;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_prices);
+        LayoutInflater inflater = (LayoutInflater) this
+                .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        View contentView = inflater.inflate(R.layout.activity_prices, null, false);
 
-        toolbar = (Toolbar) findViewById(R.id.app_toolbar);
+        toolbar = (Toolbar) drawer.findViewById(R.id.app_toolbar);
+        frameLayout = drawer.findViewById(R.id.frame_layout);
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
@@ -107,7 +104,7 @@ public class Prices extends AppCompatActivity {
 
         headline.setText("بورصة الاسعار  ");
 
-        swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_container);
+        swipeRefreshLayout = (SwipeRefreshLayout) contentView.findViewById(R.id.swipe_container);
         swipeRefreshLayout.setRefreshing(true);
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -117,13 +114,10 @@ public class Prices extends AppCompatActivity {
         });
 
 
-
-
-
-        listView = (ListView)findViewById(R.id.List);
-        loadProgress = (ProgressBar) findViewById(R.id.loadProgress);
-        footerView = ((LayoutInflater)   getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.loading_footer, null, false);
-        no_data = (TextView) findViewById(R.id.no_data);
+        listView = (ListView) contentView.findViewById(R.id.List);
+        loadProgress = (ProgressBar) contentView.findViewById(R.id.loadProgress);
+        footerView = ((LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.loading_footer, null, false);
+        no_data = (TextView) contentView.findViewById(R.id.no_data);
         listView.setVisibility(View.VISIBLE);
         loadData();
 
@@ -134,13 +128,14 @@ public class Prices extends AppCompatActivity {
                                  int totalItemCount) {
                 //Algorithm to check if the last item is visible or not
                 final int lastItem = firstVisibleItem + visibleItemCount;
-                Log.d("lastItem",String.valueOf(visibleItemCount));
-                if(lastItem == totalItemCount){
+                Log.d("lastItem", String.valueOf(visibleItemCount));
+                if (lastItem == totalItemCount) {
                     // loadData();
                 }
             }
+
             @Override
-            public void onScrollStateChanged(AbsListView view,int scrollState) {
+            public void onScrollStateChanged(AbsListView view, int scrollState) {
                 if (scrollState == AbsListView.OnScrollListener.SCROLL_STATE_IDLE
                         && (listView.getLastVisiblePosition() - listView.getHeaderViewsCount() -
                         listView.getFooterViewsCount()) >= (adapter.getCount() - 3)) {
@@ -149,9 +144,6 @@ public class Prices extends AppCompatActivity {
                 }
             }
         });
-
-
-
 
 
     }
@@ -169,23 +161,20 @@ public class Prices extends AppCompatActivity {
     }
 
 
-
-
     public void loadData() {
 
-        Log.d("loadData","loadData");
+        Log.d("loadData", "loadData");
         if (VolleyCurrentConnection == 0) {
             VolleyCurrentConnection = 1;
-            String VolleyUrl = "http://adc-company.net/mwan/governorate-edit-1.html?json=true&ajax_page=true" + "&start=" + String.valueOf(StartFrom) + "&end=" + String.valueOf(LimitBerRequest);
+            String VolleyUrl = "https://www.mawaneg.com/supplier/governorate-edit-1.html?json=true&ajax_page=true" + "&start=" + String.valueOf(StartFrom) + "&end=" + String.valueOf(LimitBerRequest);
             Log.d("responser", String.valueOf(VolleyUrl));
             listView.addFooterView(footerView);
-            try
-            {
+            try {
                 StringRequest stringRequest = new StringRequest(Request.Method.GET, VolleyUrl, new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
                         Log.d("response", response);
-                        response = fixEncoding (response);
+                        response = fixEncoding(response);
                         //Log.d("response", response);
                         listView.removeFooterView(footerView);
                         loadProgress.setVisibility(View.GONE);
@@ -207,13 +196,11 @@ public class Prices extends AppCompatActivity {
                                     Name.add(row.getString("name").toString());
 
 
-
                                 }
 
 
-
                                 if (!setAdapterStatus) {
-                                    adapter = new GovernorateListAdapter(context, Name , ID );
+                                    adapter = new GovernorateListAdapter(context, Name, ID);
                                     listView.setAdapter(adapter);
                                     setAdapterStatus = true;
                                 } else {
@@ -225,7 +212,7 @@ public class Prices extends AppCompatActivity {
 
 
                         } catch (JSONException e) {
-                            Log.d("ffffff",e.getMessage());
+                            Log.d("ffffff", e.getMessage());
                             e.printStackTrace();
                         }
 
@@ -269,12 +256,10 @@ public class Prices extends AppCompatActivity {
                 int socketTimeout = 10000;//30 seconds - change to what you want
                 RetryPolicy policy = new DefaultRetryPolicy(socketTimeout, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
                 stringRequest.setRetryPolicy(policy);
-                RequestQueue queue = Volley.newRequestQueue( this );
+                RequestQueue queue = Volley.newRequestQueue(this);
 
                 queue.add(stringRequest);
-            }
-            catch (Exception e)
-            {
+            } catch (Exception e) {
                 swipeRefreshLayout.setRefreshing(false);
                 //Log.d("ffffff",e.getMessage());
                 VolleyCurrentConnection = 0;
@@ -287,14 +272,16 @@ public class Prices extends AppCompatActivity {
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
-            onBackPressed();
+            Intent myIntent = new Intent(Prices.this, UserHomeActivity.class);
+            startActivity(myIntent);
         }
         return super.onKeyDown(keyCode, event);
     }
+
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
-            onBackPressed();
+            drawer.openDrawer(GravityCompat.START);
             return true;
         }
         return super.onOptionsItemSelected(item);

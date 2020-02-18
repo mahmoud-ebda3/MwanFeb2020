@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-
+        <item
+            android:id="@+id/home_id"
+            android:icon="@drawable/ic_home_black_24dp"
+            android:title="الرئيسية" />
         <item
             android:id="@+id/offers_id"
             android:icon="@drawable/ic_price"
             android:title="العروض" />
-      <item
+        <item
             android:id="@+id/construction_id"
             android:icon="@drawable/ic_account_balance_black_24dp"
             android:title="انشاءات" />
@@ -31,48 +34,42 @@
             android:icon="@drawable/ic_gavel_black_24dp"
             android:title="مناقصة موان" />
 
+        <item
+            android:id="@+id/mypoint_id"
+            android:icon="@drawable/ic_mypoints"
+            android:title="نقاط الشراء" />
+        <item
+            android:id="@+id/cart_id"
+            android:icon="@drawable/ic_shopping_cart_black_24dp"
+            android:title="سلة المشتريات    " />
+        <item
+            android:id="@+id/mwan_community"
+            android:icon="@drawable/ic_mwan_community"
+            android:title="مجتمع موان" />
 
-    <item
-        android:id="@+id/mypoint_id"
-        android:icon="@drawable/ic_mypoints"
-        android:title="نقاط الشراء" />
-    <item
-        android:id="@+id/cart_id"
-        android:icon="@drawable/ic_shopping_cart_black_24dp"
-        android:title="سلة المشتريات    " />
-    <item
-        android:id="@+id/mwan_community"
-        android:icon="@drawable/ic_mwan_community"
-        android:title="مجتمع موان" />
+        <item
+            android:id="@+id/exchange_id"
+            android:icon="@drawable/ic_trending_up_black_24dp"
+            android:title="بورصة الاسعار  " />
 
-    <item
-        android:id="@+id/exchange_id"
-        android:icon="@drawable/ic_trending_up_black_24dp"
-        android:title="بورصة الاسعار  " />
-
-    <item
-        android:id="@+id/MyOrders"
-        android:icon="@drawable/ic_library_books_black_24dp"
-        android:title=" مشترياتى    " />
-
-
-    <item
-        android:id="@+id/report_problem"
-        android:icon="@drawable/ic_report_problem_black_24dp"
-        android:title="الإبلاغ عن مشكلة" />
-
-    <item
-        android:id="@+id/manage_account"
-        android:icon="@drawable/ic_manage_account"
-        android:title="إدارة الحساب" />
+        <item
+            android:id="@+id/MyOrders"
+            android:icon="@drawable/ic_library_books_black_24dp"
+            android:title=" مشترياتى    " />
 
 
-    <item
+        <item
+            android:id="@+id/report_problem"
+            android:icon="@drawable/ic_report_problem_black_24dp"
+            android:title="الإبلاغ عن مشكلة" />
+
+        <item
+            android:id="@+id/manage_account"
+            android:icon="@drawable/ic_manage_account"
+            android:title="إدارة الحساب" />
+
+        <item
             android:id="@+id/user_sign_out"
             android:icon="@drawable/ic_sign_out"
             android:title="تسجيل الخروج" />
-
-
-
-
 </menu>

@@ -59,7 +59,7 @@ public class OffersAdapter extends BaseAdapter {
         Log.d("ttteessseet",object.getName());
         itemName.setText(object.getName());
         Log.d("ttteessseet",object.getName());
-        Picasso.with(context).load(imageupload + object.getPhoto())
+        Picasso.get().load(imageupload + object.getPhoto())
                 .resize(626, 250)
                 .centerCrop()
                 .error(R.drawable.image_not_found)

@@ -1,11 +1,14 @@
-<resources>
-    <string name="app_name">Mwan</string>
-    <string name="title_activity_home">HomeActivity</string>
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="app_name">Mawan</string>
+    <string name="title_activity_home" translatable="false">HomeActivity</string>
 
-    <string name="navigation_drawer_open">Open navigation drawer</string>
-    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="navigation_drawer_open" translatable="false">Open navigation drawer</string>
+    <string name="navigation_drawer_close" translatable="false">Close navigation drawer</string>
 
-    <string name="action_settings">Settings</string>
-    <string name="title_activity_user_home">UserHomeActivity</string>
-    <string name="title_activity_maps">Map</string>
+    <string name="action_settings" translatable="false">Settings</string>
+    <string name="title_activity_user_home" translatable="false">UserHomeActivity</string>
+    <string name="title_activity_maps" translatable="false">Map</string>
+    <string name="facebook_app_id" translatable="false">2559766200908777</string>
+    <string name="fb_login_protocol_scheme" translatable="false">fb2559766200908777</string>
+    <string name="rating_number" translatable="false">(<xliff:g example="2" id="users">%d</xliff:g>)</string>
 </resources>

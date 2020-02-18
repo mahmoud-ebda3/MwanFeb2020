@@ -22,22 +22,22 @@ public class MyOrdersListAdapter extends ArrayAdapter<String> {
     private final ArrayList<String> Status;
 
 
-    public MyOrdersListAdapter(Activity context,  ArrayList<String> ID , ArrayList<String> Date  , ArrayList<String> Total, ArrayList<String> Status  ) {
-        super(context, R.layout.order_item,  ID);
+    public MyOrdersListAdapter(Activity context, ArrayList<String> ID, ArrayList<String> Date, ArrayList<String> Total, ArrayList<String> Status) {
+        super(context, R.layout.order_item, ID);
         // TODO Auto-generated constructor stub
 
-        this.context=context;
-        this.ID=ID;
-        this.Date=Date;
-        this.Total=Total;
-        this.Status=Status;
+        this.context = context;
+        this.ID = ID;
+        this.Date = Date;
+        this.Total = Total;
+        this.Status = Status;
 
 
     }
 
     public View getView(final int position, View view, ViewGroup parent) {
-        LayoutInflater inflater=context.getLayoutInflater();
-        View rowView=inflater.inflate(R.layout.order_item, null,true);
+        LayoutInflater inflater = context.getLayoutInflater();
+        View rowView = inflater.inflate(R.layout.order_item, null, true);
 
 
         TextView order_id = (TextView) rowView.findViewById(R.id.order_id);
@@ -47,16 +47,14 @@ public class MyOrdersListAdapter extends ArrayAdapter<String> {
         LinearLayout step2 = (LinearLayout) rowView.findViewById(R.id.step2);
         LinearLayout step3 = (LinearLayout) rowView.findViewById(R.id.step3);
 
-        if ( Status.get(position).equals("1"))
-        {
+        if (Status.get(position).equals("1")) {
             step2.setVisibility(View.VISIBLE);
-        }
-        if ( Status.get(position).equals("2"))
-        {
+        } else if (Status.get(position).equals("2")) {
             step2.setVisibility(View.VISIBLE);
+
+        } else if (Status.get(position).equals("3")) {
             step3.setVisibility(View.VISIBLE);
         }
-
 
 
         order_id.setText(ID.get(position));
@@ -66,5 +64,7 @@ public class MyOrdersListAdapter extends ArrayAdapter<String> {
         //imageView.setImageResource(map_img[position]);
         return rowView;
 
-    };
+    }
+
+    ;
 }

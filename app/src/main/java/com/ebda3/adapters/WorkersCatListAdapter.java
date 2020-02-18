@@ -49,7 +49,7 @@ public class WorkersCatListAdapter extends ArrayAdapter<String> {
 
 
         Cat_name.setText(CatName.get(position));
-        Picasso.with(this.getContext()).load(imageupload1+CatPhoto.get(position)  )
+        Picasso.get().load(imageupload1+CatPhoto.get(position)  )
                 .resize(128, 128)
 
 

@@ -15,18 +15,17 @@ import java.util.ArrayList;
  */
 
 public class Config {
-    public static final String imageupload = "https://adc-company.net/mwan/uploads/";
-    public static final String imageupload1 = "https://adc-company.net/mwan/category/";
-    public static final String LoginUrl = "https://adc-company.net/mwan/include/pages/login_cust.php?json=true";
-    public static final String ServiceRequest = "https://ebda3-eg.com/maintenance/service_provider-edit-1.html?json=true&ajax_page=true";
-    public static final String SignUp = "https://adc-company.net/mwan/suppliers-edit-1.html?json=true&ajax_page=true";
-    public static final String SignUpSupplier = "https://adc-company.net/mwan/suppliers-edit-1.html?json=true&ajax_page=true";
-    public static final String SignUpUser = "https://adc-company.net/mwan/users-edit-1.html?json=true&ajax_page=true";
-    public static final String GetSection = "https://adc-company.net/mwan/sections-edit-1.html?json=true&ajax_page=true";
-    public static final String PriceUrl = "https://adc-company.net/mwan/items-edit-1.html?json=true&ajax_page=true";
-    public static final String GetCategory = "https://adc-company.net/mwan/include/cats_json.php?type=items&sub=0";
-    public static final String GetMaterials = "https://adc-company.net/mwan/include/cats_json.php?type=materials&sub=0";
-    public static final String webServiceURL = "https://adc-company.net/mwan/include/webService.php?json=true";
+    public static final String imageupload = "https://www.mawaneg.com/supplier/uploads/";
+    public static final String imageupload1 = "https://www.mawaneg.com/supplier/category/";
+    public static final String LoginUrl = "https://www.mawaneg.com/supplier/include/pages/login_cust.php?json=true";
+    public static final String SignUp = "https://www.mawaneg.com/supplier/suppliers-edit-1.html?json=true&ajax_page=true";
+    public static final String SignUpSupplier = "https://www.mawaneg.com/supplier/suppliers-edit-1.html?json=true&ajax_page=true";
+    public static final String SignUpUser = "https://www.mawaneg.com/supplier/users-edit-1.html?json=true&ajax_page=true";
+    public static final String GetSection = "https://www.mawaneg.com/supplier/sections-edit-1.html?json=true&ajax_page=true";
+    public static final String PriceUrl = "https://www.mawaneg.com/supplier/items-edit-1.html?json=true&ajax_page=true";
+    public static final String GetCategory = "https://www.mawaneg.com/supplier/include/cats_json.php?type=items&sub=0";
+    public static final String GetMaterials = "https://www.mawaneg.com/supplier/include/cats_json.php?type=materials&sub=0";
+    public static final String webServiceURL = "https://www.mawaneg.com/supplier/include/webService.php?json=true";
     public static boolean isOpened = false;
     public static ArrayList<String> WorkersCatsNames = new ArrayList<String>();
     public static ArrayList<String> WorkersCatsIDS = new ArrayList<String>();
@@ -39,8 +38,17 @@ public class Config {
     public static String getJsonEmail(Context context) {
 
         SharedPreferences sp1 = context.getSharedPreferences("Login", 0);
-        String email = sp1.getString("email", " ");
-        return email;
+        String data = "";
+        String username = sp1.getString("username", "");
+        if ( username.length() > 2 )
+        {
+            data = username;
+        }
+        else
+        {
+            data = sp1.getString("email", "");
+        }
+        return data;
     }
 
 

@@ -1,18 +1,22 @@
 package com.ebda3.mwan;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
-
+import android.content.Context;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.util.Log;
+import android.view.KeyEvent;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
@@ -23,10 +27,8 @@ import com.android.volley.RetryPolicy;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.bumptech.glide.load.model.ModelLoader;
 import com.ebda3.Model.OfferObject;
 import com.ebda3.adapters.OffersAdapter;
-import com.ebda3.adapters.offersListAdapter;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -37,7 +39,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class OffersActivity extends AppCompatActivity {
+public class OffersActivity extends NavigationViewActivity {
 
     public int StartFrom = 0;
     public int LastStartFrom = 0;
@@ -48,17 +50,22 @@ public class OffersActivity extends AppCompatActivity {
     private ArrayList<OfferObject> objects = new ArrayList<>();
     Toolbar toolbar;
     TextView head_line;
-
+    FrameLayout frameLayout;
     SwipeRefreshLayout swipeRefreshLayout;
     public Boolean setAdapterStatus = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_offers);
-        toolbar = findViewById(R.id.app_toolbar);
+        LayoutInflater inflater = (LayoutInflater) this
+                .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        View contentView = inflater.inflate(R.layout.activity_offers, null, false);
+//        drawer.addView(contentView, 0);
+        toolbar = drawer.findViewById(R.id.app_toolbar);
+        frameLayout = drawer.findViewById(R.id.frame_layout);
         head_line = toolbar.findViewById(R.id.app_headline);
-        listView = (ListView) findViewById(R.id.offers_list_view);
+        listView = contentView.findViewById(R.id.offers_list_view);
+        frameLayout.addView(contentView);
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
@@ -79,7 +86,6 @@ public class OffersActivity extends AppCompatActivity {
         loadData();
 
 
-
     }
 
     public void refreshData() {
@@ -97,7 +103,7 @@ public class OffersActivity extends AppCompatActivity {
         Log.d("loadData", "loadData");
         if (VolleyCurrentConnection == 0) {
             VolleyCurrentConnection = 1;
-            String VolleyUrl = "http://adc-company.net/mwan/offers-edit-1.html?json=true&ajax_page=true" + "&start=" + String.valueOf(StartFrom) + "&end=" + String.valueOf(LimitBerRequest);
+            String VolleyUrl = "https://www.mawaneg.com/supplier/offers-edit-1.html?json=true&ajax_page=true" + "&start=" + String.valueOf(StartFrom) + "&end=" + String.valueOf(LimitBerRequest);
             Log.d("responser", String.valueOf(VolleyUrl));
 //            listView.addFooterView(footerView);
             try {
@@ -204,9 +210,17 @@ public class OffersActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
-            finish();
+            drawer.openDrawer(GravityCompat.START);
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (event.getAction() == KeyEvent.KEYCODE_BACK) {
+            finish();
+        }
+        return super.onKeyDown(keyCode, event);
     }
 }

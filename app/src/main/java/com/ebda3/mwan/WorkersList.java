@@ -176,7 +176,7 @@ public class WorkersList extends AppCompatActivity {
         Log.d("loadData","loadData");
         if (VolleyCurrentConnection == 0) {
             VolleyCurrentConnection = 1;
-            String VolleyUrl = "http://adc-company.net/mwan/workers-edit-1.html?json=true&ajax_page=true&cats=" + id + "&start=" + String.valueOf(StartFrom) + "&end=" + String.valueOf(LimitBerRequest);
+            String VolleyUrl = "https://www.mawaneg.com/supplier/workers-edit-1.html?json=true&ajax_page=true&cats=" + id + "&start=" + String.valueOf(StartFrom) + "&end=" + String.valueOf(LimitBerRequest);
             Log.d("responser", String.valueOf(VolleyUrl));
             listView.addFooterView(footerView);
             try

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:padding="20dp">
+
+    <RatingBar
+        android:id="@+id/rating_bar_item"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:numStars="5"
+        android:stepSize=".5" />
+
+    <com.ebda3.design.MyEditText
+        android:id="@+id/rating_bar_message"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_margin="10dp"
+        android:layout_marginTop="15dp"
+        android:background="@null"
+        android:gravity="center"
+        android:hint="أكنب تقييمك" />
+
+    <com.ebda3.design.MyTextView
+        android:id="@+id/confirm_rating_tv_button"
+        android:layout_width="100dp"
+        android:layout_height="70dp"
+        android:background="@drawable/add_to_cart"
+        android:gravity="center"
+        android:text="تم"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+</LinearLayout>

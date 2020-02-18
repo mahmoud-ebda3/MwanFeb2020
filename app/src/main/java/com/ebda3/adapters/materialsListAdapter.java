@@ -42,7 +42,7 @@ public class materialsListAdapter extends ArrayAdapter<String> {
         TextView offer_name = (TextView) rowView.findViewById(R.id.offer_name);
 
         offer_name.setText(MaterialsName.get(position));
-        Picasso.with(this.getContext()).load(imageupload+MaterialsPhoto.get(position)  )
+        Picasso.get().load(imageupload+MaterialsPhoto.get(position)  )
                 .resize(256, 256)
                 .centerCrop()
                 .error(R.drawable.image_not_found)

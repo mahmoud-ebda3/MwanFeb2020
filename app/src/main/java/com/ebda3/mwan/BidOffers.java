@@ -67,6 +67,7 @@ public class BidOffers extends AppCompatActivity {
     ProgressBar loadProgress;
 
     public String BidID, Bids, addReplay = "0";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -84,8 +85,12 @@ public class BidOffers extends AppCompatActivity {
         footerView = ((LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.loading_footer, null, false);
         no_data = (TextView) findViewById(R.id.no_data);
         listView.setVisibility(View.VISIBLE);
+        try{
         BidID = getIntent().getStringExtra("ID");
         Bids = getIntent().getStringExtra("Bids");
+        }catch (NullPointerException npe){
+
+        }
         if (getIntent().hasExtra("addReplay")) {
             addReplay = getIntent().getStringExtra("addReplay");
             AddBidReplay.setVisibility(View.VISIBLE);
@@ -101,28 +106,30 @@ public class BidOffers extends AppCompatActivity {
 
 
         headline.setText("المناقصة رقم   " + BidID);
-
-        if (Bids.length() > 3) {
-            try {
-                JSONArray jsonArray = new JSONArray(Bids);
-                for (int i = 0; i < jsonArray.length(); i++) {
-                    JSONObject row = jsonArray.getJSONObject(i);
-                    ID.add(row.getString("ID").toString());
-                    Notes.add(row.getString("notes").toString());
-                    Date.add(row.getString("add_date").toString());
-                    Amount.add(row.getString("amount").toString());
-                    SupplierName.add(row.getString("supplier_name").toString());
-                    SupplierPhoto.add(row.getString("photo").toString());
-                    SupplierPhone.add(row.getString("supplier_phone").toString());
-                    SupplierAddress.add(row.getString("address").toString());
+        try {
+            if (Bids.length() > 3) {
+                try {
+                    JSONArray jsonArray = new JSONArray(Bids);
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        JSONObject row = jsonArray.getJSONObject(i);
+                        ID.add(row.getString("ID").toString());
+                        Notes.add(row.getString("notes").toString());
+                        Date.add(row.getString("add_date").toString());
+                        Amount.add(row.getString("amount").toString());
+                        SupplierName.add(row.getString("supplier_name").toString());
+                        SupplierPhoto.add(row.getString("photo").toString());
+                        SupplierPhone.add(row.getString("supplier_phone").toString());
+                        SupplierAddress.add(row.getString("address").toString());
+                    }
+                    adapter = new BidOffersListAdapter(activity, ID, Notes, Date, Amount, SupplierName, SupplierPhoto, SupplierPhone, SupplierAddress);
+                    listView.setAdapter(adapter);
+                } catch (JSONException e) {
+                    e.printStackTrace();
                 }
-                adapter = new BidOffersListAdapter(activity, ID, Notes, Date, Amount, SupplierName, SupplierPhoto, SupplierPhone, SupplierAddress);
-                listView.setAdapter(adapter);
-            } catch (JSONException e) {
-                e.printStackTrace();
             }
-        }
 
+        } catch (Exception e) {
+        }
     }
 
     @Override

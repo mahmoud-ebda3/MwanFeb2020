@@ -19,6 +19,9 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
@@ -36,9 +39,6 @@ import org.json.JSONObject;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
-
-import androidx.annotation.RequiresApi;
-import androidx.appcompat.app.AppCompatActivity;
 
 import static com.ebda3.Helpers.Config.PropertyIDS;
 import static com.ebda3.Helpers.Config.PropertyNames;
@@ -66,7 +66,6 @@ public class ConfirmOrder extends AppCompatActivity {
     LinearLayout orderData,orderDetails;
     TextView order_number;
     Button my_orders;
-
     LinearLayout ChooseDate;
     TextView ch_time;
     String jsonselectedItems,ItemaJson;
@@ -160,7 +159,7 @@ public class ConfirmOrder extends AppCompatActivity {
                     {
                         progress.setVisibility(View.VISIBLE);
                         submit.setVisibility(View.GONE);
-                        StringRequest stringRequest = new StringRequest(Request.Method.POST,"http://adc-company.net/mwan/include/webService.php?json=true", new Response.Listener<String>() {
+                        StringRequest stringRequest = new StringRequest(Request.Method.POST,"https://www.mawaneg.com/supplier/include/webService.php?json=true", new Response.Listener<String>() {
                             @Override
                             public void onResponse(String response) {
                                 Log.d("mmmmtttt", response);

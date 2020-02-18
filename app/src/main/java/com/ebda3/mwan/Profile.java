@@ -12,19 +12,18 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.util.Pair;
+import android.view.KeyEvent;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
@@ -48,32 +47,41 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
 import jp.wasabeef.picasso.transformations.CropCircleTransformation;
 
 import static com.ebda3.Helpers.Config.imageupload;
 
-public class Profile extends AppCompatActivity {
+public class Profile extends NavigationViewActivity {
 
     Activity activity = this;
     Context context = this;
-    public Toolbar toolbar;
-    public ImageView user_photo,upload;
-    LinearLayout MainLinearLayout,LoadingLinearLayout,edit,save,account_id,edit_password_linear,status;
-    TextView name,email,phone,address,job,code,purchases,points,headline;
-    EditText edit_name,edit_email,edit_phone,edit_password,edit_address,edit_job;
+    Toolbar toolbar;
+    public ImageView user_photo, upload;
+    LinearLayout MainLinearLayout, LoadingLinearLayout, edit, save, account_id, edit_password_linear, status;
+    TextView name, email, phone, address, job, code, purchases, points, headline;
+    EditText edit_name, edit_email, edit_phone, edit_password, edit_address, edit_job;
     Button retry;
     ProgressBar progressBar;
 
     String imageURL = "";
     static final int REQUEST_IMAGE_CAPTURE = 1;
-
-
+    SharedPreferences sharedPreferences;
+    SharedPreferences.Editor editor;
+    FrameLayout frameLayout;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_profile);
+        LayoutInflater inflater = (LayoutInflater) this
+                .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        View contentView = inflater.inflate(R.layout.activity_profile, null, false);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.app_toolbar);
+        toolbar = (Toolbar) drawer.findViewById(R.id.app_toolbar);
+        frameLayout = drawer.findViewById(R.id.frame_layout);
+        frameLayout.addView(contentView);
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
@@ -84,33 +92,33 @@ public class Profile extends AppCompatActivity {
         headline.setText("بياناتى");
 
 
-        progressBar = (ProgressBar) findViewById(R.id.progressBar);
-        retry = (Button) findViewById(R.id.retry);
-        status = (LinearLayout) findViewById(R.id.status);
-        purchases = (TextView) findViewById(R.id.purchases);
-        points = (TextView) findViewById(R.id.points);
+        progressBar = (ProgressBar) contentView.findViewById(R.id.progressBar);
+        retry = (Button) contentView.findViewById(R.id.retry);
+        status = (LinearLayout) contentView.findViewById(R.id.status);
+        purchases = (TextView) contentView.findViewById(R.id.purchases);
+        points = (TextView) contentView.findViewById(R.id.points);
+        sharedPreferences = this.getSharedPreferences("Login", 0);
+        edit_password_linear = (LinearLayout) contentView.findViewById(R.id.edit_password_linear);
+        account_id = (LinearLayout) contentView.findViewById(R.id.account_id);
+        edit = (LinearLayout) contentView.findViewById(R.id.edit);
+        save = (LinearLayout) contentView.findViewById(R.id.save);
+        MainLinearLayout = (LinearLayout) contentView.findViewById(R.id.MainLinearLayout);
+        LoadingLinearLayout = (LinearLayout) contentView.findViewById(R.id.LoadingLinearLayout);
+        name = (TextView) contentView.findViewById(R.id.name);
+        email = (TextView) contentView.findViewById(R.id.email);
+        phone = (TextView) contentView.findViewById(R.id.phone);
+        address = (TextView) contentView.findViewById(R.id.address);
+        job = (TextView) contentView.findViewById(R.id.job);
+        code = (TextView) contentView.findViewById(R.id.code);
+        user_photo = (ImageView) contentView.findViewById(R.id.user_photo);
 
-        edit_password_linear = (LinearLayout) findViewById(R.id.edit_password_linear);
-        account_id = (LinearLayout) findViewById(R.id.account_id);
-        edit = (LinearLayout) findViewById(R.id.edit);
-        save = (LinearLayout) findViewById(R.id.save);
-        MainLinearLayout = (LinearLayout) findViewById(R.id.MainLinearLayout);
-        LoadingLinearLayout = (LinearLayout) findViewById(R.id.LoadingLinearLayout);
-        name = (TextView) findViewById(R.id.name);
-        email = (TextView) findViewById(R.id.email);
-        phone = (TextView) findViewById(R.id.phone);
-        address = (TextView) findViewById(R.id.address);
-        job = (TextView) findViewById(R.id.job);
-        code = (TextView) findViewById(R.id.code);
-        user_photo = (ImageView) findViewById(R.id.user_photo);
-
-        edit_name = (EditText) findViewById(R.id.edit_name);
-        edit_password = (EditText) findViewById(R.id.edit_password);
-        edit_email = (EditText) findViewById(R.id.edit_email);
-        edit_phone = (EditText) findViewById(R.id.edit_phone);
-        edit_address = (EditText) findViewById(R.id.edit_address);
-        edit_job = (EditText) findViewById(R.id.edit_job);
-        upload = (ImageView) findViewById(R.id.upload);
+        edit_name = (EditText) contentView.findViewById(R.id.edit_name);
+        edit_password = (EditText) contentView.findViewById(R.id.edit_password);
+        edit_email = (EditText) contentView.findViewById(R.id.edit_email);
+        edit_phone = (EditText) contentView.findViewById(R.id.edit_phone);
+        edit_address = (EditText) contentView.findViewById(R.id.edit_address);
+        edit_job = (EditText) contentView.findViewById(R.id.edit_job);
+        upload = (ImageView) contentView.findViewById(R.id.upload);
 
         retry.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -126,7 +134,7 @@ public class Profile extends AppCompatActivity {
                 //edit_email.setVisibility(View.VISIBLE);
                 edit_phone.setVisibility(View.VISIBLE);
                 //edit_address.setVisibility(View.VISIBLE);
-               // edit_job.setVisibility(View.VISIBLE);
+                // edit_job.setVisibility(View.VISIBLE);
                 edit_password_linear.setVisibility(View.VISIBLE);
                 upload.setVisibility(View.VISIBLE);
                 save.setVisibility(View.VISIBLE);
@@ -152,26 +160,23 @@ public class Profile extends AppCompatActivity {
                 String UserPhone = edit_phone.getText().toString().trim();
                 String UserPassword = edit_password.getText().toString().trim();
                 //String UserJob = edit_job.getText().toString().trim();
-               // String UserAddress = edit_address.getText().toString().trim();
+                // String UserAddress = edit_address.getText().toString().trim();
 
-                if (Name.length() < 4 ) {
-                    edit_name.setError( "من فضلك اكتب الاسم" );
+                if (Name.length() < 4) {
+                    edit_name.setError("من فضلك اكتب الاسم");
                 }
 //                else if (UserEmail.equals("")) {
 //                    edit_email.setError("من فضلك اكتب البريد الالكترونى");
 //                }
-                else if (UserPhone.length() < 9 ) {
+                else if (UserPhone.length() < 9) {
                     edit_phone.setError("من فضلك اكتب رفم الموبيل");
-                }
-                else if ( UserPassword.length() > 0 && UserPassword.length() < 4  ) {
+                } else if (UserPassword.length() > 0 && UserPassword.length() < 4) {
                     edit_password.setError("كلمة السر صغيرة جدا");
-                }
-                else {
+                } else {
                     sendData(Name, UserPhone, UserPassword);
                 }
             }
         });
-
 
 
         final MarshMallowPermission marshMallowPermission = new MarshMallowPermission(activity);
@@ -203,17 +208,15 @@ public class Profile extends AppCompatActivity {
     }
 
 
-
-    public boolean isNetworkConnected()
-    {
+    public boolean isNetworkConnected() {
         ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         return cm.getActiveNetworkInfo() != null;
     }
 
-    private void sendData(final String name,  final String phone, final String password) {
+    private void sendData(final String name, final String phone, final String password) {
 
         boolean t = isNetworkConnected();
-        if(t) {
+        if (t) {
             progressBar.setVisibility(View.VISIBLE);
             save.setVisibility(View.GONE);
             edit_name.setEnabled(false);
@@ -234,13 +237,13 @@ public class Profile extends AppCompatActivity {
                         params.put("do", "updates");
                         params.put("id", Config.getUserID(context));
                         params.put("name", name);
-                       // params.put("email", "002"+phone);
+                        // params.put("email", "002"+phone);
                         params.put("username", phone);
                         params.put("phone", phone);
-                        if ( password.length() > 0 ) {
+                        if (password.length() > 0) {
                             params.put("password", password);
                         }
-                       // params.put("job", job);
+                        // params.put("job", job);
                         //params.put("address", address);
 
                         params.put("json_email", Config.getJsonEmail(context));
@@ -257,23 +260,21 @@ public class Profile extends AppCompatActivity {
                                 progressBar.setVisibility(View.GONE);
                                 try {
                                     JSONObject object = new JSONObject(Response);
-                                    if ( object.has("ID") )
-                                    {
-                                        SharedPreferences sp=getSharedPreferences("Login", 0);
-                                        SharedPreferences.Editor Ed=sp.edit();
-                                        Ed.putString("name",object.getString("name").toString() );
-                                        Ed.putString("email",object.getString("phone").toString() );
-                                        Ed.putString("photo",object.getString("photo").toString() );
-                                        if ( edit_password.getText().toString().length() > 0 ) {
+                                    if (object.has("ID")) {
+                                        SharedPreferences sp = getSharedPreferences("Login", 0);
+                                        SharedPreferences.Editor Ed = sp.edit();
+                                        Ed.putString("name", object.getString("name").toString());
+                                        Ed.putString("email", object.getString("phone").toString());
+                                        Ed.putString("photo", object.getString("photo").toString());
+                                        if (edit_password.getText().toString().length() > 0) {
                                             Ed.putString("password", edit_password.getText().toString());
                                         }
-                                        Ed.putString("json_password",object.getString("password") );
-                                        Ed.putString("json_email",object.getString("phone") );
+                                        Ed.putString("json_password", object.getString("password"));
+                                        Ed.putString("json_email", object.getString("phone"));
                                         Ed.commit();
                                         GetProfile();
                                     }
-                                }catch (Exception e)
-                                {
+                                } catch (Exception e) {
                                     edit_name.setEnabled(true);
                                     edit_password.setEnabled(true);
                                     edit_email.setEnabled(true);
@@ -285,24 +286,21 @@ public class Profile extends AppCompatActivity {
                                     JSONArray array = null;
                                     try {
                                         array = new JSONArray(Response);
-                                        if ( array.getString(0).equals("Field password  From 6 To 20") ) {
+                                        if (array.getString(0).equals("Field password  From 6 To 20")) {
                                             edit_password.setError("كلمة السر صعيفة جدا");
                                             edit_password.setText("");
-                                        }
-                                        else if ( array.getString(0).equals("Field phone  Already exist") ) {
+                                        } else if (array.getString(0).equals("Field phone  Already exist")) {
                                             edit_phone.setError("رقم الموبيل مستخدم مسبقا");
                                             edit_phone.setText("");
-                                        }
-                                        else if ( array.getString(0).equals("Please type the e-mail correctly") ) {
+                                        } else if (array.getString(0).equals("Please type the e-mail correctly")) {
                                             edit_email.setError("من فضلك اكتب البريد الالكترونى بطريقة صحيحة");
                                             edit_email.setText("");
-                                        }
-                                        else if ( array.getString(0).equals("Field email  Already exist") ) {
+                                        } else if (array.getString(0).equals("Field email  Already exist")) {
                                             edit_email.setError("البريد الالكترونى مستخدم مسبقا");
                                             edit_email.setText("");
                                         }
 
-                                        Log.d("response",  array.getString(0));
+                                        Log.d("response", array.getString(0));
                                     } catch (JSONException e1) {
                                         e1.printStackTrace();
                                     }
@@ -310,9 +308,7 @@ public class Profile extends AppCompatActivity {
                             }
                         });
 
-                    }
-                    catch (Exception e)
-                    {
+                    } catch (Exception e) {
                         Log.e("Response", e.getMessage());
                         runOnUiThread(new Runnable() {
                             @Override
@@ -323,25 +319,12 @@ public class Profile extends AppCompatActivity {
                     }
 
 
-
                 }
             });
             th.start();
-        }
-        else
-        {
+        } else {
             Toast.makeText(context, "please Enable Your Internet Connection", Toast.LENGTH_LONG).show();
         }
-
-
-
-
-
-
-
-
-
-
 
 
     }
@@ -365,6 +348,7 @@ public class Profile extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
 
+        super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
             Bundle extras = data.getExtras();
             Bitmap imageBitmap = (Bitmap) extras.get("data");
@@ -389,8 +373,7 @@ public class Profile extends AppCompatActivity {
         }
     }
 
-    public void GetProfile()
-    {
+    public void GetProfile() {
         edit_name.setEnabled(true);
         edit_password.setEnabled(true);
         edit_email.setEnabled(true);
@@ -398,20 +381,18 @@ public class Profile extends AppCompatActivity {
         edit_address.setEnabled(true);
         edit_job.setEnabled(true);
         upload.setEnabled(true);
-        StringRequest stringRequest = new StringRequest(Request.Method.POST , Config.webServiceURL , new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, Config.webServiceURL, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 Log.d("xxxxxx22", response);
                 try {
                     JSONObject jObj = new JSONObject(response);
-                    if (jObj.has("ID"))
-                    {
+                    if (jObj.has("ID")) {
                         Log.d("xxxxxx", response);
                         status.setVisibility(View.VISIBLE);
                         MainLinearLayout.setVisibility(View.VISIBLE);
                         LoadingLinearLayout.setVisibility(View.GONE);
                         retry.setVisibility(View.GONE);
-
                         code.setText(jObj.getString("ID"));
                         name.setText(jObj.getString("name"));
                         email.setText(jObj.getString("email"));
@@ -426,9 +407,11 @@ public class Profile extends AppCompatActivity {
                         edit_phone.setText(jObj.getString("phone"));
                         purchases.setText(jObj.getString("purchases"));
                         points.setText(jObj.getString("points"));
-
-                        Picasso.with(context).load(imageupload + jObj.getString("photo"))
-                                .resize(360,256)
+                        editor = sharedPreferences.edit();
+                        editor.putString("Points", jObj.getString("points"));
+                        editor.apply();
+                        Picasso.get().load(imageupload + jObj.getString("photo"))
+                                .resize(360, 256)
                                 .centerCrop()
                                 .transform(new CropCircleTransformation())
                                 .error(R.drawable.ic_account_circle_white_48dp)
@@ -470,10 +453,10 @@ public class Profile extends AppCompatActivity {
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<>();
                 params.put("do", "MyInfo");
-                params.put("json_email", Config.getJsonEmail(context) );
-                params.put("json_password", Config.getJsonPassword(context) );
+                params.put("json_email", Config.getJsonEmail(context));
+                params.put("json_password", Config.getJsonPassword(context));
 
-                Log.d("xxxxxx",params.toString());
+                Log.d("xxxxxx", params.toString());
                 return params;
             }
         };
@@ -488,22 +471,21 @@ public class Profile extends AppCompatActivity {
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                Intent intent = new Intent (context,UserHomeActivity.class);
-                startActivity(intent);
-                return true;
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            Intent myIntent = new Intent(Profile.this, UserHomeActivity.class);
+            startActivity(myIntent);
         }
-
-        return super.onOptionsItemSelected(item);
+        return super.onKeyDown(keyCode, event);
     }
 
     @Override
-    public void onBackPressed() {
-
-        Intent intent = new Intent (context,UserHomeActivity.class);
-        startActivity(intent);
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            drawer.openDrawer(GravityCompat.START);
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
 }

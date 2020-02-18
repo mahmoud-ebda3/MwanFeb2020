@@ -74,7 +74,7 @@ public class WorkersListAdapter extends ArrayAdapter<String> {
             @Override
             public void onClick(View view) {
 
-                StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://adc-company.net/mwan/workers_call-edit-1.html?json=true&ajax_page=true",
+                StringRequest stringRequest = new StringRequest(Request.Method.POST, "https://www.mawaneg.com/supplier/workers_call-edit-1.html?json=true&ajax_page=true",
                         new Response.Listener<String>() {
                             @Override
                             public void onResponse(String response) {
@@ -116,7 +116,7 @@ public class WorkersListAdapter extends ArrayAdapter<String> {
         Worker_contact.setText(WorkerContact.get(position));
         Worker_address.setText(WorkerAddress.get(position));
 
-        Picasso.with(this.getContext()).load(imageupload+WorkersPhoto.get(position)  )
+        Picasso.get().load(imageupload+WorkersPhoto.get(position)  )
                 .resize(128, 128)
 
 
