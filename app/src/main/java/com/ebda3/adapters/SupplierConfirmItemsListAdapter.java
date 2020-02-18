@@ -14,8 +14,6 @@ import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import androidx.annotation.RequiresApi;
-
 import com.ebda3.mwan.R;
 
 import org.json.JSONArray;
@@ -23,6 +21,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+
+import androidx.annotation.RequiresApi;
 
 public class SupplierConfirmItemsListAdapter extends ArrayAdapter<String> {
 
@@ -61,12 +61,15 @@ public class SupplierConfirmItemsListAdapter extends ArrayAdapter<String> {
         TextView item_amount = (TextView) view.findViewById(R.id.item_amount);
         TextView item_available = (TextView) view.findViewById(R.id.item_available);
         TextView item_total = (TextView) view.findViewById(R.id.item_total);
+        TextView item_price = (TextView) view.findViewById(R.id.item_one_price);
         TextView discount_text = view.findViewById(R.id.item_total_before_discount);
         LinearLayout information_linaer = (LinearLayout) view.findViewById(R.id.info_linear);
 
 
         item_name.setText(Name.get(position));
         item_amount.setText(Amount.get(position));
+        int item_pr = Integer.parseInt(totalPrice.get(position))/Integer.parseInt(ItemAvailableAmount.get(position));
+        item_price.setText(String.valueOf(item_pr));
         item_available.setText(ItemAvailableAmount.get(position));
         item_total.setText(totalPrice.get(position));
         if (Integer.valueOf(priceBeforeDiscount.get(position)) > 0) {

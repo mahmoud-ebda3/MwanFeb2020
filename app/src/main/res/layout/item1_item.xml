@@ -14,9 +14,8 @@
         android:padding="10dp">
 
         <LinearLayout
-android:id="@+id/add_to_cart"
+            android:id="@+id/add_to_cart"
             android:layoutDirection="rtl"
-
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">

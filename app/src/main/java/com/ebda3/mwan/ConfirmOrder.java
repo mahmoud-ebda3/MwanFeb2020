@@ -19,9 +19,6 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.RequiresApi;
-import androidx.appcompat.app.AppCompatActivity;
-
 import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
@@ -39,6 +36,9 @@ import org.json.JSONObject;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
+
+import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AppCompatActivity;
 
 import static com.ebda3.Helpers.Config.PropertyIDS;
 import static com.ebda3.Helpers.Config.PropertyNames;
@@ -167,6 +167,7 @@ public class ConfirmOrder extends AppCompatActivity {
                                     JSONObject jObj = new JSONObject(response);
                                     if (jObj.has("ID"))
                                     {
+                                        Toast.makeText(context, "تم تأكيد الطلب", Toast.LENGTH_SHORT).show();
                                         orderDetails.setVisibility(View.VISIBLE);
                                         orderData.setVisibility(View.GONE);
                                         order_number.setText(jObj.getString("ID").toString());

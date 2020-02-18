@@ -18,15 +18,6 @@ import android.widget.ProgressBar;
 import android.widget.SearchView;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.widget.Toolbar;
-import androidx.core.view.GravityCompat;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
@@ -54,6 +45,15 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import static com.ebda3.Helpers.Config.isOpened;
 
@@ -377,6 +377,17 @@ public class UserHomeActivity extends NavigationViewActivity implements OptionsI
         alertDialog.setNegativeButton("الغاء", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
+
+                LoginManager.getInstance().logOut();
+                googleSignInClient.signOut();
+                SharedPreferences sp = getSharedPreferences("Login", 0);
+                SharedPreferences.Editor Ed = sp.edit();
+                Ed.putString("email", "");
+                Ed.putString("normal_password", "");
+                Ed.commit();
+                myIntent = new Intent(UserHomeActivity.this, LoginActivity.class);
+                startActivity(myIntent);
+
                 dialogInterface.dismiss();
             }
         });

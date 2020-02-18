@@ -35,8 +35,9 @@
                 android:textColor="@color/black" />
 
             <com.ebda3.design.MyTextView
-                android:layout_width="60dp"
+                android:layout_width="50dp"
                 android:layout_height="wrap_content"
+                android:textSize="12dp"
                 android:gravity="center"
                 android:text="المطلوب"
                 android:textColor="@color/black" />
@@ -44,11 +45,20 @@
             <com.ebda3.design.MyTextView
                 android:layout_width="50dp"
                 android:layout_height="wrap_content"
+                android:textSize="12dp"
                 android:gravity="center"
                 android:text="المتاح"
                 android:textColor="@color/black" />
+            <com.ebda3.design.MyTextView
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:textSize="12dp"
+                android:gravity="center"
+                android:text="سعر الوحدة"
+                android:textColor="@color/black" />
 
             <com.ebda3.design.MyTextView
+                android:textSize="12dp"
                 android:layout_width="60dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="8dp"

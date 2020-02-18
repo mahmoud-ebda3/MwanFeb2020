@@ -105,6 +105,8 @@ public class NavigationViewActivity extends AppCompatActivity
         u_name = sp1.getString("username", " ");
         u_photo = sp1.getString("photo", " ");
         gfName = sp1.getString("name", "");
+
+        Log.d("dfdfdf",sp1.getString("name", ""));
         gfAccount = sp1.getString("acc", "");
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         toggle = new ActionBarDrawerToggle(
