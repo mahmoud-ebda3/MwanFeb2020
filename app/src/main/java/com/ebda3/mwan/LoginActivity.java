@@ -275,7 +275,7 @@ public class LoginActivity extends AppCompatActivity {
                             try {
                                 jObj = new JSONObject(response);
                                 if (jObj.has("ID")) {
-                                    name = jObj.getString("username");
+                                    name = jObj.getString("name");
                                     username = jObj.getString("username");
                                     email = jObj.getString("email");
                                     phone = jObj.getString("phone");
